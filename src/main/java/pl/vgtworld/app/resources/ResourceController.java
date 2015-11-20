@@ -1,4 +1,4 @@
-package pl.vgtworld.app.main;
+package pl.vgtworld.app.resources;
 
 import com.googlecode.htmleasy.View;
 
@@ -8,12 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/")
-public class MainController {
+public class ResourceController {
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public View getMainage() {
-		return new View("/views/main.jsp");
+	public View getResourceList() {
+		return new View("/views/resource-list.jsp");
 	}
 
 }
