@@ -3,5 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:basic title="Resource observer">
-  <h1>Resources</h1>
+    <h1>Resources</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Active</th>
+        </tr>
+        <%--@elvariable id="model" type="pl.vgtworld.app.resources.ListModel"--%>
+        <c:forEach items="${model.resources}" var="resource">
+            <tr>
+                <td>${resource.name}</td>
+                <td>${resource.active == true ? "yes" : "no"}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </t:basic>
