@@ -21,6 +21,14 @@
         </div>
 
         <div class="form-group">
+            <label for="createResourceFormObservers">Observers list:</label>
+            <p>
+                One e-mail address in each line.
+            </p>
+            <textarea id="createResourceFormObservers" class="form-control" name="observers"></textarea>
+        </div>
+
+        <div class="form-group">
             <label for="createResourceFormActive">Active:</label>
             <input id="createResourceFormActive" class="checkbox" type="checkbox" name="active" />
         </div>
