@@ -19,6 +19,7 @@ public class ResourceValidator {
 		static final String CHECK_INTERVAL_REQUIRED = "Check interval is required.";
 		static final String CHECK_INTERVAL_NAN = "Check interval must be an integer.";
 		static final String CHECK_INTERVAL_GT_ZERO = "Check interval must be greater than zero.";
+		static final String OBSERVER_DUPLICATE = "At least one e-mail address is duplicated.";
 	}
 
 	private static final int NAME_MAX_LENGTH = 100;
@@ -118,6 +119,10 @@ public class ResourceValidator {
 		for (String observer : observerList) {
 			if (observer.trim().isEmpty()) {
 				continue;
+			}
+			if (result.contains(observer)) {
+				errors.add(Errors.OBSERVER_DUPLICATE);
+				return new ArrayList<>();
 			}
 			result.add(observer);
 		}

@@ -411,7 +411,7 @@ public class ResourceValidatorTest {
 	}
 
 	@Test
-	public void shouldHandleMacNewLineCharacters() {
+	public void shouldHandleMacNewLineCharactersInObservers() {
 		ResourceValidator validator = new ResourceValidator(resourceService);
 		ResourceFormDto resource = new ResourceBuilder()
 			  .createValidResource()
@@ -427,7 +427,7 @@ public class ResourceValidatorTest {
 	}
 
 	@Test
-	public void shouldHandleUnixNewLineCharacters() {
+	public void shouldHandleUnixNewLineCharactersInObservers() {
 		ResourceValidator validator = new ResourceValidator(resourceService);
 		ResourceFormDto resource = new ResourceBuilder()
 			  .createValidResource()
@@ -443,7 +443,7 @@ public class ResourceValidatorTest {
 	}
 
 	@Test
-	public void shouldHandleWindowsNewLineCharacters() {
+	public void shouldHandleWindowsNewLineCharactersInObservers() {
 		ResourceValidator validator = new ResourceValidator(resourceService);
 		ResourceFormDto resource = new ResourceBuilder()
 			  .createValidResource()
@@ -456,6 +456,21 @@ public class ResourceValidatorTest {
 		assertThat(result.getErrors()).isEmpty();
 		assertThat(result.getCreatedResource()).isNotNull();
 		assertThat(result.getCreatedResource().getObservers()).hasSize(2);
+	}
+
+	@Test
+	public void shouldNotAllowForDuplicatesInObservers() {
+		ResourceValidator validator = new ResourceValidator(resourceService);
+		ResourceFormDto resource = new ResourceBuilder()
+			  .createValidResource()
+			  .withObservers("first", "second", "first")
+			  .build();
+
+		ValidationResult result = validator.validateNew(resource);
+
+		assertThat(result).isNotNull();
+		assertThat(result.getErrors()).hasSize(1);
+		assertThat(result.getErrors()).contains(ResourceValidator.Errors.OBSERVER_DUPLICATE);
 	}
 
 }
