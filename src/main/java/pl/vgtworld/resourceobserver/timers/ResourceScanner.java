@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.ScanService;
+import pl.vgtworld.resourceobserver.services.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 
@@ -24,6 +25,9 @@ public class ResourceScanner {
 
 	@EJB
 	private ScanService scanService;
+
+	@EJB
+	private SnapshotService snapshotService;
 
 	@Schedule(second = "0", minute = "*", hour = "*", persistent = false)
 	public void scanResources() {
@@ -53,7 +57,8 @@ public class ResourceScanner {
 			String resourceHash = HashUtil.generateHash(resourceContext);
 			LOGGER.info("Resource downloaded and marked with hash: {}", resourceHash);
 
-			//TODO Save snapshot and scan event to database.
+			int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
+			scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
 			//TODO Save e-mail action if necessary.
 		}
 

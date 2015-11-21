@@ -29,4 +29,13 @@ public class ScanService {
 		scanDao.create(scan);
 	}
 
+	public void saveScanSuccessForResource(int resourceId, int snapshotId) {
+		Scan scan = new Scan();
+		scan.setResourceId(resourceId);
+		scan.setSnapshotId(snapshotId);
+		scan.setCreatedAt(new Date());
+		scanDao.create(scan);
+	}
+
+
 }

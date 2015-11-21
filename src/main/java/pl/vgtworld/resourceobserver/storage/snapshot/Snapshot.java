@@ -5,11 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "snapshots")
+@NamedQueries({
+	  @NamedQuery(
+			name = Snapshot.QUERY_FIND_BY_HASH,
+			query = "SELECT s FROM Snapshot s WHERE s.hash = :HASH"
+	  )
+})
 public class Snapshot {
+
+	static final String QUERY_FIND_BY_HASH = "Snapshot.findByHash";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
