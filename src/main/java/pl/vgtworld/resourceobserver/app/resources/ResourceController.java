@@ -1,14 +1,14 @@
-package pl.vgtworld.app.resources;
+package pl.vgtworld.resourceobserver.app.resources;
 
 import com.googlecode.htmleasy.View;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.vgtworld.app.resources.models.form.FormModel;
-import pl.vgtworld.app.resources.models.list.ListModel;
-import pl.vgtworld.app.resources.validator.ResourceValidator;
-import pl.vgtworld.app.resources.validator.ValidationResult;
-import pl.vgtworld.storage.resource.ResourceService;
+import pl.vgtworld.resourceobserver.app.resources.models.form.FormModel;
+import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
+import pl.vgtworld.resourceobserver.app.resources.validator.ResourceValidator;
+import pl.vgtworld.resourceobserver.app.resources.validator.ValidationResult;
+import pl.vgtworld.resourceobserver.storage.resource.ResourceService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;

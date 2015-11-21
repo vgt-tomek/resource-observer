@@ -1,7 +1,7 @@
-package pl.vgtworld.app.resources.validator;
+package pl.vgtworld.resourceobserver.app.resources.validator;
 
-import pl.vgtworld.app.resources.ResourceFormDto;
-import pl.vgtworld.storage.resource.dto.NewResourceDto;
+import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
+import pl.vgtworld.resourceobserver.storage.resource.dto.NewResourceDto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.vgtworld.app.resources;
+package pl.vgtworld.resourceobserver.app.resources;
 
 public class ResourceBuilder {
 

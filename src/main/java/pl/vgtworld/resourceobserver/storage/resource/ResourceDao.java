@@ -1,6 +1,6 @@
-package pl.vgtworld.storage.resource;
+package pl.vgtworld.resourceobserver.storage.resource;
 
-import pl.vgtworld.core.PersistenceUtil;
+import pl.vgtworld.resourceobserver.core.PersistenceUtil;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

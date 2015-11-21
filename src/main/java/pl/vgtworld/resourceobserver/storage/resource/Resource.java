@@ -1,4 +1,4 @@
-package pl.vgtworld.storage.resource;
+package pl.vgtworld.resourceobserver.storage.resource;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

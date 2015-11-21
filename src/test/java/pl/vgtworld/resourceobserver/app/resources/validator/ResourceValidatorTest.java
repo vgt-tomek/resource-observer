@@ -1,8 +1,8 @@
-package pl.vgtworld.app.resources.validator;
+package pl.vgtworld.resourceobserver.app.resources.validator;
 
 import org.junit.Test;
-import pl.vgtworld.app.resources.ResourceBuilder;
-import pl.vgtworld.app.resources.ResourceFormDto;
+import pl.vgtworld.resourceobserver.app.resources.ResourceBuilder;
+import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

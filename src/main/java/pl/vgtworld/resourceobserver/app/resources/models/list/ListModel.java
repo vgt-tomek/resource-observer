@@ -1,6 +1,6 @@
-package pl.vgtworld.app.resources.models.list;
+package pl.vgtworld.resourceobserver.app.resources.models.list;
 
-import pl.vgtworld.storage.resource.Resource;
+import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import java.util.List;
 

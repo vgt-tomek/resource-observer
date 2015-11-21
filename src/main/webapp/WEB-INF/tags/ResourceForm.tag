@@ -1,7 +1,7 @@
 <%@tag description="product" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@attribute name="action" required="true" type="java.lang.String"%>
-<%@attribute name="resource" required="false" type="pl.vgtworld.app.resources.ResourceFormDto"%>
+<%@attribute name="resource" required="false" type="pl.vgtworld.resourceobserver.app.resources.ResourceFormDto"%>
 <%@attribute name="errors" required="false" type="java.util.List"%>
 
 <div class="container-fluid">

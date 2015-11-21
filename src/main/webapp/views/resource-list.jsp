@@ -15,7 +15,7 @@
                 <th>Name</th>
                 <th>Active</th>
             </tr>
-                <%--@elvariable id="model" type="pl.vgtworld.app.resources.models.list.ListModel"--%>
+                <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.resources.models.list.ListModel"--%>
             <c:forEach items="${model.resources}" var="resource">
                 <tr>
                     <td>${resource.name}</td>

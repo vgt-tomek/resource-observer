@@ -1,4 +1,4 @@
-package pl.vgtworld;
+package pl.vgtworld.resourceobserver;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

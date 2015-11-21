@@ -1,4 +1,4 @@
-package pl.vgtworld.core;
+package pl.vgtworld.resourceobserver.core;
 
 import javax.persistence.Query;
 import java.util.List;
