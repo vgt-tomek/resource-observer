@@ -13,6 +13,7 @@
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
+                <th>Last check</th>
                 <th class="text-center">Active</th>
                 <th class="text-right">Options</th>
             </tr>
@@ -20,6 +21,7 @@
             <c:forEach items="${model.resources}" var="resource">
                 <tr>
                     <td>${resource.name}</td>
+                    <td>${resource.lastCheckAt}</td>
                     <td class="text-center">
                         <c:choose>
                             <c:when test="${resource.active == true}">

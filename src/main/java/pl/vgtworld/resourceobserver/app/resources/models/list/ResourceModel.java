@@ -12,6 +12,8 @@ public class ResourceModel {
 
 	private int checkInterval;
 
+	private String lastCheckAt;
+
 	public int getId() {
 		return id;
 	}
@@ -50,6 +52,14 @@ public class ResourceModel {
 
 	public void setCheckInterval(int checkInterval) {
 		this.checkInterval = checkInterval;
+	}
+
+	public String getLastCheckAt() {
+		return lastCheckAt;
+	}
+
+	public void setLastCheckAt(String lastCheckAt) {
+		this.lastCheckAt = lastCheckAt;
 	}
 
 }
