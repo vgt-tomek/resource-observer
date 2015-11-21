@@ -89,8 +89,43 @@ public class ResourceController {
 		FormModel model = new FormModel();
 		model.setErrors(new ArrayList<>());
 		model.setResource(asResourceFormDto(resourceEntity, observers));
+		model.setResourceId(id);
 
 		return Response.ok(new View("/views/resource-edit-form.jsp", model)).build();
+	}
+
+	@POST
+	@Path("/edit-resource/{id}")
+	@Produces(MediaType.TEXT_HTML)
+	public Response editResource(@PathParam("id") int id, @Form ResourceFormDto resource) {
+		LOGGER.debug("Edit resource #{}: {}", id, resource);
+
+		Resource resourceEntity = resourceService.findById(id);
+		if (resourceEntity == null) {
+			return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+		}
+
+		if (resource != null && resource.getResourceFormCancel() != null) {
+			LOGGER.debug("Edit resource action canceled. Redirecting.");
+			return Response.ok(new View("/views/resource-edit-cancel.jsp")).build();
+		}
+
+		LOGGER.debug("Validating resource.");
+		//TODO Fix uniqueness validation.
+		ResourceValidator validator = new ResourceValidator(resourceService);
+		ValidationResult result = validator.validate(resource);
+		if (!result.isValid()) {
+			LOGGER.debug("Validation failed.");
+			FormModel model = new FormModel();
+			model.setErrors(result.getErrors());
+			model.setResource(resource);
+			model.setResourceId(id);
+			return Response.ok(new View("/views/resource-edit-form.jsp", model)).build();
+		}
+		LOGGER.debug("Validation successful.");
+		//TODO Update resource
+
+		return Response.ok(new View("/views/resource-edit-success.jsp")).build();
 	}
 
 	private ResourceFormDto asResourceFormDto(Resource entity, List<ResourceObserver> observers) {

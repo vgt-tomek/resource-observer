@@ -7,6 +7,6 @@
 
     <div class="container-fluid col-lg-6 col-lg-offset-3">
             <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.resources.models.form.FormModel"--%>
-        <t:ResourceForm action="${pageContext.request.contextPath}/app/create-resource" resource="${model.resource}" errors="${model.errors}"/>
+        <t:ResourceForm action="${pageContext.request.contextPath}/app/edit-resource/${model.resourceId}" resource="${model.resource}" errors="${model.errors}"/>
     </div>
 </t:basic>

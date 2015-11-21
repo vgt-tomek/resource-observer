@@ -10,6 +10,8 @@ public class FormModel {
 
 	private ResourceFormDto resource;
 
+	private Integer resourceId;
+
 	public List<String> getErrors() {
 		return errors;
 	}
@@ -24,6 +26,14 @@ public class FormModel {
 
 	public void setResource(ResourceFormDto resource) {
 		this.resource = resource;
+	}
+
+	public Integer getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(Integer resourceId) {
+		this.resourceId = resourceId;
 	}
 
 }
