@@ -14,6 +14,11 @@ public class ResourceDao {
 	@PersistenceContext
 	private EntityManager em;
 
+	public Integer create(Resource resource) {
+		em.persist(resource);
+		return resource.getId();
+	}
+
 	public List<Resource> findAll() {
 		Query query = em.createNamedQuery(Resource.QUERY_FIND_ALL);
 		return PersistenceUtil.getResultList(query);

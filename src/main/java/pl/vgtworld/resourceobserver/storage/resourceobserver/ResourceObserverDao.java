@@ -10,4 +10,9 @@ public class ResourceObserverDao {
 	@PersistenceContext
 	private EntityManager em;
 
+	public Integer create(ResourceObserver observer) {
+		em.persist(observer);
+		return observer.getId();
+	}
+
 }

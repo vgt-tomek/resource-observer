@@ -62,7 +62,7 @@ public class ResourceController {
 			return new View("/views/resource-create-form.jsp", model);
 		}
 		LOGGER.debug("Validation successful.");
-		//TODO Storage
+		resourceService.createNewResource(result.getCreatedResource());
 
 		return new View("/views/resource-create-success.jsp");
 	}
