@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <label for="createResourceFormCheckInterval">Check interval [minutes]:</label>
-            <input id="createResourceFormCheckInterval" class="form-control" type="text" name="url" value="" />
+            <input id="createResourceFormCheckInterval" class="form-control" type="text" name="checkInterval" value="" />
         </div>
 
         <div class="form-group">
