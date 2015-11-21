@@ -32,11 +32,14 @@ public class ResourceController {
 	@EJB
 	private ResourceService resourceService;
 
+	@EJB
+	private ResourceListService resourceListService;
+
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public View getResourceList() {
 		ListModel model = new ListModel();
-		model.setResources(resourceService.findAll());
+		model.setResources(resourceListService.getResourceList());
 		return new View("/views/resource-list.jsp", model);
 	}
 

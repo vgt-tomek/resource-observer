@@ -1,18 +1,16 @@
 package pl.vgtworld.resourceobserver.app.resources.models.list;
 
-import pl.vgtworld.resourceobserver.storage.resource.Resource;
-
 import java.util.List;
 
 public class ListModel {
 
-	private List<Resource> resources;
+	private List<ResourceModel> resources;
 
-	public List<Resource> getResources() {
+	public List<ResourceModel> getResources() {
 		return resources;
 	}
 
-	public void setResources(List<Resource> resources) {
+	public void setResources(List<ResourceModel> resources) {
 		this.resources = resources;
 	}
 
