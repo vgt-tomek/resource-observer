@@ -9,13 +9,20 @@ import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
 import pl.vgtworld.resourceobserver.app.resources.validator.ResourceValidator;
 import pl.vgtworld.resourceobserver.app.resources.validator.ValidationResult;
 import pl.vgtworld.resourceobserver.services.ResourceService;
+import pl.vgtworld.resourceobserver.storage.resource.Resource;
+import pl.vgtworld.resourceobserver.storage.resourceobserver.ResourceObserver;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/")
 public class ResourceController {
@@ -65,6 +72,39 @@ public class ResourceController {
 		resourceService.createNewResource(result.getCreatedResource());
 
 		return new View("/views/resource-create-success.jsp");
+	}
+
+	@GET
+	@Path("/edit-resource/{id}")
+	@Produces(MediaType.TEXT_HTML)
+	public Response editResourceForm(@PathParam("id") int id) {
+		Resource resourceEntity = resourceService.findById(id);
+
+		if (resourceEntity == null) {
+			return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+		}
+
+		List<ResourceObserver> observers = resourceService.findAllObserversForResource(id);
+
+		FormModel model = new FormModel();
+		model.setErrors(new ArrayList<>());
+		model.setResource(asResourceFormDto(resourceEntity, observers));
+
+		return Response.ok(new View("/views/resource-edit-form.jsp", model)).build();
+	}
+
+	private ResourceFormDto asResourceFormDto(Resource entity, List<ResourceObserver> observers) {
+		ResourceFormDto dto = new ResourceFormDto();
+		dto.setName(entity.getName());
+		dto.setUrl(entity.getUrl());
+		dto.setActive(entity.getActive() ? "on" : null);
+		dto.setCheckInterval("" + entity.getCheckInterval());
+		StringBuilder observersDto = new StringBuilder();
+		for (ResourceObserver observer : observers) {
+			observersDto.append("\n").append(observer.getEmail());
+		}
+		dto.setObservers(observersDto.toString().trim());
+		return dto;
 	}
 
 }

@@ -24,6 +24,10 @@ public class ResourceDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public Resource findById(int id) {
+		return em.find(Resource.class, id);
+	}
+
 	public Resource findByName(String name) {
 		Query query = em.createNamedQuery(Resource.QUERY_FIND_BY_NAME);
 		query.setParameter("NAME", name);

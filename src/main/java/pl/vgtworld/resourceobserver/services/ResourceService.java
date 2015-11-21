@@ -40,12 +40,20 @@ public class ResourceService {
 		return resourceDao.findAll();
 	}
 
+	public Resource findById(int id) {
+		return resourceDao.findById(id);
+	}
+
 	public boolean isNameAlreadyTaken(String name) {
 		return resourceDao.findByName(name) != null;
 	}
 
 	public boolean isUrlAlreadyTaken(String url) {
 		return resourceDao.findByUrl(url) != null;
+	}
+
+	public List<ResourceObserver> findAllObserversForResource(int resourceId) {
+		return resourceObserverDao.findAllForResource(resourceId);
 	}
 
 }
