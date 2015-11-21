@@ -5,6 +5,7 @@ import pl.vgtworld.resourceobserver.storage.scan.ScanDao;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -19,6 +20,13 @@ public class ScanService {
 			return null;
 		}
 		return results.get(0);
+	}
+
+	public void saveScanFailureForResource(int resourceId) {
+		Scan scan = new Scan();
+		scan.setResourceId(resourceId);
+		scan.setCreatedAt(new Date());
+		scanDao.create(scan);
 	}
 
 }
