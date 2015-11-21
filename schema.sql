@@ -17,3 +17,10 @@ CREATE TABLE resource_observers (
   CONSTRAINT FOREIGN KEY resource_observers_resource_id_fkey (resource_id) REFERENCES resources(id)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE snapshots (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  hash CHAR(64) NOT NULL,
+  resource TEXT NOT NULL,
+  UNIQUE(hash)
+);
