@@ -122,7 +122,7 @@ public class ResourceController {
 			return Response.ok(new View("/views/resource-edit-form.jsp", model)).build();
 		}
 		LOGGER.debug("Validation successful.");
-		//TODO Update resource
+		resourceService.updateExistingResource(id, result.getCreatedResource());
 
 		return Response.ok(new View("/views/resource-edit-success.jsp")).build();
 	}

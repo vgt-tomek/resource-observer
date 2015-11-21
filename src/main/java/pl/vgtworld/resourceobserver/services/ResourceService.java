@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Stateless
 public class ResourceService {
@@ -29,12 +28,20 @@ public class ResourceService {
 		resourceEntity.setCheckInterval(resource.getCheckInterval());
 		resourceEntity.setCreatedAt(new Date());
 		Integer resourceId = resourceDao.create(resourceEntity);
-		for (String observerEmail : resource.getObservers()) {
-			ResourceObserver observerEntity = new ResourceObserver();
-			observerEntity.setResourceId(resourceId);
-			observerEntity.setEmail(observerEmail);
-			resourceObserverDao.create(observerEntity);
+		saveObservers(resourceId, resource.getObservers());
+	}
+
+	public void updateExistingResource(int resourceId, NewResourceDto resource) {
+		Resource entity = findById(resourceId);
+		if (entity == null) {
+			throw new IllegalStateException("Entity does not exist.");
 		}
+		entity.setName(resource.getName());
+		entity.setUrl(resource.getUrl());
+		entity.setActive(resource.getActive());
+		entity.setCheckInterval(resource.getCheckInterval());
+		resourceObserverDao.removeObserversForResource(resourceId);
+		saveObservers(resourceId, resource.getObservers());
 	}
 
 	public List<Resource> findAll() {
@@ -65,6 +72,15 @@ public class ResourceService {
 
 	public List<ResourceObserver> findAllObserversForResource(int resourceId) {
 		return resourceObserverDao.findAllForResource(resourceId);
+	}
+
+	private void saveObservers(int resourceId, List<String> observers) {
+		for (String observerEmail : observers) {
+			ResourceObserver observerEntity = new ResourceObserver();
+			observerEntity.setResourceId(resourceId);
+			observerEntity.setEmail(observerEmail);
+			resourceObserverDao.create(observerEntity);
+		}
 	}
 
 }

@@ -25,4 +25,10 @@ public class ResourceObserverDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public void removeObserversForResource(int resourceId) {
+		Query query = em.createNamedQuery(ResourceObserver.QUERY_REMOVE_ALL_FOR_RESOURCE);
+		query.setParameter("RESOURCE_ID", resourceId);
+		query.executeUpdate();
+	}
+
 }

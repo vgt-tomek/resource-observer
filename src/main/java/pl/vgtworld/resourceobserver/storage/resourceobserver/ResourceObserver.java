@@ -15,11 +15,16 @@ import javax.persistence.Table;
 	  @NamedQuery(
 			name = ResourceObserver.QUERY_FIND_ALL_FOR_RESOURCE,
 			query = "SELECT o FROM ResourceObserver o WHERE o.resourceId = :RESOURCE_ID ORDER BY o.id ASC"
+	  ),
+	  @NamedQuery(
+			name = ResourceObserver.QUERY_REMOVE_ALL_FOR_RESOURCE,
+			query = "DELETE FROM ResourceObserver o WHERE o.resourceId = :RESOURCE_ID"
 	  )
 })
 public class ResourceObserver {
 
 	static final String QUERY_FIND_ALL_FOR_RESOURCE = "ResourceObserver.findAllForResource";
+	static final String QUERY_REMOVE_ALL_FOR_RESOURCE = "ResourceObserver.removeAllForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
