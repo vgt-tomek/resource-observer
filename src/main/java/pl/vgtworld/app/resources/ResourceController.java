@@ -23,4 +23,11 @@ public class ResourceController {
 		return new View("/views/resource-list.jsp", model);
 	}
 
+	@GET
+	@Path("/create-resource")
+	@Produces(MediaType.TEXT_HTML)
+	public View createResourceForm() {
+		return new View("/views/resource-create-form.jsp");
+	}
+
 }

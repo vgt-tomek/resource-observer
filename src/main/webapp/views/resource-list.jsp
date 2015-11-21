@@ -6,6 +6,10 @@
     <h1>Resources</h1>
 
     <div class="container-fluid col-lg-6 col-lg-offset-3">
+        <div class="side-menu">
+            <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/create-resource">Create new</a>
+        </div>
+
         <table class="table table-stripped">
             <tr>
                 <th>Name</th>
