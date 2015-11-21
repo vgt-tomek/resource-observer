@@ -5,17 +5,19 @@
 <t:basic title="Resource observer">
     <h1>Resources</h1>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Active</th>
-        </tr>
-        <%--@elvariable id="model" type="pl.vgtworld.app.resources.ListModel"--%>
-        <c:forEach items="${model.resources}" var="resource">
+    <div class="container-fluid col-lg-6 col-lg-offset-3">
+        <table class="table table-stripped">
             <tr>
-                <td>${resource.name}</td>
-                <td>${resource.active == true ? "yes" : "no"}</td>
+                <th>Name</th>
+                <th>Active</th>
             </tr>
-        </c:forEach>
-    </table>
+                <%--@elvariable id="model" type="pl.vgtworld.app.resources.ListModel"--%>
+            <c:forEach items="${model.resources}" var="resource">
+                <tr>
+                    <td>${resource.name}</td>
+                    <td>${resource.active == true ? "yes" : "no"}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </t:basic>
