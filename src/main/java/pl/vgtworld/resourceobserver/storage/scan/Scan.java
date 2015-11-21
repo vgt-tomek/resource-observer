@@ -5,12 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
 @Table(name = "scans")
+@NamedQueries({
+	  @NamedQuery(
+			name = Scan.QUERY_FIND_NEWEST_FOR_RESOURCE,
+			query = "SELECT s FROM Scan s WHERE s.resourceId = :RESOURCE_ID ORDER BY s.id DESC"
+	  )
+})
 public class Scan {
+
+	static final String QUERY_FIND_NEWEST_FOR_RESOURCE = "Scan.findNewestForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +65,16 @@ public class Scan {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	@Override
+	public String toString() {
+		return "Scan{" +
+			  "id=" + id +
+			  ", resourceId=" + resourceId +
+			  ", snapshotId=" + snapshotId +
+			  ", createdAt=" + createdAt +
+			  '}';
 	}
 
 }
