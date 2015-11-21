@@ -1,23 +1,29 @@
 <%@tag description="product" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@attribute name="action" required="true" type="java.lang.String"%>
+<%@attribute name="resource" required="false" type="pl.vgtworld.app.resources.ResourceFormDto"%>
+<%@attribute name="errors" required="false" type="java.util.List"%>
 
 <div class="container-fluid">
     <form method="post" action="${action}">
 
         <div class="form-group">
+            <t:formError formErrors="${errors}" />
+        </div>
+
+        <div class="form-group">
             <label for="createResourceFormName">Name:</label>
-            <input id="createResourceFormName" class="form-control" type="text" name="name" value="" />
+            <input id="createResourceFormName" class="form-control" type="text" name="name" value="${resource.name}" />
         </div>
 
         <div class="form-group">
             <label for="createResourceFormUrl">Url:</label>
-            <input id="createResourceFormUrl" class="form-control" type="text" name="url" value="" />
+            <input id="createResourceFormUrl" class="form-control" type="text" name="url" value="${resource.url}" />
         </div>
 
         <div class="form-group">
             <label for="createResourceFormCheckInterval">Check interval [minutes]:</label>
-            <input id="createResourceFormCheckInterval" class="form-control" type="text" name="checkInterval" value="" />
+            <input id="createResourceFormCheckInterval" class="form-control" type="text" name="checkInterval" value="${resource.checkInterval}" />
         </div>
 
         <div class="form-group">
@@ -25,12 +31,12 @@
             <p>
                 One e-mail address in each line.
             </p>
-            <textarea id="createResourceFormObservers" class="form-control" name="observers"></textarea>
+            <textarea id="createResourceFormObservers" class="form-control" name="observers">${resource.observers}</textarea>
         </div>
 
         <div class="form-group">
             <label for="createResourceFormActive">Active:</label>
-            <input id="createResourceFormActive" class="checkbox" type="checkbox" name="active" />
+            <input id="createResourceFormActive" class="checkbox" type="checkbox" ${resource.active == "on" ? "checked=\"checked\"" : ""} name="active" />
         </div>
 
         <div class="form-group form-submit-buttons">

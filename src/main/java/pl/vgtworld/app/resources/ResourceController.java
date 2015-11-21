@@ -4,7 +4,10 @@ import com.googlecode.htmleasy.View;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.vgtworld.app.resources.models.form.FormModel;
 import pl.vgtworld.app.resources.models.list.ListModel;
+import pl.vgtworld.app.resources.validator.ResourceValidator;
+import pl.vgtworld.app.resources.validator.ValidationResult;
 import pl.vgtworld.storage.resource.ResourceService;
 
 import javax.ejb.EJB;
@@ -48,7 +51,17 @@ public class ResourceController {
 			return new View("/views/resource-create-cancel.jsp");
 		}
 
-		//TODO Validation
+		LOGGER.debug("Validating resource.");
+		ResourceValidator validator = new ResourceValidator();
+		ValidationResult result = validator.validate(resource);
+		if (!result.isValid()) {
+			LOGGER.debug("Validation failed.");
+			FormModel model = new FormModel();
+			model.setErrors(result.getErrors());
+			model.setResource(resource);
+			return new View("/views/resource-create-form.jsp", model);
+		}
+		LOGGER.debug("Validation successful.");
 		//TODO Storage
 
 		return new View("/views/resource-create-success.jsp");

@@ -6,6 +6,7 @@
     <h1>Create resource</h1>
 
     <div class="container-fluid col-lg-6 col-lg-offset-3">
-        <t:ResourceForm action="${pageContext.request.contextPath}/app/create-resource"/>
+        <%--@elvariable id="model" type="pl.vgtworld.app.resources.models.form.FormModel"--%>
+        <t:ResourceForm action="${pageContext.request.contextPath}/app/create-resource" resource="${model.resource}" errors="${model.errors}"/>
     </div>
 </t:basic>
