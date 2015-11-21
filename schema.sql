@@ -21,7 +21,7 @@ CREATE TABLE resource_observers (
 CREATE TABLE snapshots (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   hash CHAR(64) NOT NULL,
-  resource TEXT NOT NULL,
+  resource LONGTEXT NOT NULL,
   UNIQUE(hash)
 );
 
