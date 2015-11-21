@@ -32,11 +32,19 @@ public class ResourceValidator {
 		this.resourceService = resourceService;
 	}
 
-	public ValidationResult validate(ResourceFormDto resource) {
+	public ValidationResult validateNew(ResourceFormDto resource) {
+		return validate(resource, null);
+	}
+
+	public ValidationResult validateEdit(ResourceFormDto resource, int resourceId) {
+		return validate(resource, resourceId);
+	}
+
+	private ValidationResult validate(ResourceFormDto resource, Integer resourceId) {
 		errors = new ArrayList<>();
 		NewResourceDto createdResource = new NewResourceDto();
-		createdResource.setName(validateName(resource.getName()));
-		createdResource.setUrl(validateUrl(resource.getUrl()));
+		createdResource.setName(validateName(resource.getName(), resourceId));
+		createdResource.setUrl(validateUrl(resource.getUrl(), resourceId));
 		createdResource.setActive(validateActive(resource.getActive()));
 		createdResource.setCheckInterval(validateCheckInterval(resource.getCheckInterval()));
 		createdResource.setObservers(validateObservers(resource.getObservers()));
@@ -47,7 +55,7 @@ public class ResourceValidator {
 		}
 	}
 
-	private String validateName(String name) {
+	private String validateName(String name, Integer resourceId) {
 		if (name == null || name.trim().isEmpty()) {
 			errors.add(Errors.NAME_REQUIRED);
 			return null;
@@ -56,14 +64,14 @@ public class ResourceValidator {
 			errors.add(Errors.NAME_TOO_LONG);
 			return null;
 		}
-		if (resourceService.isNameAlreadyTaken(name)) {
+		if (resourceService.isNameAlreadyTaken(name, resourceId)) {
 			errors.add(Errors.NAME_NOT_AVAILABLE);
 			return null;
 		}
 		return name;
 	}
 
-	private String validateUrl(String url) {
+	private String validateUrl(String url, Integer resourceId) {
 		if (url == null || url.trim().isEmpty()) {
 			errors.add(Errors.URL_REQUIRED);
 			return null;
@@ -72,7 +80,7 @@ public class ResourceValidator {
 			errors.add(Errors.URL_TOO_LONG);
 			return null;
 		}
-		if (resourceService.isUrlAlreadyTaken(url)) {
+		if (resourceService.isUrlAlreadyTaken(url, resourceId)) {
 			errors.add(Errors.URL_NOT_AVAILABLE);
 			return null;
 		}

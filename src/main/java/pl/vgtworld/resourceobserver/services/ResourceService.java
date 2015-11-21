@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Stateless
 public class ResourceService {
@@ -44,12 +45,22 @@ public class ResourceService {
 		return resourceDao.findById(id);
 	}
 
-	public boolean isNameAlreadyTaken(String name) {
-		return resourceDao.findByName(name) != null;
+	public boolean isNameAlreadyTaken(String name, Integer excludedId) {
+		Resource entity = resourceDao.findByName(name);
+		if (excludedId == null) {
+			return entity != null;
+		} else {
+			return entity != null && !entity.getId().equals(excludedId);
+		}
 	}
 
-	public boolean isUrlAlreadyTaken(String url) {
-		return resourceDao.findByUrl(url) != null;
+	public boolean isUrlAlreadyTaken(String url, Integer excludedId) {
+		Resource entity = resourceDao.findByUrl(url);
+		if (excludedId == null) {
+			return entity != null;
+		} else {
+			return entity != null && !entity.getId().equals(excludedId);
+		}
 	}
 
 	public List<ResourceObserver> findAllObserversForResource(int resourceId) {

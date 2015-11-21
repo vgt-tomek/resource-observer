@@ -60,7 +60,7 @@ public class ResourceController {
 
 		LOGGER.debug("Validating resource.");
 		ResourceValidator validator = new ResourceValidator(resourceService);
-		ValidationResult result = validator.validate(resource);
+		ValidationResult result = validator.validateNew(resource);
 		if (!result.isValid()) {
 			LOGGER.debug("Validation failed.");
 			FormModel model = new FormModel();
@@ -111,9 +111,8 @@ public class ResourceController {
 		}
 
 		LOGGER.debug("Validating resource.");
-		//TODO Fix uniqueness validation.
 		ResourceValidator validator = new ResourceValidator(resourceService);
-		ValidationResult result = validator.validate(resource);
+		ValidationResult result = validator.validateEdit(resource, id);
 		if (!result.isValid()) {
 			LOGGER.debug("Validation failed.");
 			FormModel model = new FormModel();
