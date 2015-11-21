@@ -52,7 +52,7 @@ public class ResourceController {
 		}
 
 		LOGGER.debug("Validating resource.");
-		ResourceValidator validator = new ResourceValidator();
+		ResourceValidator validator = new ResourceValidator(resourceService);
 		ValidationResult result = validator.validate(resource);
 		if (!result.isValid()) {
 			LOGGER.debug("Validation failed.");

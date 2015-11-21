@@ -1,6 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources.validator;
 
 import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
+import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
 import java.util.ArrayList;
@@ -11,8 +12,10 @@ public class ResourceValidator {
 	static class Errors {
 		static final String NAME_REQUIRED = "Name is required.";
 		static final String NAME_TOO_LONG = "Name maximum length is " + NAME_MAX_LENGTH + " characters.";
+		static final String NAME_NOT_AVAILABLE = "Name already exist.";
 		static final String URL_REQUIRED = "Url is required.";
 		static final String URL_TOO_LONG = "Url maximum length is " + URL_MAX_LENGTH + " characters.";
+		static final String URL_NOT_AVAILABLE = "Url already exist.";
 		static final String CHECK_INTERVAL_REQUIRED = "Check interval is required.";
 		static final String CHECK_INTERVAL_NAN = "Check interval must be an integer.";
 		static final String CHECK_INTERVAL_GT_ZERO = "Check interval must be greater than zero.";
@@ -22,6 +25,12 @@ public class ResourceValidator {
 	private static final int URL_MAX_LENGTH = 250;
 
 	private List<String> errors;
+
+	private ResourceService resourceService;
+
+	public ResourceValidator(ResourceService resourceService) {
+		this.resourceService = resourceService;
+	}
 
 	public ValidationResult validate(ResourceFormDto resource) {
 		errors = new ArrayList<>();
@@ -47,7 +56,10 @@ public class ResourceValidator {
 			errors.add(Errors.NAME_TOO_LONG);
 			return null;
 		}
-		//TODO Unique check
+		if (resourceService.isNameAlreadyTaken(name)) {
+			errors.add(Errors.NAME_NOT_AVAILABLE);
+			return null;
+		}
 		return name;
 	}
 
@@ -60,7 +72,10 @@ public class ResourceValidator {
 			errors.add(Errors.URL_TOO_LONG);
 			return null;
 		}
-		//TODO Unique check
+		if (resourceService.isUrlAlreadyTaken(url)) {
+			errors.add(Errors.URL_NOT_AVAILABLE);
+			return null;
+		}
 		return url;
 	}
 

@@ -24,4 +24,16 @@ public class ResourceDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public Resource findByName(String name) {
+		Query query = em.createNamedQuery(Resource.QUERY_FIND_BY_NAME);
+		query.setParameter("NAME", name);
+		return PersistenceUtil.getSingleResult(query);
+	}
+
+	public Resource findByUrl(String url) {
+		Query query = em.createNamedQuery(Resource.QUERY_FIND_BY_URL);
+		query.setParameter("URL", url);
+		return PersistenceUtil.getSingleResult(query);
+	}
+
 }

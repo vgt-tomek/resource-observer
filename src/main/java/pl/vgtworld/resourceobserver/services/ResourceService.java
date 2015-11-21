@@ -40,4 +40,12 @@ public class ResourceService {
 		return resourceDao.findAll();
 	}
 
+	public boolean isNameAlreadyTaken(String name) {
+		return resourceDao.findByName(name) != null;
+	}
+
+	public boolean isUrlAlreadyTaken(String url) {
+		return resourceDao.findByUrl(url) != null;
+	}
+
 }

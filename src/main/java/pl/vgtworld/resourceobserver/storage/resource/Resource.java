@@ -16,11 +16,23 @@ import java.util.Date;
 	  @NamedQuery(
 			name = Resource.QUERY_FIND_ALL,
 			query = "SELECT r FROM Resource r ORDER BY r.id"
+	  ),
+	  @NamedQuery(
+			name = Resource.QUERY_FIND_BY_NAME,
+			query = "SELECT r FROM Resource r WHERE r.name = :NAME"
+	  ),
+	  @NamedQuery(
+			name = Resource.QUERY_FIND_BY_URL,
+			query = "SELECT r FROM Resource r WHERE r.url = :URL"
 	  )
 })
 public class Resource {
 
 	static final String QUERY_FIND_ALL = "Resource.findAll";
+
+	static final String QUERY_FIND_BY_NAME = "Resource.findByName";
+
+	static final String QUERY_FIND_BY_URL = "Resource.findByUrl";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
