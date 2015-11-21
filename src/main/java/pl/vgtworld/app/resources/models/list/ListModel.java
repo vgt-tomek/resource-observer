@@ -1,4 +1,4 @@
-package pl.vgtworld.app.resources;
+package pl.vgtworld.app.resources.models.list;
 
 import pl.vgtworld.storage.resource.Resource;
 

@@ -1,6 +1,7 @@
 package pl.vgtworld.app.resources;
 
 import com.googlecode.htmleasy.View;
+import pl.vgtworld.app.resources.models.list.ListModel;
 import pl.vgtworld.storage.resource.ResourceService;
 
 import javax.ejb.EJB;
