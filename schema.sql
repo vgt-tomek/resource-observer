@@ -24,3 +24,14 @@ CREATE TABLE snapshots (
   resource TEXT NOT NULL,
   UNIQUE(hash)
 );
+
+CREATE TABLE scans (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  resource_id INT UNSIGNED NOT NULL,
+  snapshot_id INT UNSIGNED,
+  created_at DATETIME NOT NULL,
+  CONSTRAINT FOREIGN KEY scans_resource_id_fkey (resource_id) REFERENCES resources(id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY scans_snapshot_id_fkey (snapshot_id) REFERENCES snapshots(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+);
