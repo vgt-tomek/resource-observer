@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,8 +29,12 @@ public class Snapshot {
 	@Column(name = "hash", length = 64)
 	private String hash;
 
+	@Column(name = "binary_file")
+	private Boolean binary;
+
+	@Lob
 	@Column(name = "resource")
-	private String resource;
+	private byte[] resource;
 
 	public Integer getId() {
 		return id;
@@ -47,11 +52,19 @@ public class Snapshot {
 		this.hash = hash;
 	}
 
-	public String getResource() {
+	public Boolean getBinary() {
+		return binary;
+	}
+
+	public void setBinary(Boolean binary) {
+		this.binary = binary;
+	}
+
+	public byte[] getResource() {
 		return resource;
 	}
 
-	public void setResource(String resource) {
+	public void setResource(byte[] resource) {
 		this.resource = resource;
 	}
 

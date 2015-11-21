@@ -48,7 +48,7 @@ public class ResourceScanner {
 				continue;
 			}
 			LOGGER.info("Executing new scan for resource: {}.", resource.getName());
-			String resourceContext = downloadResource(resource);
+			byte[] resourceContext = downloadResource(resource);
 			if (resourceContext == null) {
 				LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
 				scanService.saveScanFailureForResource(resource.getId());
@@ -70,7 +70,7 @@ public class ResourceScanner {
 		return scanTime + checkInterval * 60 * 1000 <= currentTime;
 	}
 
-	private String downloadResource(Resource resource) {
+	private byte[] downloadResource(Resource resource) {
 		try {
 			return DownloadUtil.downloadResource(resource.getUrl());
 		} catch (IOException e) {

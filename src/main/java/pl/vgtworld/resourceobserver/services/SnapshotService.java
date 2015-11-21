@@ -12,7 +12,7 @@ public class SnapshotService {
 	@EJB
 	private SnapshotDao snapshotDao;
 
-	public int findIdForSnapshot(String hash, String resource) {
+	public int findIdForSnapshot(String hash, byte[] resource) {
 		Snapshot snapshot = snapshotDao.findByHash(hash);
 		if (snapshot != null) {
 			return snapshot.getId();
@@ -20,6 +20,7 @@ public class SnapshotService {
 		snapshot = new Snapshot();
 		snapshot.setHash(hash);
 		snapshot.setResource(resource);
+		snapshot.setBinary(true); //TODO Do actual check if file is text or binary.
 		return snapshotDao.create(snapshot);
 	}
 

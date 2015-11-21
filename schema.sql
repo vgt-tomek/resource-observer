@@ -21,7 +21,8 @@ CREATE TABLE resource_observers (
 CREATE TABLE snapshots (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   hash CHAR(64) NOT NULL,
-  resource LONGTEXT NOT NULL,
+  binary_file BOOLEAN NOT NULL,
+  resource LONGBLOB NOT NULL,
   UNIQUE(hash)
 );
 
