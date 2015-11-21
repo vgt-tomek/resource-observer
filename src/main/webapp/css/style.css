@@ -18,3 +18,11 @@ div.form-submit-buttons {
     background-color:#005500;
     color:#ffffff;
 }
+
+.glyphicon-green {
+    color:green;
+}
+
+.glyphicon-red {
+    color:red;
+}

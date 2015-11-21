@@ -10,16 +10,25 @@
             <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/create-resource">Create new</a>
         </div>
 
-        <table class="table table-stripped">
+        <table class="table table-striped">
             <tr>
                 <th>Name</th>
-                <th>Active</th>
+                <th class="text-center">Active</th>
             </tr>
                 <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.resources.models.list.ListModel"--%>
             <c:forEach items="${model.resources}" var="resource">
                 <tr>
                     <td>${resource.name}</td>
-                    <td>${resource.active == true ? "yes" : "no"}</td>
+                    <td class="text-center">
+                        <c:choose>
+                            <c:when test="${resource.active == true}">
+                                <span class="glyphicon glyphicon-ok glyphicon-green"></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="glyphicon glyphicon-remove glyphicon-red"></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
