@@ -39,20 +39,22 @@ public class ResourceScanner {
 
 			Scan lastScan = scanService.findLastScanForResource(resource.getId());
 			LOGGER.debug("Last scan for resource: {}", lastScan);
-			if (lastScan == null || isOlderThan(lastScan, resource.getCheckInterval())) {
-				LOGGER.info("Executing new scan for resource: {}.", resource.getName());
-				String resourceContext = downloadResource(resource);
-				if (resourceContext == null) {
-					LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
-					scanService.saveScanFailureForResource(resource.getId());
-					continue;
-				}
-				String resourceHash = HashUtil.generateHash(resourceContext);
-				LOGGER.info("Resource downloaded and marked with hash: {}", resourceHash);
-
-				//TODO Save snapshot and scan event to database.
-				//TODO Save e-mail action if necessary.
+			if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval())) {
+				LOGGER.debug("Last scan not old enough. Skipping");
+				continue;
 			}
+			LOGGER.info("Executing new scan for resource: {}.", resource.getName());
+			String resourceContext = downloadResource(resource);
+			if (resourceContext == null) {
+				LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
+				scanService.saveScanFailureForResource(resource.getId());
+				continue;
+			}
+			String resourceHash = HashUtil.generateHash(resourceContext);
+			LOGGER.info("Resource downloaded and marked with hash: {}", resourceHash);
+
+			//TODO Save snapshot and scan event to database.
+			//TODO Save e-mail action if necessary.
 		}
 
 	}
