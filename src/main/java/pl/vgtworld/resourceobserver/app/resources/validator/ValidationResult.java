@@ -1,6 +1,6 @@
 package pl.vgtworld.resourceobserver.app.resources.validator;
 
-import pl.vgtworld.resourceobserver.storage.resource.dto.NewResourceDto;
+import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
 import java.util.List;
 

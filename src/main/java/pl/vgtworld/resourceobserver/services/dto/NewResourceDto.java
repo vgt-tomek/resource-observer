@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.storage.resource.dto;
+package pl.vgtworld.resourceobserver.services.dto;
 
 import java.util.List;
 

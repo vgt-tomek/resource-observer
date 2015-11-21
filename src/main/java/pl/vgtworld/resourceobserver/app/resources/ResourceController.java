@@ -8,7 +8,7 @@ import pl.vgtworld.resourceobserver.app.resources.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
 import pl.vgtworld.resourceobserver.app.resources.validator.ResourceValidator;
 import pl.vgtworld.resourceobserver.app.resources.validator.ValidationResult;
-import pl.vgtworld.resourceobserver.storage.resource.ResourceService;
+import pl.vgtworld.resourceobserver.services.ResourceService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
