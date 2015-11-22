@@ -18,6 +18,10 @@ public class SnapshotDao {
 		return snapshot.getId();
 	}
 
+	public Snapshot findById(int id) {
+		return em.find(Snapshot.class, id);
+	}
+
 	public Snapshot findByHash(String hash) {
 		Query query = em.createNamedQuery(Snapshot.QUERY_FIND_BY_HASH);
 		query.setParameter("HASH", hash);

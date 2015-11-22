@@ -19,7 +19,9 @@
                 </tr>
                 <c:forEach items="${model.versions}" var="version">
                     <tr>
-                        <td>Version #${version.versionId}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/app/snapshots/download/${version.snapshotId}">Version #${version.versionId}</a>
+                        </td>
                         <td class="text-center">${version.firstOccurrence}</td>
                         <td class="text-center">${version.lastOccurrence}</td>
                         <td class="text-right">${version.count}</td>

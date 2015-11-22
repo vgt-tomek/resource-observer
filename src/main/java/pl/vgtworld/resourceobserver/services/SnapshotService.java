@@ -12,6 +12,10 @@ public class SnapshotService {
 	@EJB
 	private SnapshotDao snapshotDao;
 
+	public Snapshot findById(int id) {
+		return snapshotDao.findById(id);
+	}
+
 	public int findIdForSnapshot(String hash, byte[] resource) {
 		Snapshot snapshot = snapshotDao.findByHash(hash);
 		if (snapshot != null) {
