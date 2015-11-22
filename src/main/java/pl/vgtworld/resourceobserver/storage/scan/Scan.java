@@ -24,6 +24,10 @@ import java.util.Date;
 	  @NamedQuery(
 			name = Scan.QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE,
 			query = "SELECT COUNT(DISTINCT s.snapshotId) FROM Scan s WHERE s.resourceId = :RESOURCE_ID"
+	  ),
+	  @NamedQuery(
+			name = Scan.QUERY_FIND_VERSIONS_FOR_RESOURCE,
+			query = "SELECT new pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion(s.id, MIN(s.createdAt), MAX(s.createdAt), COUNT(s)) FROM Scan s WHERE s.resourceId = :RESOURCE_ID AND s.snapshotId IS NOT NULL GROUP BY s.snapshotId ORDER BY MIN(s.createdAt)"
 	  )
 })
 public class Scan {
@@ -33,6 +37,8 @@ public class Scan {
 	static final String QUERY_GET_COUNT_FOR_RESOURCE = "Scan.getCountForResource";
 
 	static final String QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE = "Scan.getUniqueCountForResource";
+
+	static final String QUERY_FIND_VERSIONS_FOR_RESOURCE = "Scan.findVersionsForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

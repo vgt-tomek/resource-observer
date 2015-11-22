@@ -1,12 +1,15 @@
 package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
+import pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.ScanService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class ResourceDetailsService {
@@ -28,7 +31,23 @@ public class ResourceDetailsService {
 		model.setResource(resource);
 		model.setNewestScans(scanService.findNewestScans(resourceId, NEWEST_SCANS_COUNT));
 		model.setScanCount(scanService.getScanCountForResource(resourceId));
+		model.setVersions(asModelVersions(scanService.findVersionsForResource(resourceId)));
 		return model;
+	}
+
+	private List<ResourceVersion> asModelVersions(List<pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion> versions) {
+		List<ResourceVersion> output = new ArrayList<>();
+		int count = 0;
+		for (pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion version : versions) {
+			ResourceVersion convertedVersion = new ResourceVersion();
+			convertedVersion.setVersionId(++count);
+			convertedVersion.setSnapshotId(version.getId());
+			convertedVersion.setFirstOccurrence(version.getFirstOccurrence());
+			convertedVersion.setLastOccurrence(version.getLastOccurrence());
+			convertedVersion.setCount(version.getCount());
+			output.add(convertedVersion);
+		}
+		return output;
 	}
 
 }

@@ -13,6 +13,8 @@ public class DetailsModel {
 
 	private Long scanCount;
 
+	private List<ResourceVersion> versions;
+
 	public Resource getResource() {
 		return resource;
 	}
@@ -35,6 +37,14 @@ public class DetailsModel {
 
 	public void setScanCount(Long scanCount) {
 		this.scanCount = scanCount;
+	}
+
+	public List<ResourceVersion> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(List<ResourceVersion> versions) {
+		this.versions = versions;
 	}
 
 }

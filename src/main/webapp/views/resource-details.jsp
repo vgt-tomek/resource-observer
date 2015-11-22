@@ -9,6 +9,30 @@
 
     <div class="row">
         <div class="container-fluid col-lg-4">
+            <h2>Versions</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th class="text-center">Version</th>
+                    <th class="text-center">First occurrence</th>
+                    <th class="text-center">Last occurrence</th>
+                    <th class="text-center">Total</th>
+                </tr>
+                <c:forEach items="${model.versions}" var="version">
+                    <tr>
+                        <td>Version #${version.versionId}</td>
+                        <td class="text-center">${version.firstOccurrence}</td>
+                        <td class="text-center">${version.lastOccurrence}</td>
+                        <td class="text-right">${version.count}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <c:if test="${empty model.versions}">
+                <div class="alert alert-info">
+                    No versions available.
+                </div>
+            </c:if>
+        </div>
+        <div class="container-fluid col-lg-4">
             <h2>
                 Latest scans
                 <c:if test="${!empty model.newestScans}">

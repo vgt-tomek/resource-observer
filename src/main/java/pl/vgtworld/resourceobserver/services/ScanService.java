@@ -2,6 +2,7 @@ package pl.vgtworld.resourceobserver.services;
 
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 import pl.vgtworld.resourceobserver.storage.scan.ScanDao;
+import pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -24,6 +25,10 @@ public class ScanService {
 
 	public List<Scan> findNewestScans(int resourceId, Integer count) {
 		return scanDao.findNewestForResource(resourceId, count);
+	}
+
+	public List<ResourceVersion> findVersionsForResource(int resourceId) {
+		return scanDao.findVersionsForResource(resourceId);
 	}
 
 	public Long getUniqueSnapshotsCountForResource(int resourceId) {
