@@ -20,6 +20,10 @@ import java.util.Date;
 	  @NamedQuery(
 			name = Scan.QUERY_GET_COUNT_FOR_RESOURCE,
 			query = "SELECT COUNT(s) FROM Scan s WHERE s.resourceId = :RESOURCE_ID"
+	  ),
+	  @NamedQuery(
+			name = Scan.QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE,
+			query = "SELECT COUNT(DISTINCT s.snapshotId) FROM Scan s WHERE s.resourceId = :RESOURCE_ID"
 	  )
 })
 public class Scan {
@@ -27,6 +31,8 @@ public class Scan {
 	static final String QUERY_FIND_NEWEST_FOR_RESOURCE = "Scan.findNewestForResource";
 
 	static final String QUERY_GET_COUNT_FOR_RESOURCE = "Scan.getCountForResource";
+
+	static final String QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE = "Scan.getUniqueCountForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

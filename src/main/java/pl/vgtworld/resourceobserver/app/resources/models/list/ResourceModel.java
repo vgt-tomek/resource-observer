@@ -16,6 +16,8 @@ public class ResourceModel {
 
 	private Date lastCheckAt;
 
+	private Long distinctSnapshotsCount;
+
 	public int getId() {
 		return id;
 	}
@@ -62,6 +64,14 @@ public class ResourceModel {
 
 	public void setLastCheckAt(Date lastCheckAt) {
 		this.lastCheckAt = lastCheckAt;
+	}
+
+	public Long getDistinctSnapshotsCount() {
+		return distinctSnapshotsCount;
+	}
+
+	public void setDistinctSnapshotsCount(Long distinctSnapshotsCount) {
+		this.distinctSnapshotsCount = distinctSnapshotsCount;
 	}
 
 }

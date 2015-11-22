@@ -34,4 +34,10 @@ public class ScanDao {
 		return PersistenceUtil.getSingleResult(query);
 	}
 
+	public Long getSnapshotDistinctCountForResource(int resourceId) {
+		Query query = em.createNamedQuery(Scan.QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE);
+		query.setParameter("RESOURCE_ID", resourceId);
+		return PersistenceUtil.getSingleResult(query);
+	}
+
 }

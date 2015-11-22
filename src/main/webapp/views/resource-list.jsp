@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th class="text-center">Check interval</th>
                 <th class="text-center">Last check</th>
+                <th class="text-center">Version count</th>
                 <th class="text-center">Active</th>
                 <th class="text-right">Options</th>
             </tr>
@@ -21,6 +22,7 @@
                     <td>${resource.name}</td>
                     <td class="text-center">${resource.checkInterval}</td>
                     <td class="text-right"><vgt:TimeAgo since="${resource.lastCheckAt}"/></td>
+                    <td class="text-center">${resource.distinctSnapshotsCount}</td>
                     <td class="text-center">
                         <c:choose>
                             <c:when test="${resource.active == true}">

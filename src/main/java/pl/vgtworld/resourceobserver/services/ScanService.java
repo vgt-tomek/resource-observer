@@ -26,6 +26,10 @@ public class ScanService {
 		return scanDao.findNewestForResource(resourceId, count);
 	}
 
+	public Long getUniqueSnapshotsCountForResource(int resourceId) {
+		return scanDao.getSnapshotDistinctCountForResource(resourceId);
+	}
+
 	public Long getScanCountForResource(int resourceId) {
 		return scanDao.getCountForResource(resourceId);
 	}
