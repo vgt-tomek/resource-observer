@@ -9,7 +9,12 @@
 
     <div class="row">
         <div class="container-fluid col-lg-4">
-            <h2>Latest scans</h2>
+            <h2>
+                Latest scans
+                <c:if test="${!empty model.newestScans}">
+                    <a class="btn btn-default btn-nav" href="#">View all <span class="badge">${model.scanCount}</span></a>
+                </c:if>
+            </h2>
             <table class="table table-striped">
                 <tr>
                     <th>Timestamp</th>

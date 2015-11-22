@@ -27,6 +27,7 @@ public class ResourceDetailsService {
 		DetailsModel model = new DetailsModel();
 		model.setResource(resource);
 		model.setNewestScans(scanService.findNewestScans(resourceId, NEWEST_SCANS_COUNT));
+		model.setScanCount(scanService.getScanCountForResource(resourceId));
 		return model;
 	}
 

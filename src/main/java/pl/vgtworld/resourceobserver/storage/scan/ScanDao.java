@@ -26,4 +26,10 @@ public class ScanDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public Long getCountForResource(int resourceId) {
+		Query query = em.createNamedQuery(Scan.QUERY_GET_COUNT_FOR_RESOURCE);
+		query.setParameter("RESOURCE_ID", resourceId);
+		return PersistenceUtil.getSingleResult(query);
+	}
+
 }

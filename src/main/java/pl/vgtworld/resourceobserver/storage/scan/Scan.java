@@ -16,11 +16,17 @@ import java.util.Date;
 	  @NamedQuery(
 			name = Scan.QUERY_FIND_NEWEST_FOR_RESOURCE,
 			query = "SELECT s FROM Scan s WHERE s.resourceId = :RESOURCE_ID ORDER BY s.id DESC"
+	  ),
+	  @NamedQuery(
+			name = Scan.QUERY_GET_COUNT_FOR_RESOURCE,
+			query = "SELECT COUNT(s) FROM Scan s WHERE s.resourceId = :RESOURCE_ID"
 	  )
 })
 public class Scan {
 
 	static final String QUERY_FIND_NEWEST_FOR_RESOURCE = "Scan.findNewestForResource";
+
+	static final String QUERY_GET_COUNT_FOR_RESOURCE = "Scan.getCountForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

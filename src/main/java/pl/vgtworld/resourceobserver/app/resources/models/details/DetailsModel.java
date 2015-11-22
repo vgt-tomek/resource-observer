@@ -11,6 +11,8 @@ public class DetailsModel {
 
 	private List<Scan> newestScans;
 
+	private Long scanCount;
+
 	public Resource getResource() {
 		return resource;
 	}
@@ -25,6 +27,14 @@ public class DetailsModel {
 
 	public void setNewestScans(List<Scan> newestScans) {
 		this.newestScans = newestScans;
+	}
+
+	public Long getScanCount() {
+		return scanCount;
+	}
+
+	public void setScanCount(Long scanCount) {
+		this.scanCount = scanCount;
 	}
 
 }
