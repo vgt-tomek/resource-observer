@@ -8,7 +8,7 @@ import pl.vgtworld.resourceobserver.storage.scan.Scan;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,14 +37,12 @@ public class ResourceListService {
 		return dto;
 	}
 
-	private String getLastCheckForResource(int resourceId) {
+	private Date getLastCheckForResource(int resourceId) {
 		Scan lastScan = scanService.findLastScanForResource(resourceId);
 		if (lastScan == null) {
-			return "N/A";
+			return null;
 		}
-		//TODO Create util for displaying with format: Xh Ym Zs ago
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return sdf.format(lastScan.getCreatedAt());
+		return lastScan.getCreatedAt();
 	}
 
 }

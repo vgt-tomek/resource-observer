@@ -1,5 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources.models.list;
 
+import java.util.Date;
+
 public class ResourceModel {
 
 	private int id;
@@ -12,7 +14,7 @@ public class ResourceModel {
 
 	private int checkInterval;
 
-	private String lastCheckAt;
+	private Date lastCheckAt;
 
 	public int getId() {
 		return id;
@@ -54,11 +56,11 @@ public class ResourceModel {
 		this.checkInterval = checkInterval;
 	}
 
-	public String getLastCheckAt() {
+	public Date getLastCheckAt() {
 		return lastCheckAt;
 	}
 
-	public void setLastCheckAt(String lastCheckAt) {
+	public void setLastCheckAt(Date lastCheckAt) {
 		this.lastCheckAt = lastCheckAt;
 	}
 

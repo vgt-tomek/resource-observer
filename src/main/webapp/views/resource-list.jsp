@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="vgt" uri="/WEB-INF/vgt.tld" %>
 
 <t:basic title="Resource observer">
     <h1>Resources</h1>
@@ -10,7 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th class="text-center">Check interval</th>
-                <th>Last check</th>
+                <th class="text-center">Last check</th>
                 <th class="text-center">Active</th>
                 <th class="text-right">Options</th>
             </tr>
@@ -19,7 +20,7 @@
                 <tr>
                     <td>${resource.name}</td>
                     <td class="text-center">${resource.checkInterval}</td>
-                    <td>${resource.lastCheckAt}</td>
+                    <td class="text-right"><vgt:TimeAgo since="${resource.lastCheckAt}"/></td>
                     <td class="text-center">
                         <c:choose>
                             <c:when test="${resource.active == true}">
