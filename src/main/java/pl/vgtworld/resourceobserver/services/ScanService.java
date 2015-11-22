@@ -22,6 +22,10 @@ public class ScanService {
 		return results.get(0);
 	}
 
+	public List<Scan> findNewestScans(int resourceId, int count) {
+		return scanDao.findNewestForResource(resourceId, count);
+	}
+
 	public void saveScanFailureForResource(int resourceId) {
 		Scan scan = new Scan();
 		scan.setResourceId(resourceId);
