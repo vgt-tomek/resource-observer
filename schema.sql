@@ -31,6 +31,7 @@ CREATE TABLE scans (
   resource_id INT UNSIGNED NOT NULL,
   snapshot_id INT UNSIGNED,
   created_at DATETIME NOT NULL,
+  INDEX(created_at),
   CONSTRAINT FOREIGN KEY scans_resource_id_fkey (resource_id) REFERENCES resources(id)
     ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY scans_snapshot_id_fkey (snapshot_id) REFERENCES snapshots(id)
