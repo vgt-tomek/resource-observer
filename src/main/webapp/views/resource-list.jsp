@@ -34,6 +34,7 @@
                     </td>
                     <td class="text-right">
                         <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/edit-resource/${resource.id}">Edit</a>
+                        <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/resource-details/${resource.id}">Details</a>
                     </td>
                 </tr>
             </c:forEach>

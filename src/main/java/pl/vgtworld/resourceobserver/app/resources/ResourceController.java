@@ -4,6 +4,7 @@ import com.googlecode.htmleasy.View;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
 import pl.vgtworld.resourceobserver.app.resources.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
 import pl.vgtworld.resourceobserver.app.resources.validator.ResourceValidator;
@@ -34,6 +35,9 @@ public class ResourceController {
 
 	@EJB
 	private ResourceListService resourceListService;
+
+	@EJB
+	private ResourceDetailsService resourceDetailsService;
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -128,6 +132,18 @@ public class ResourceController {
 		resourceService.updateExistingResource(id, result.getCreatedResource());
 
 		return Response.ok(new View("/views/resource-edit-success.jsp")).build();
+	}
+
+	@GET
+	@Path("/resource-details/{id}")
+	public Response getResourceDetails(@PathParam("id") int id) {
+		DetailsModel model = resourceDetailsService.getResourceDetails(id);
+
+		if (model == null) {
+			return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+		}
+
+		return Response.ok(new View("/views/resource-details.jsp", model)).build();
 	}
 
 	private ResourceFormDto asResourceFormDto(Resource entity, List<ResourceObserver> observers) {
