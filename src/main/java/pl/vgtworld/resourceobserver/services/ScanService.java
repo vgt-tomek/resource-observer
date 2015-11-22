@@ -22,7 +22,7 @@ public class ScanService {
 		return results.get(0);
 	}
 
-	public List<Scan> findNewestScans(int resourceId, int count) {
+	public List<Scan> findNewestScans(int resourceId, Integer count) {
 		return scanDao.findNewestForResource(resourceId, count);
 	}
 

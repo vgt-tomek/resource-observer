@@ -19,10 +19,12 @@ public class ScanDao {
 		return scan.getId();
 	}
 
-	public List<Scan> findNewestForResource(int resourceId, int count) {
+	public List<Scan> findNewestForResource(int resourceId, Integer count) {
 		Query query = em.createNamedQuery(Scan.QUERY_FIND_NEWEST_FOR_RESOURCE);
 		query.setParameter("RESOURCE_ID", resourceId);
-		query.setMaxResults(count);
+		if (count != null) {
+			query.setMaxResults(count);
+		}
 		return PersistenceUtil.getResultList(query);
 	}
 

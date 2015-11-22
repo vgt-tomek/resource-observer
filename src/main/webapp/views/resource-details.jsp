@@ -12,7 +12,9 @@
             <h2>
                 Latest scans
                 <c:if test="${!empty model.newestScans}">
-                    <a class="btn btn-default btn-nav" href="#">View all <span class="badge">${model.scanCount}</span></a>
+                    <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/scans/resource-history/${model.resource.id}">
+                        View all <span class="badge">${model.scanCount}</span>
+                    </a>
                 </c:if>
             </h2>
             <t:scanHistory scans="${model.newestScans}"/>
