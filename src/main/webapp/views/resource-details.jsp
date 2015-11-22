@@ -15,28 +15,7 @@
                     <a class="btn btn-default btn-nav" href="#">View all <span class="badge">${model.scanCount}</span></a>
                 </c:if>
             </h2>
-            <table class="table table-striped">
-                <tr>
-                    <th>Timestamp</th>
-                    <th>Snapshot</th>
-                </tr>
-                <c:forEach items="${model.newestScans}" var="scan">
-                    <tr>
-                        <td>${scan.createdAt}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${empty scan.snapshotId}">N/A</c:when>
-                                <c:otherwise>Snapshot #${scan.snapshotId}</c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <c:if test="${empty model.newestScans}">
-                <div class="alert alert-info">
-                    No scans available.
-                </div>
-            </c:if>
+            <t:scanHistory scans="${model.newestScans}"/>
         </div>
     </div>
 
