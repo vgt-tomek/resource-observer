@@ -23,7 +23,12 @@
                 <c:forEach items="${model.newestScans}" var="scan">
                     <tr>
                         <td>${scan.createdAt}</td>
-                        <td>Snapshot #${scan.snapshotId}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${empty scan.snapshotId}">N/A</c:when>
+                                <c:otherwise>Snapshot #${scan.snapshotId}</c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
