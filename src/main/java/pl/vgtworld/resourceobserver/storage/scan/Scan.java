@@ -27,7 +27,7 @@ import java.util.Date;
 	  ),
 	  @NamedQuery(
 			name = Scan.QUERY_FIND_VERSIONS_FOR_RESOURCE,
-			query = "SELECT new pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion(s.id, MIN(s.createdAt), MAX(s.createdAt), COUNT(s)) FROM Scan s WHERE s.resourceId = :RESOURCE_ID AND s.snapshotId IS NOT NULL GROUP BY s.snapshotId ORDER BY MIN(s.createdAt)"
+			query = "SELECT new pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion(s.snapshotId, MIN(s.createdAt), MAX(s.createdAt), COUNT(s)) FROM Scan s WHERE s.resourceId = :RESOURCE_ID AND s.snapshotId IS NOT NULL GROUP BY s.snapshotId ORDER BY MIN(s.createdAt)"
 	  )
 })
 public class Scan {
