@@ -6,16 +6,16 @@
 <t:basic title="Resource observer">
     <h1>Resources</h1>
 
-    <div class="container-fluid col-lg-6 col-lg-offset-3">
+    <div class="container-fluid col-lg-8 col-lg-offset-2">
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th class="text-center">Check interval</th>
-                <th class="text-center">Last check</th>
-                <th class="text-center">Last version change</th>
+                <th class="text-right">Last check</th>
+                <th class="text-right">Last version change</th>
                 <th class="text-center">Version count</th>
                 <th class="text-center">Active</th>
-                <th class="text-right">Options</th>
+                <th class="text-center">Options</th>
             </tr>
                 <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.resources.models.list.ListModel"--%>
             <c:forEach items="${model.resources}" var="resource">
@@ -35,7 +35,7 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td class="text-right">
+                    <td class="text-center">
                         <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/edit-resource/${resource.id}">Edit</a>
                         <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/resource-details/${resource.id}">Details</a>
                     </td>
