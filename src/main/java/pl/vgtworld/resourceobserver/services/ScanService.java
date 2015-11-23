@@ -39,6 +39,10 @@ public class ScanService {
 		return scanDao.getCountForResource(resourceId);
 	}
 
+	public Date getLastVersionChange(int resourceId) {
+		return scanDao.getLastVersionChange(resourceId);
+	}
+
 	public void saveScanFailureForResource(int resourceId) {
 		Scan scan = new Scan();
 		scan.setResourceId(resourceId);

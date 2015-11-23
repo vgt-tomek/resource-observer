@@ -18,6 +18,8 @@ public class ResourceModel {
 
 	private Long distinctSnapshotsCount;
 
+	private Date lastVersionChange;
+
 	public int getId() {
 		return id;
 	}
@@ -72,6 +74,14 @@ public class ResourceModel {
 
 	public void setDistinctSnapshotsCount(Long distinctSnapshotsCount) {
 		this.distinctSnapshotsCount = distinctSnapshotsCount;
+	}
+
+	public Date getLastVersionChange() {
+		return lastVersionChange;
+	}
+
+	public void setLastVersionChange(Date lastVersionChange) {
+		this.lastVersionChange = lastVersionChange;
 	}
 
 }

@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -47,6 +49,17 @@ public class ScanDao {
 		Query query = em.createNamedQuery(Scan.QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE);
 		query.setParameter(RESOURCE_ID_QUERY_PARAM, resourceId);
 		return PersistenceUtil.getSingleResult(query);
+	}
+
+	public Date getLastVersionChange(int resourceId) {
+		Query query = em.createNativeQuery(Scan.NATIVE_QUERY_LAST_VERSION_CHANGE);
+		query.setParameter(1, resourceId);
+		query.setParameter(2, resourceId);
+		List results = query.getResultList();
+		if (results.size() == 1) {
+			return new Date(((Timestamp) results.get(0)).getTime());
+		}
+		return null;
 	}
 
 }

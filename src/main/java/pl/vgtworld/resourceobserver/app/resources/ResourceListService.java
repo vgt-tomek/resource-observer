@@ -35,6 +35,7 @@ public class ResourceListService {
 		dto.setCheckInterval(entity.getCheckInterval());
 		dto.setLastCheckAt(getLastCheckForResource(entity.getId()));
 		dto.setDistinctSnapshotsCount(scanService.getUniqueSnapshotsCountForResource(entity.getId()));
+		dto.setLastVersionChange(scanService.getLastVersionChange(entity.getId()));
 		return dto;
 	}
 
