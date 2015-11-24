@@ -64,6 +64,7 @@ public class ResourceScanner {
 
 	}
 
+	//TODO Add tolerance option to prevent 1 minute delay in execution.
 	private boolean isOlderThan(Scan scan, int checkInterval) {
 		long currentTime = new Date().getTime();
 		long scanTime = scan.getCreatedAt().getTime();
