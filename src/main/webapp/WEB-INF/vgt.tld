@@ -24,4 +24,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>SimpleDatetime</name>
+		<tag-class>pl.vgtworld.resourceobserver.core.jsptags.SimpleDatetimeTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>date</name>
+			<required>true</required>
+			<type>java.util.Date</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

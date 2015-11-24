@@ -23,8 +23,8 @@
                         <td>
                             <vgt:VersionLink version="${version}"/>
                         </td>
-                        <td class="text-center">${version.firstOccurrence}</td>
-                        <td class="text-center">${version.lastOccurrence}</td>
+                        <td class="text-center"><vgt:SimpleDatetime date="${version.firstOccurrence}"/></td>
+                        <td class="text-center"><vgt:SimpleDatetime date="${version.lastOccurrence}"/></td>
                         <td class="text-right">${version.count}</td>
                     </tr>
                 </c:forEach>
