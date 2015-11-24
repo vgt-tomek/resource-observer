@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="vgt" uri="/WEB-INF/vgt.tld" %>
 <%@attribute name="scans" required="true" type="java.util.List"%>
-<%--@elvariable id="scan" type="pl.vgtworld.resourceobserver.storage.scan.Scan"--%>
+<%--@elvariable id="scan" type="pl.vgtworld.resourceobserver.dto.scans.Scan"--%>
 
 <table class="table table-striped">
     <tr>
@@ -15,8 +15,8 @@
             <td><vgt:SimpleDatetime date="${scan.createdAt}"/></td>
             <td>
                 <c:choose>
-                    <c:when test="${empty scan.snapshotId}">N/A</c:when>
-                    <c:otherwise>Snapshot #${scan.snapshotId}</c:otherwise>
+                    <c:when test="${empty scan.version}">N/A</c:when>
+                    <c:otherwise><vgt:VersionLink version="${scan.version}"/></c:otherwise>
                 </c:choose>
             </td>
         </tr>

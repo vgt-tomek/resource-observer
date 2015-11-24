@@ -6,12 +6,15 @@ import pl.vgtworld.resourceobserver.core.colortool.ColorGenerator;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.ScanService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
+import pl.vgtworld.resourceobserver.storage.scan.Scan;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Stateless
 public class ResourceDetailsService {
@@ -29,12 +32,29 @@ public class ResourceDetailsService {
 		if (resource == null) {
 			return null;
 		}
+		List<ResourceVersion> versions = asModelVersions(scanService.findVersionsForResource(resourceId));
 		DetailsModel model = new DetailsModel();
 		model.setResource(resource);
-		model.setNewestScans(scanService.findNewestScans(resourceId, NEWEST_SCANS_COUNT));
+		model.setNewestScans(asScansDto(scanService.findNewestScans(resourceId, NEWEST_SCANS_COUNT), versions));
 		model.setScanCount(scanService.getScanCountForResource(resourceId));
-		model.setVersions(asModelVersions(scanService.findVersionsForResource(resourceId)));
+		model.setVersions(versions);
 		return model;
+	}
+
+	private List<pl.vgtworld.resourceobserver.dto.scans.Scan> asScansDto(List<Scan> scans, List<ResourceVersion> versions) {
+		Map<Integer, ResourceVersion> versionsBySnapshotId = new HashMap<>();
+		for (ResourceVersion version : versions) {
+			versionsBySnapshotId.put(version.getSnapshotId(), version);
+		}
+
+		List<pl.vgtworld.resourceobserver.dto.scans.Scan> output = new ArrayList<>();
+		for (Scan scan : scans) {
+			pl.vgtworld.resourceobserver.dto.scans.Scan dto = new pl.vgtworld.resourceobserver.dto.scans.Scan();
+			dto.setCreatedAt(scan.getCreatedAt());
+			dto.setVersion(versionsBySnapshotId.get(scan.getSnapshotId()));
+			output.add(dto);
+		}
+		return output;
 	}
 
 	private List<ResourceVersion> asModelVersions(List<pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion> versions) {
