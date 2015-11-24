@@ -22,7 +22,7 @@ public class StatsService {
 		return asModelVersions(scanService.findVersionsForResource(resourceId));
 	}
 
-	public List<Scan> findNewestScans(int resourceId, int count) {
+	public List<Scan> findNewestScans(int resourceId, Integer count) {
 		return asScansDto(scanService.findNewestScans(resourceId, count), findResourceVersions(resourceId));
 	}
 

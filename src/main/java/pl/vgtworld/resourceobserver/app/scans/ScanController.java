@@ -3,7 +3,7 @@ package pl.vgtworld.resourceobserver.app.scans;
 import com.googlecode.htmleasy.View;
 import pl.vgtworld.resourceobserver.app.scans.models.resourcehistory.ResourceHistoryModel;
 import pl.vgtworld.resourceobserver.services.ResourceService;
-import pl.vgtworld.resourceobserver.services.ScanService;
+import pl.vgtworld.resourceobserver.services.StatsService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import javax.ejb.EJB;
@@ -20,7 +20,7 @@ public class ScanController {
 	private ResourceService resourceService;
 
 	@EJB
-	private ScanService scanService;
+	private StatsService statsService;
 
 	@GET
 	@Path("/resource-history/{id}")
@@ -33,7 +33,7 @@ public class ScanController {
 
 		ResourceHistoryModel model = new ResourceHistoryModel();
 		model.setResource(resource);
-		model.setScans(scanService.findNewestScans(id, null));
+		model.setScans(statsService.findNewestScans(id, null));
 
 		return Response.ok(new View("/views/scan-history-for-resource.jsp", model)).build();
 	}

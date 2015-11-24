@@ -1,7 +1,7 @@
 package pl.vgtworld.resourceobserver.app.scans.models.resourcehistory;
 
+import pl.vgtworld.resourceobserver.dto.scans.Scan;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
-import pl.vgtworld.resourceobserver.storage.scan.Scan;
 
 import java.util.List;
 
