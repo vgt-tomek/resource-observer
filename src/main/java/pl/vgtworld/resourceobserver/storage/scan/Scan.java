@@ -40,7 +40,7 @@ public class Scan {
 
 	static final String QUERY_FIND_VERSIONS_FOR_RESOURCE = "Scan.findVersionsForResource";
 
-	static final String NATIVE_QUERY_LAST_VERSION_CHANGE = "SELECT created_at FROM scans s WHERE resource_id = ? AND id > (SELECT id FROM scans WHERE snapshot_id <> (SELECT snapshot_id FROM scans WHERE resource_id = ? ORDER BY id DESC LIMIT 1) ORDER BY id DESC LIMIT 1) ORDER BY id ASC LIMIT 1";
+	static final String NATIVE_QUERY_LAST_VERSION_CHANGE = "SELECT created_at FROM scans WHERE resource_id = ?1 AND snapshot_id IS NOT NULL AND id > ( SELECT id FROM scans WHERE resource_id = ?1 and snapshot_id <> (SELECT snapshot_id FROM scans WHERE resource_id = ?1 AND snapshot_id IS NOT NULL ORDER BY id DESC LIMIT 1) ORDER BY id DESC LIMIT 1) ORDER BY id ASC LIMIT 1";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -54,7 +54,6 @@ public class ScanDao {
 	public Date getLastVersionChange(int resourceId) {
 		Query query = em.createNativeQuery(Scan.NATIVE_QUERY_LAST_VERSION_CHANGE);
 		query.setParameter(1, resourceId);
-		query.setParameter(2, resourceId);
 		List results = query.getResultList();
 		if (results.size() == 1) {
 			return new Date(((Timestamp) results.get(0)).getTime());
