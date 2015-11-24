@@ -15,6 +15,11 @@ public class VersionLinkTag extends SimpleTagSupport {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(VersionLinkTag.class);
 
+	private static final double PERCEPTIVE_LUMINANCE_THRESHOLD = 0.5;
+	public static final double PERCEPTIVE_LUMINANCE_RED_RATIO = 0.299;
+	public static final double PERCEPTIVE_LUMINANCE_GREEN_RATIO = 0.587;
+	public static final double PERCEPTIVE_LUMINANCE_BLUE_RATIO = 0.114;
+
 	private ResourceVersion version;
 
 	public void setVersion(ResourceVersion version) {
@@ -31,8 +36,9 @@ public class VersionLinkTag extends SimpleTagSupport {
 		if (version != null) {
 			String hrefUrl = contextPath + "/app/snapshots/download/" + version.getSnapshotId();
 			String backgroundColor = colorToHex(version.getBackgroundColor());
-			String style = " style=\"background-color:#" + backgroundColor + ";\" ";
-			String linkClass = " class=\"btn btn-default btn-xs\" ";
+			String fontColor = colorToHex(createFontColorForBackground(version.getBackgroundColor()));
+			String style = " style=\"color:#" + fontColor + "; background-color:#" + backgroundColor + ";\" ";
+			String linkClass = " class=\"btn btn-default btn-xs btn-version\" ";
 			out.print(
 				  "<a " + linkClass + style + " href=\"" + hrefUrl + "\">Version #" + version.getVersionId() + "</a>"
 			);
@@ -43,6 +49,17 @@ public class VersionLinkTag extends SimpleTagSupport {
 
 	private String colorToHex(Color color) {
 		return nbrToHex(color.getRed()) + nbrToHex(color.getGreen()) + nbrToHex(color.getBlue());
+	}
+
+	private Color createFontColorForBackground(Color background) {
+		double redLuminance = PERCEPTIVE_LUMINANCE_RED_RATIO * background.getRed();
+		double greenLuminance = PERCEPTIVE_LUMINANCE_GREEN_RATIO * background.getGreen();
+		double blueLuminance = PERCEPTIVE_LUMINANCE_BLUE_RATIO * background.getBlue();
+		double perceptiveLuminance = 1 - (redLuminance + greenLuminance + blueLuminance) / 255;
+		if (perceptiveLuminance < PERCEPTIVE_LUMINANCE_THRESHOLD) {
+			return Color.BLACK;
+		}
+		return Color.WHITE;
 	}
 
 	private String nbrToHex(int number) {
