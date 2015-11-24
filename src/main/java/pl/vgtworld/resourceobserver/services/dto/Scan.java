@@ -1,6 +1,4 @@
-package pl.vgtworld.resourceobserver.dto.scans;
-
-import pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion;
+package pl.vgtworld.resourceobserver.services.dto;
 
 import java.util.Date;
 

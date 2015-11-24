@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="vgt" uri="/WEB-INF/vgt.tld" %>
 <%@attribute name="scans" required="true" type="java.util.List"%>
-<%--@elvariable id="scan" type="pl.vgtworld.resourceobserver.dto.scans.Scan"--%>
+<%--@elvariable id="scan" type="pl.vgtworld.resourceobserver.services.dto.Scan"--%>
 
 <table class="table table-striped">
     <tr>

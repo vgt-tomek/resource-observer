@@ -20,7 +20,7 @@
 		<attribute>
 			<name>version</name>
 			<required>true</required>
-			<type>pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion</type>
+			<type>pl.vgtworld.resourceobserver.services.dto.ResourceVersion</type>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>

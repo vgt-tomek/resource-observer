@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.app.resources.models.details;
+package pl.vgtworld.resourceobserver.services.dto;
 
 import java.awt.Color;
 import java.util.Date;

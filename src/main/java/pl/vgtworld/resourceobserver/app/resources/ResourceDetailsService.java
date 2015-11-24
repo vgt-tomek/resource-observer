@@ -1,7 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
-import pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion;
+import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.ScanService;
 import pl.vgtworld.resourceobserver.services.StatsService;

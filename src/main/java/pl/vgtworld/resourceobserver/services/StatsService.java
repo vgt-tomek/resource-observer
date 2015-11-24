@@ -1,8 +1,8 @@
 package pl.vgtworld.resourceobserver.services;
 
-import pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion;
+import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.core.colortool.ColorGenerator;
-import pl.vgtworld.resourceobserver.dto.scans.Scan;
+import pl.vgtworld.resourceobserver.services.dto.Scan;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -32,9 +32,9 @@ public class StatsService {
 			versionsBySnapshotId.put(version.getSnapshotId(), version);
 		}
 
-		List<pl.vgtworld.resourceobserver.dto.scans.Scan> output = new ArrayList<>();
+		List<Scan> output = new ArrayList<>();
 		for (pl.vgtworld.resourceobserver.storage.scan.Scan scan : scans) {
-			pl.vgtworld.resourceobserver.dto.scans.Scan dto = new pl.vgtworld.resourceobserver.dto.scans.Scan();
+			Scan dto = new Scan();
 			dto.setCreatedAt(scan.getCreatedAt());
 			dto.setVersion(versionsBySnapshotId.get(scan.getSnapshotId()));
 			output.add(dto);
