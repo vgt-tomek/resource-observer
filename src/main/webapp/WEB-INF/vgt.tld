@@ -13,4 +13,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>VersionLink</name>
+		<tag-class>pl.vgtworld.resourceobserver.core.jsptags.VersionLinkTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>version</name>
+			<required>true</required>
+			<type>pl.vgtworld.resourceobserver.app.resources.models.details.ResourceVersion</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

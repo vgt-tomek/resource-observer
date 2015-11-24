@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="vgt" uri="/WEB-INF/vgt.tld" %>
 <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel"--%>
 
 <t:basic title="Resource observer">
@@ -20,7 +21,7 @@
                 <c:forEach items="${model.versions}" var="version">
                     <tr>
                         <td>
-                            <a href="${pageContext.request.contextPath}/app/snapshots/download/${version.snapshotId}">Version #${version.versionId}</a>
+                            <vgt:VersionLink version="${version}"/>
                         </td>
                         <td class="text-center">${version.firstOccurrence}</td>
                         <td class="text-center">${version.lastOccurrence}</td>
