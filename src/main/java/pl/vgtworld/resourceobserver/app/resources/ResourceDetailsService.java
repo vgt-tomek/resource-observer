@@ -14,8 +14,6 @@ import java.util.List;
 @Stateless
 public class ResourceDetailsService {
 
-	private static final int NEWEST_SCANS_COUNT = 10;
-
 	@EJB
 	private ResourceService resourceService;
 
@@ -33,10 +31,15 @@ public class ResourceDetailsService {
 		List<ResourceVersion> versions = statsService.findResourceVersions(resourceId);
 		DetailsModel model = new DetailsModel();
 		model.setResource(resource);
-		model.setNewestScans(statsService.findNewestScans(resourceId, NEWEST_SCANS_COUNT));
+		int newestScanCount = getNewestScanCountRoundedUp(versions);
+		model.setNewestScans(statsService.findNewestScans(resourceId, newestScanCount));
 		model.setScanCount(scanService.getScanCountForResource(resourceId));
 		model.setVersions(versions);
 		return model;
+	}
+
+	private int getNewestScanCountRoundedUp(List<ResourceVersion> versions) {
+		return (versions.size() + 10) / 10 * 10;
 	}
 
 }
