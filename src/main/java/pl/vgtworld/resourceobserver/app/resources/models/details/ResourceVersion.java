@@ -1,5 +1,6 @@
 package pl.vgtworld.resourceobserver.app.resources.models.details;
 
+import java.awt.Color;
 import java.util.Date;
 
 public class ResourceVersion {
@@ -7,6 +8,8 @@ public class ResourceVersion {
 	private Integer versionId;
 
 	private Integer snapshotId;
+
+	private Color backgroundColor;
 
 	private Date firstOccurrence;
 
@@ -28,6 +31,14 @@ public class ResourceVersion {
 
 	public void setSnapshotId(Integer snapshotId) {
 		this.snapshotId = snapshotId;
+	}
+
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
 	}
 
 	public Date getFirstOccurrence() {
