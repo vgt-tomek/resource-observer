@@ -16,8 +16,8 @@ public class CalendarUtilTest {
 		List<String> result = CalendarUtil.getWeekDayNames(locale);
 
 		assertThat(result).hasSize(7);
-		assertThat(result.get(0)).isEqualTo("Mon");
-		assertThat(result.get(6)).isEqualTo("Sun");
+		assertThat(result.get(0)).isEqualTo("Pn");
+		assertThat(result.get(6)).isEqualTo("N");
 	}
 
 	@Test

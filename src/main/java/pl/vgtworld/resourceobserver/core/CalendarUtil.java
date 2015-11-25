@@ -18,7 +18,7 @@ public final class CalendarUtil {
 		instance.add(Calendar.HOUR, -24 * (currentDayOfWeek - firstDayOfWeek));
 
 		List<String> weekDayNames = new ArrayList<>();
-		SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE", locale);
 		for (int i = 0; i < 7; ++i) {
 			weekDayNames.add(sdf.format(instance.getTime()));
 			instance.add(Calendar.HOUR, 24);
