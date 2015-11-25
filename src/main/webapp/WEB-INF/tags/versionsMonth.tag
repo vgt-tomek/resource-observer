@@ -5,6 +5,11 @@
 <%@attribute name="versionsMonthly" required="true" type="pl.vgtworld.resourceobserver.services.dto.calendars.MonthVersionsTable"%>
 
 <table class="table table-bordered table-version-calendar">
+    <tr>
+        <c:forEach items="${versionsMonthly.weekDayNames}" var="name">
+            <th class="text-center">${name}</th>
+        </c:forEach>
+    </tr>
     <c:forEach items="${versionsMonthly.weeks}" var="week">
         <tr>
             <c:forEach items="${week.days}" var="day">

@@ -1,5 +1,6 @@
 package pl.vgtworld.resourceobserver.services;
 
+import pl.vgtworld.resourceobserver.core.CalendarUtil;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
 import pl.vgtworld.resourceobserver.services.dto.calendars.DayVersionsCell;
@@ -14,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ public class CalendarService {
 
 		int currentlyProcessedWeekDay = 0;
 		MonthVersionsTable monthContainer = new MonthVersionsTable();
+		monthContainer.setWeekDayNames(CalendarUtil.getWeekDayNames(Locale.getDefault()));
 		monthContainer.setWeeks(new ArrayList<>());
 		WeekVersionsRow weekContainer = new WeekVersionsRow();
 		for (int i = 1; i <= days; ++i) {
