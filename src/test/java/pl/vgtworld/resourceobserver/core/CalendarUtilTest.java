@@ -28,7 +28,61 @@ public class CalendarUtilTest {
 
 		assertThat(result).hasSize(7);
 		assertThat(result.get(0)).isEqualTo("Sun");
-		assertThat(result.get(6)).isEqualTo("Mon");
+		assertThat(result.get(6)).isEqualTo("Sat");
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysForMonthStartingOnSundayInPolishLocale() {
+		Locale locale = new Locale("pl", "PL");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2015, 11, locale);
+
+		assertThat(result).isEqualTo(6);
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysMonthStartingOnSundayInUsLocale() {
+		Locale locale = new Locale("en", "US");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2015, 11, locale);
+
+		assertThat(result).isEqualTo(0);
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysForMonthStartingOnMondayInPolishLocale() {
+		Locale locale = new Locale("pl", "PL");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2016, 2, locale);
+
+		assertThat(result).isEqualTo(0);
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysMonthStartingOnMondayInUsLocale() {
+		Locale locale = new Locale("en", "US");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2016, 2, locale);
+
+		assertThat(result).isEqualTo(1);
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysForMonthStartingOnWednesdayInPolishLocale() {
+		Locale locale = new Locale("pl", "PL");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2016, 6, locale);
+
+		assertThat(result).isEqualTo(2);
+	}
+
+	@Test
+	public void shouldCalculateEmptyDaysMonthStartingOnWednesdayInUsLocale() {
+		Locale locale = new Locale("en", "US");
+
+		int result = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(2016, 6, locale);
+
+		assertThat(result).isEqualTo(3);
 	}
 
 }

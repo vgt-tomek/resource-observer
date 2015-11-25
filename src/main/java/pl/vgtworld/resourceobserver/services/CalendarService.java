@@ -30,11 +30,16 @@ public class CalendarService {
 		Map<Integer, List<Scan>> versionsByDay = groupVersionsByDayOfMonth(versions);
 		int days = getNumberOfDaysInMonth(year, month);
 
-		int currentlyProcessedWeekDay = 0;
 		MonthVersionsTable monthContainer = new MonthVersionsTable();
 		monthContainer.setWeekDayNames(CalendarUtil.getWeekDayNames(Locale.getDefault()));
 		monthContainer.setWeeks(new ArrayList<>());
 		WeekVersionsRow weekContainer = new WeekVersionsRow();
+		weekContainer.setDays(new ArrayList<>());
+		int emptyDays = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(year, month, Locale.getDefault());
+		for (int i = 1; i <= emptyDays; ++i) {
+			weekContainer.getDays().add(new DayVersionsCell());
+		}
+		int currentlyProcessedWeekDay = emptyDays;
 		for (int i = 1; i <= days; ++i) {
 			++currentlyProcessedWeekDay;
 			if (currentlyProcessedWeekDay == 1) {
