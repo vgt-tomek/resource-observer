@@ -1,5 +1,6 @@
 package pl.vgtworld.resourceobserver.services;
 
+import pl.vgtworld.resourceobserver.core.DateRangeUtil;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.core.colortool.ColorGenerator;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
@@ -24,6 +25,11 @@ public class StatsService {
 
 	public List<Scan> findNewestScans(int resourceId, Integer count) {
 		return asScansDto(scanService.findNewestScans(resourceId, count), findResourceVersions(resourceId));
+	}
+
+	public List<Scan> findResourceVersionsInMonth(int resourceId, int year, int month) {
+		DateRangeUtil.DateRange range = DateRangeUtil.createRangeForMonth(year, month);
+		return asScansDto(scanService.findSnapshotsFromTimeFrameForResource(resourceId, range.getStartDate(), range.getEndDate()), findResourceVersions(resourceId));
 	}
 
 	private List<Scan> asScansDto(List<pl.vgtworld.resourceobserver.storage.scan.Scan> scans, List<ResourceVersion> versions) {

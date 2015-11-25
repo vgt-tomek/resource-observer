@@ -25,3 +25,13 @@ div.form-submit-buttons {
 .glyphicon-red {
     color:red;
 }
+
+.table-version-calendar th {
+    width:14%;
+    background-color: #eeeeee;
+}
+.table-version-calendar ul.versions {
+    list-style:none;
+    margin:0;
+    padding:0;
+}

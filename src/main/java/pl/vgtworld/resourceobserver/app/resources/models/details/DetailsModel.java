@@ -2,6 +2,7 @@ package pl.vgtworld.resourceobserver.app.resources.models.details;
 
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
+import pl.vgtworld.resourceobserver.services.dto.calendars.MonthVersionsTable;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class DetailsModel {
 	private Long scanCount;
 
 	private List<ResourceVersion> versions;
+
+	private MonthVersionsTable versionsMonthly;
 
 	public Resource getResource() {
 		return resource;
@@ -46,6 +49,14 @@ public class DetailsModel {
 
 	public void setVersions(List<ResourceVersion> versions) {
 		this.versions = versions;
+	}
+
+	public MonthVersionsTable getVersionsMonthly() {
+		return versionsMonthly;
+	}
+
+	public void setVersionsMonthly(MonthVersionsTable versionsMonthly) {
+		this.versionsMonthly = versionsMonthly;
 	}
 
 }

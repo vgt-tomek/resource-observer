@@ -39,6 +39,14 @@ public class ScanDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public List<Scan> findSnapshotsFromTimeFrameForResource(int resourceId, Date startTime, Date endTime) {
+		Query query = em.createNamedQuery(Scan.QUERY_FIND_SNAPSHOTS_FROM_TIME_FRAME_FOR_RESOURCE);
+		query.setParameter("RESOURCE_ID", resourceId);
+		query.setParameter("START_TIME", startTime);
+		query.setParameter("END_TIME", endTime);
+		return PersistenceUtil.getResultList(query);
+	}
+
 	public Long getCountForResource(int resourceId) {
 		Query query = em.createNamedQuery(Scan.QUERY_GET_COUNT_FOR_RESOURCE);
 		query.setParameter(RESOURCE_ID_QUERY_PARAM, resourceId);

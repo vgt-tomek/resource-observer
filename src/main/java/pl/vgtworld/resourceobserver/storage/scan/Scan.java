@@ -28,6 +28,10 @@ import java.util.Date;
 	  @NamedQuery(
 			name = Scan.QUERY_FIND_VERSIONS_FOR_RESOURCE,
 			query = "SELECT new pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion(s.snapshotId, MIN(s.createdAt), MAX(s.createdAt), COUNT(s)) FROM Scan s WHERE s.resourceId = :RESOURCE_ID AND s.snapshotId IS NOT NULL GROUP BY s.snapshotId ORDER BY MIN(s.createdAt)"
+	  ),
+	  @NamedQuery(
+			name = Scan.QUERY_FIND_SNAPSHOTS_FROM_TIME_FRAME_FOR_RESOURCE,
+			query = "SELECT s FROM Scan s WHERE s.resourceId = :RESOURCE_ID AND s.createdAt BETWEEN :START_TIME AND :END_TIME"
 	  )
 })
 public class Scan {
@@ -39,6 +43,8 @@ public class Scan {
 	static final String QUERY_GET_UNIQUE_SNAPSHOT_COUNT_FOR_RESOURCE = "Scan.getUniqueCountForResource";
 
 	static final String QUERY_FIND_VERSIONS_FOR_RESOURCE = "Scan.findVersionsForResource";
+
+	static final String QUERY_FIND_SNAPSHOTS_FROM_TIME_FRAME_FOR_RESOURCE = "Scan.findSnapshotsInMonth";
 
 	static final String NATIVE_QUERY_LAST_VERSION_CHANGE = "SELECT created_at FROM scans WHERE resource_id = ?1 AND snapshot_id IS NOT NULL AND id > ( SELECT id FROM scans WHERE resource_id = ?1 and snapshot_id <> (SELECT snapshot_id FROM scans WHERE resource_id = ?1 AND snapshot_id IS NOT NULL ORDER BY id DESC LIMIT 1) ORDER BY id DESC LIMIT 1) ORDER BY id ASC LIMIT 1";
 

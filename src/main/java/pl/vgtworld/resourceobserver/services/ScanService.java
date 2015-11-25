@@ -27,6 +27,10 @@ public class ScanService {
 		return scanDao.findNewestForResource(resourceId, count);
 	}
 
+	public List<Scan> findSnapshotsFromTimeFrameForResource(int resourceId, Date startTime, Date endTime) {
+		return scanDao.findSnapshotsFromTimeFrameForResource(resourceId, startTime, endTime);
+	}
+
 	public List<ResourceVersion> findVersionsForResource(int resourceId) {
 		return scanDao.findVersionsForResource(resourceId);
 	}
