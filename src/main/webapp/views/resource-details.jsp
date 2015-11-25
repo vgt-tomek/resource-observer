@@ -12,33 +12,7 @@
         <div class="container-fluid col-lg-6 col-md-12">
             <h2>Versions monthly</h2>
 
-            <table class="table table-bordered table-version-calendar">
-                <c:forEach items="${model.versionsMonthly.weeks}" var="week">
-                    <tr>
-                        <c:forEach items="${week.days}" var="day">
-                            <th class="text-right">${day.dayOfMonth}</th>
-                        </c:forEach>
-                    </tr>
-                    <tr>
-                        <c:forEach items="${week.days}" var="day">
-                            <td>
-                                <c:if test="${empty day.versions}">
-                                    &nbsp;
-                                </c:if>
-                                <c:if test="${not empty day.versions}">
-                                    <ul class="versions">
-                                        <c:forEach items="${day.versions}" var="version">
-                                            <li>
-                                                <vgt:VersionLink version="${version}"/>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </c:if>
-                            </td>
-                        </c:forEach>
-                    </tr>
-                </c:forEach>
-            </table>
+            <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
         </div>
         <div class="container-fluid col-lg-4 col-md-8 col-sm-12">
             <h2>Versions</h2>
