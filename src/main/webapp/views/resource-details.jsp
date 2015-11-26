@@ -8,13 +8,13 @@
 
     <h1>${model.resource.name}</h1>
 
-    <div class="row">
-        <div class="container-fluid col-lg-6 col-md-12">
+    <div class="container-fluid">
+        <div class="col-lg-6 col-md-12">
             <h2>Versions monthly</h2>
 
             <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
         </div>
-        <div class="container-fluid col-lg-4 col-md-8 col-sm-12">
+        <div class="col-lg-4 col-md-8">
             <h2>Versions</h2>
             <table class="table table-striped">
                 <tr>
@@ -40,7 +40,7 @@
                 </div>
             </c:if>
         </div>
-        <div class="container-fluid col-lg-2 col-md-4 col-sm-12">
+        <div class="col-lg-2 col-md-4">
             <h2>
                 Latest scans
                 <c:if test="${!empty model.newestScans}">
