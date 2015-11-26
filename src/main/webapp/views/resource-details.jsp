@@ -13,7 +13,7 @@
             <h2>Versions monthly</h2>
 
             <div class="text-center calendar-navigation">
-                <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/resource-calendar/${model.resource.id}${model.calendarLinkSuffix}">Go to calendar view</a>
+                <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/resource-calendar/${model.resource.id}${model.calendarLinkSuffix}">Calendar view</a>
             </div>
 
             <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
