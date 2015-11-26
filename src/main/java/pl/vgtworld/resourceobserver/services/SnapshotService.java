@@ -24,7 +24,6 @@ public class SnapshotService {
 		snapshot = new Snapshot();
 		snapshot.setHash(hash);
 		snapshot.setResource(resource);
-		snapshot.setBinary(true); //TODO Do actual check if file is text or binary.
 		return snapshotDao.create(snapshot);
 	}
 

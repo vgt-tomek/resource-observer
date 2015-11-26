@@ -29,9 +29,6 @@ public class Snapshot {
 	@Column(name = "hash", length = 64)
 	private String hash;
 
-	@Column(name = "binary_file")
-	private Boolean binary;
-
 	@Lob
 	@Column(name = "resource")
 	private byte[] resource;
@@ -50,14 +47,6 @@ public class Snapshot {
 
 	public void setHash(String hash) {
 		this.hash = hash;
-	}
-
-	public Boolean getBinary() {
-		return binary;
-	}
-
-	public void setBinary(Boolean binary) {
-		this.binary = binary;
 	}
 
 	public byte[] getResource() {

@@ -37,3 +37,5 @@ CREATE TABLE scans (
   CONSTRAINT FOREIGN KEY scans_snapshot_id_fkey (snapshot_id) REFERENCES snapshots(id)
     ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+ALTER TABLE snapshots DROP COLUMN binary_file;
