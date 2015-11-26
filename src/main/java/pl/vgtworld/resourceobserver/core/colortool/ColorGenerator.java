@@ -17,6 +17,7 @@ public class ColorGenerator {
 
 		for (int i = 1; i <= count; ++i) {
 			float hue = (float) i / count;
+			//TODO When generating bigger collection, introduce saturation & brightness variation.
 			colors.add(new Color(Color.HSBtoRGB(hue, 1, 1)));
 		}
 
