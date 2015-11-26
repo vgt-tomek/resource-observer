@@ -13,6 +13,8 @@ public class MonthModel {
 
 	private String nextMonthLinkSuffix;
 
+	private String pageHeadTitle;
+
 	public Resource getResource() {
 		return resource;
 	}
@@ -43,6 +45,14 @@ public class MonthModel {
 
 	public void setNextMonthLinkSuffix(String nextMonthLinkSuffix) {
 		this.nextMonthLinkSuffix = nextMonthLinkSuffix;
+	}
+
+	public String getPageHeadTitle() {
+		return pageHeadTitle;
+	}
+
+	public void setPageHeadTitle(String pageHeadTitle) {
+		this.pageHeadTitle = pageHeadTitle;
 	}
 
 }

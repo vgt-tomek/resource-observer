@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -45,6 +46,8 @@ public class CalendarController {
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		calendar.set(Calendar.YEAR, year);
 		calendar.set(Calendar.MONTH, month - 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy");
+		model.setPageHeadTitle(resource.getName() + " - " + sdf.format(calendar.getTime()));
 		calendar.add(Calendar.MONTH, -1);
 		model.setPreviousMonthLinkSuffix("/" + resourceId + "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1));
 		calendar.add(Calendar.MONTH, 2);

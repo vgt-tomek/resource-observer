@@ -4,7 +4,7 @@
 
 <t:basic title="Resource observer">
 
-    <h1>${model.resource.name}</h1>
+    <h1>${model.pageHeadTitle}</h1>
 
     <div class="container-fluid">
         <div class="text-center calendar-navigation">
