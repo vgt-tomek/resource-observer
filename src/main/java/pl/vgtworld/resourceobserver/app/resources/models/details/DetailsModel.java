@@ -19,6 +19,8 @@ public class DetailsModel {
 
 	private MonthVersionsTable versionsMonthly;
 
+	private String calendarLinkSuffix;
+
 	public Resource getResource() {
 		return resource;
 	}
@@ -57,6 +59,14 @@ public class DetailsModel {
 
 	public void setVersionsMonthly(MonthVersionsTable versionsMonthly) {
 		this.versionsMonthly = versionsMonthly;
+	}
+
+	public String getCalendarLinkSuffix() {
+		return calendarLinkSuffix;
+	}
+
+	public void setCalendarLinkSuffix(String calendarLinkSuffix) {
+		this.calendarLinkSuffix = calendarLinkSuffix;
 	}
 
 }

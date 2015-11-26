@@ -7,8 +7,13 @@
     <h1>${model.resource.name}</h1>
 
     <div class="container-fluid">
+        <div class="text-center calendar-navigation">
+            <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/resource-details/${model.resource.id}">Back to resource details</a>
+        </div>
+
         <div class="col-lg-9 col-md-12">
             <h2>Calendar</h2>
+
             <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
         </div>
     </div>

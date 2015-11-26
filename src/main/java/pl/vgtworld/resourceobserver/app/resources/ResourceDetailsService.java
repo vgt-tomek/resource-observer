@@ -43,6 +43,7 @@ public class ResourceDetailsService {
 		model.setScanCount(scanService.getScanCountForResource(resourceId));
 		model.setVersions(versions);
 		model.setVersionsMonthly(getVersionsForCurrentMonth(resourceId));
+		model.setCalendarLinkSuffix(createLinkForCurrentMonth());
 		return model;
 	}
 
@@ -53,6 +54,11 @@ public class ResourceDetailsService {
 
 	private int getNewestScanCountRoundedUp(List<ResourceVersion> versions) {
 		return (versions.size() + 10) / 10 * 10;
+	}
+
+	private String createLinkForCurrentMonth() {
+		Calendar calendar = new GregorianCalendar();
+		return "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1);
 	}
 
 }

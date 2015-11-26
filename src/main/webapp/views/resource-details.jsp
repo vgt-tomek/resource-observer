@@ -12,6 +12,10 @@
         <div class="col-lg-6 col-md-12">
             <h2>Versions monthly</h2>
 
+            <div class="text-center calendar-navigation">
+                <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/resource-calendar/${model.resource.id}${model.calendarLinkSuffix}">Go to calendar view</a>
+            </div>
+
             <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
         </div>
         <div class="col-lg-4 col-md-8">
