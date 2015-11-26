@@ -1,6 +1,8 @@
 package pl.vgtworld.resourceobserver.app.calendar;
 
 import pl.vgtworld.resourceobserver.app.calendar.models.month.MonthModel;
+import pl.vgtworld.resourceobserver.services.CalendarService;
+import pl.vgtworld.resourceobserver.services.StatsService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import javax.ejb.EJB;
@@ -13,10 +15,14 @@ import java.util.GregorianCalendar;
 public class MonthCalendarService {
 
 	@EJB
-	private pl.vgtworld.resourceobserver.services.CalendarService calendarService;
+	private CalendarService calendarService;
+
+	@EJB
+	private StatsService statsService;
 
 	public MonthModel getModelForResourceCalendarMonthPage(Resource resource, int year, int month) {
 		MonthModel model = new MonthModel();
+		model.setScanLog(statsService.findResourceVersionsInMonth(resource.getId(), year, month));
 		model.setResource(resource);
 		model.setVersionsMonthly(calendarService.findResourceVersionsInMonth(resource.getId(), year, month));
 		Calendar calendar = new GregorianCalendar();

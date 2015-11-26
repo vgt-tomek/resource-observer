@@ -18,6 +18,12 @@
 
             <t:versionsMonth versionsMonthly="${model.versionsMonthly}"/>
         </div>
+
+        <div class="col-lg-3 col-md-12">
+            <h2>Log</h2>
+
+            <t:scanHistory scans="${model.scanLog}"/>
+        </div>
     </div>
 
 </t:basic>

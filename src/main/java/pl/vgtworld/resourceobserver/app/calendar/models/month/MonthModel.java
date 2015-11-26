@@ -1,13 +1,18 @@
 package pl.vgtworld.resourceobserver.app.calendar.models.month;
 
+import pl.vgtworld.resourceobserver.services.dto.Scan;
 import pl.vgtworld.resourceobserver.services.dto.calendars.MonthVersionsTable;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
+
+import java.util.List;
 
 public class MonthModel {
 
 	private Resource resource;
 
 	private MonthVersionsTable versionsMonthly;
+
+	private List<Scan> scanLog;
 
 	private String previousMonthLinkSuffix;
 
@@ -29,6 +34,14 @@ public class MonthModel {
 
 	public void setVersionsMonthly(MonthVersionsTable versionsMonthly) {
 		this.versionsMonthly = versionsMonthly;
+	}
+
+	public List<Scan> getScanLog() {
+		return scanLog;
+	}
+
+	public void setScanLog(List<Scan> scanLog) {
+		this.scanLog = scanLog;
 	}
 
 	public String getPreviousMonthLinkSuffix() {
