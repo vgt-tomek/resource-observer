@@ -13,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Path("/resource-calendar")
 public class CalendarController {
@@ -39,6 +41,14 @@ public class CalendarController {
 		MonthModel model = new MonthModel();
 		model.setResource(resource);
 		model.setVersionsMonthly(calendarService.findResourceVersionsInMonth(resourceId, year, month));
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		calendar.add(Calendar.MONTH, -1);
+		model.setPreviousMonthLinkSuffix("/" + resourceId + "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1));
+		calendar.add(Calendar.MONTH, 2);
+		model.setNextMonthLinkSuffix("/" + resourceId + "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1));
 
 		return Response.ok(new View("/views/resource-calendar-month.jsp", model)).build();
 	}

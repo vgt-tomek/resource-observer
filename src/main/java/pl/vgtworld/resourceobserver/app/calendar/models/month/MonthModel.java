@@ -9,6 +9,10 @@ public class MonthModel {
 
 	private MonthVersionsTable versionsMonthly;
 
+	private String previousMonthLinkSuffix;
+
+	private String nextMonthLinkSuffix;
+
 	public Resource getResource() {
 		return resource;
 	}
@@ -23,6 +27,22 @@ public class MonthModel {
 
 	public void setVersionsMonthly(MonthVersionsTable versionsMonthly) {
 		this.versionsMonthly = versionsMonthly;
+	}
+
+	public String getPreviousMonthLinkSuffix() {
+		return previousMonthLinkSuffix;
+	}
+
+	public void setPreviousMonthLinkSuffix(String previousMonthLinkSuffix) {
+		this.previousMonthLinkSuffix = previousMonthLinkSuffix;
+	}
+
+	public String getNextMonthLinkSuffix() {
+		return nextMonthLinkSuffix;
+	}
+
+	public void setNextMonthLinkSuffix(String nextMonthLinkSuffix) {
+		this.nextMonthLinkSuffix = nextMonthLinkSuffix;
 	}
 
 }
