@@ -2,7 +2,6 @@ package pl.vgtworld.resourceobserver.app.calendar;
 
 import com.googlecode.htmleasy.View;
 import pl.vgtworld.resourceobserver.app.calendar.models.month.MonthModel;
-import pl.vgtworld.resourceobserver.services.CalendarService;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
@@ -13,9 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Path("/resource-calendar")
 public class CalendarController {
@@ -24,7 +20,7 @@ public class CalendarController {
 	private ResourceService resourceService;
 
 	@EJB
-	private CalendarService calendarService;
+	private MonthCalendarService monthCalendarService;
 
 	@GET
 	@Path("/{id}/{year}/{month}")
@@ -39,19 +35,7 @@ public class CalendarController {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		MonthModel model = new MonthModel();
-		model.setResource(resource);
-		model.setVersionsMonthly(calendarService.findResourceVersionsInMonth(resourceId, year, month));
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month - 1);
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy");
-		model.setPageHeadTitle(resource.getName() + " - " + sdf.format(calendar.getTime()));
-		calendar.add(Calendar.MONTH, -1);
-		model.setPreviousMonthLinkSuffix("/" + resourceId + "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1));
-		calendar.add(Calendar.MONTH, 2);
-		model.setNextMonthLinkSuffix("/" + resourceId + "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1));
+		MonthModel model = monthCalendarService.getModelForResourceCalendarMonthPage(resource, year, month);
 
 		return Response.ok(new View("/views/resource-calendar-month.jsp", model)).build();
 	}
