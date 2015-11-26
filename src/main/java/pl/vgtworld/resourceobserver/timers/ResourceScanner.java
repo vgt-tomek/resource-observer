@@ -20,6 +20,8 @@ public class ResourceScanner {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceScanner.class);
 
+	private static final int SCAN_INTERVAL_TOLERANCE = 15;
+
 	@EJB
 	private ResourceService resourceService;
 
@@ -43,7 +45,7 @@ public class ResourceScanner {
 
 			Scan lastScan = scanService.findLastScanForResource(resource.getId());
 			LOGGER.debug("Last scan for resource: {}", lastScan);
-			if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval())) {
+			if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
 				LOGGER.debug("Last scan not old enough. Skipping");
 				continue;
 			}
@@ -64,11 +66,10 @@ public class ResourceScanner {
 
 	}
 
-	//TODO Add tolerance option to prevent 1 minute delay in execution.
-	private boolean isOlderThan(Scan scan, int checkInterval) {
+	private boolean isOlderThan(Scan scan, int checkInterval, int secondsTolerance) {
 		long currentTime = new Date().getTime();
 		long scanTime = scan.getCreatedAt().getTime();
-		return scanTime + checkInterval * 60 * 1000 <= currentTime;
+		return scanTime + checkInterval * 60 * 1000 <= currentTime + secondsTolerance * 1000;
 	}
 
 	private byte[] downloadResource(Resource resource) {
