@@ -23,6 +23,14 @@ public class ScanService {
 		return results.get(0);
 	}
 
+	public Scan findLastSuccessfulScanForResource(int resourceId) {
+		List<Scan> results = scanDao.findNewestSuccessfulForResource(resourceId, 1);
+		if (results.isEmpty()) {
+			return null;
+		}
+		return results.get(0);
+	}
+
 	public List<Scan> findNewestScans(int resourceId, Integer count) {
 		return scanDao.findNewestForResource(resourceId, count);
 	}

@@ -39,3 +39,8 @@ div.form-submit-buttons {
 .calendar-navigation {
     padding-bottom:5px;
 }
+
+.last-seen-warning {
+    color:red;
+    font-weight:bold;
+}

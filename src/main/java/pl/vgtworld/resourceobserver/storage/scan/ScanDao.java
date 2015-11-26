@@ -33,6 +33,15 @@ public class ScanDao {
 		return PersistenceUtil.getResultList(query);
 	}
 
+	public List<Scan> findNewestSuccessfulForResource(int resourceId, Integer count) {
+		Query query = em.createNamedQuery(Scan.QUERY_FIND_NEWEST_SUCCESSFUL_FOR_RESOURCE);
+		query.setParameter(RESOURCE_ID_QUERY_PARAM, resourceId);
+		if (count != null) {
+			query.setMaxResults(count);
+		}
+		return PersistenceUtil.getResultList(query);
+	}
+
 	public List<ResourceVersion> findVersionsForResource(int resourceId) {
 		Query query = em.createNamedQuery(Scan.QUERY_FIND_VERSIONS_FOR_RESOURCE);
 		query.setParameter(RESOURCE_ID_QUERY_PARAM, resourceId);

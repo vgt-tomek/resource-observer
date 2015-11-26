@@ -16,6 +16,8 @@ public class ResourceModel {
 
 	private Date lastCheckAt;
 
+	private Date lastSeenAt;
+
 	private Long distinctSnapshotsCount;
 
 	private Date lastVersionChange;
@@ -66,6 +68,14 @@ public class ResourceModel {
 
 	public void setLastCheckAt(Date lastCheckAt) {
 		this.lastCheckAt = lastCheckAt;
+	}
+
+	public Date getLastSeenAt() {
+		return lastSeenAt;
+	}
+
+	public void setLastSeenAt(Date lastSeenAt) {
+		this.lastSeenAt = lastSeenAt;
 	}
 
 	public Long getDistinctSnapshotsCount() {

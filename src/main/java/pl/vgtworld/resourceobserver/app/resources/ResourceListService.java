@@ -34,9 +34,18 @@ public class ResourceListService {
 		dto.setActive(entity.getActive());
 		dto.setCheckInterval(entity.getCheckInterval());
 		dto.setLastCheckAt(getLastCheckForResource(entity.getId()));
+		dto.setLastSeenAt(getLastSeenForResource(entity.getId()));
 		dto.setDistinctSnapshotsCount(scanService.getUniqueSnapshotsCountForResource(entity.getId()));
 		dto.setLastVersionChange(scanService.getLastVersionChange(entity.getId()));
 		return dto;
+	}
+
+	private Date getLastSeenForResource(int resourceId) {
+		Scan lastSeenScan = scanService.findLastSuccessfulScanForResource(resourceId);
+		if (lastSeenScan == null) {
+			return null;
+		}
+		return lastSeenScan.getCreatedAt();
 	}
 
 	private Date getLastCheckForResource(int resourceId) {
