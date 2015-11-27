@@ -48,7 +48,8 @@ public class CalendarService {
 			}
 			DayVersionsCell dayCell = new DayVersionsCell();
 			dayCell.setDayOfMonth(i);
-			dayCell.setVersions(getUniqueVersionList(versionsByDay.get(i)));
+			CalendarUniqueVersionsHelper uniqueVersionsHelper = new CalendarUniqueVersionsHelper();
+			dayCell.setVersions(uniqueVersionsHelper.extractUniqueVersionListBySnapshotId(versionsByDay.get(i)));
 			weekContainer.getDays().add(dayCell);
 			if (currentlyProcessedWeekDay == 7 || i == days) {
 				monthContainer.getWeeks().add(weekContainer);
@@ -59,20 +60,6 @@ public class CalendarService {
 			weekContainer.getDays().add(new DayVersionsCell());
 		}
 		return monthContainer;
-	}
-
-	private List<ResourceVersion> getUniqueVersionList(List<Scan> scans) {
-		if (scans == null) {
-			return new ArrayList<>();
-		}
-		Map<Integer, ResourceVersion> versionsById = new LinkedHashMap<>();
-		for (Scan scan : scans) {
-			if (scan.getVersion() == null) {
-				continue;
-			}
-			versionsById.put(scan.getVersion().getSnapshotId(), scan.getVersion());
-		}
-		return versionsById.keySet().stream().map(versionsById::get).collect(Collectors.toList());
 	}
 
 	private int getNumberOfDaysInMonth(int year, int month) {
