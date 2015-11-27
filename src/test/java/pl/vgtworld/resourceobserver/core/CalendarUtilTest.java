@@ -85,4 +85,25 @@ public class CalendarUtilTest {
 		assertThat(result).isEqualTo(3);
 	}
 
+	@Test
+	public void shouldReturnNumberOfDaysInJanuary() {
+		int days = CalendarUtil.getNumberOfDaysInMonth(2015, 1);
+
+		assertThat(days).isEqualTo(31);
+	}
+
+	@Test
+	public void shouldReturnNumberOfDaysInJune() {
+		int days = CalendarUtil.getNumberOfDaysInMonth(1983, 6);
+
+		assertThat(days).isEqualTo(30);
+	}
+
+	@Test
+	public void shouldReturnNumberOfDaysInDecember() {
+		int days = CalendarUtil.getNumberOfDaysInMonth(2031, 12);
+
+		assertThat(days).isEqualTo(31);
+	}
+
 }

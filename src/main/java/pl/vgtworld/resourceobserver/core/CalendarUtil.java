@@ -43,4 +43,12 @@ public final class CalendarUtil {
 		}
 		return result;
 	}
+
+	public static int getNumberOfDaysInMonth(int year, int month) {
+		Calendar instance = Calendar.getInstance();
+		instance.set(Calendar.YEAR, year);
+		instance.set(Calendar.MONTH, month - 1);
+		return instance.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+
 }

@@ -1,7 +1,6 @@
 package pl.vgtworld.resourceobserver.services;
 
 import pl.vgtworld.resourceobserver.core.CalendarUtil;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
 import pl.vgtworld.resourceobserver.services.dto.calendars.DayVersionsCell;
 import pl.vgtworld.resourceobserver.services.dto.calendars.MonthVersionsTable;
@@ -13,11 +12,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Stateless
 public class CalendarService {
@@ -28,7 +25,7 @@ public class CalendarService {
 	public MonthVersionsTable findResourceVersionsInMonth(int resourceId, int year, int month) {
 		List<Scan> versions = statsService.findResourceVersionsInMonth(resourceId, year, month);
 		Map<Integer, List<Scan>> versionsByDay = groupVersionsByDayOfMonth(versions);
-		int days = getNumberOfDaysInMonth(year, month);
+		int days = CalendarUtil.getNumberOfDaysInMonth(year, month);
 
 		MonthVersionsTable monthContainer = new MonthVersionsTable();
 		monthContainer.setWeekDayNames(CalendarUtil.getWeekDayNames(Locale.getDefault()));
@@ -60,13 +57,6 @@ public class CalendarService {
 			weekContainer.getDays().add(new DayVersionsCell());
 		}
 		return monthContainer;
-	}
-
-	private int getNumberOfDaysInMonth(int year, int month) {
-		Calendar cal = new GregorianCalendar();
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, month - 1);
-		return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
 	private Map<Integer, List<Scan>> groupVersionsByDayOfMonth(List<Scan> versions) {
