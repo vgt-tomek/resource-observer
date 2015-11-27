@@ -27,13 +27,16 @@ public class CalendarService {
 
 		MonthVersionsTable monthContainer = new MonthVersionsTable();
 		monthContainer.setWeekDayNames(CalendarUtil.getWeekDayNames(Locale.getDefault()));
-		monthContainer.setWeeks(new ArrayList<>());
+		monthContainer.setWeeks(createWeeks(versionsByDay, year, month, days));
+		return monthContainer;
+	}
+
+	private List<WeekVersionsRow> createWeeks(Map<Integer, List<Scan>> versionsByDay, int year, int month, int days) {
+		List<WeekVersionsRow> weeks = new ArrayList<>();
 		WeekVersionsRow weekContainer = new WeekVersionsRow();
 		weekContainer.setDays(new ArrayList<>());
 		int emptyDays = CalendarUtil.getEmptyDaysInFirstWeekOfMonth(year, month, Locale.getDefault());
-		for (int i = 1; i <= emptyDays; ++i) {
-			weekContainer.getDays().add(new DayVersionsCell());
-		}
+		addEmptyDaysToWeek(weekContainer, emptyDays);
 		int currentlyProcessedWeekDay = emptyDays;
 		for (int i = 1; i <= days; ++i) {
 			++currentlyProcessedWeekDay;
@@ -47,14 +50,17 @@ public class CalendarService {
 			dayCell.setVersions(uniqueVersionsHelper.extractUniqueVersionListBySnapshotId(versionsByDay.get(i)));
 			weekContainer.getDays().add(dayCell);
 			if (currentlyProcessedWeekDay == 7 || i == days) {
-				monthContainer.getWeeks().add(weekContainer);
+				weeks.add(weekContainer);
 				currentlyProcessedWeekDay = 0;
 			}
 		}
-		while (weekContainer.getDays().size() < 7) {
-			weekContainer.getDays().add(new DayVersionsCell());
-		}
-		return monthContainer;
+		addEmptyDaysToWeek(weekContainer, 7 - weekContainer.getDays().size());
+		return weeks;
 	}
 
+	private void addEmptyDaysToWeek(WeekVersionsRow week, int count) {
+		for (int i = 0; i < count; ++i) {
+			week.getDays().add(new DayVersionsCell());
+		}
+	}
 }
