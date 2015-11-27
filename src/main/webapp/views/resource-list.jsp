@@ -6,13 +6,12 @@
 <t:basic title="Resource observer">
     <h1>Resources</h1>
 
-    <div class="container-fluid col-lg-10 col-lg-offset-1 col-md-12">
+    <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12">
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th class="text-center">Check interval</th>
                 <th class="text-right">Last check</th>
-                <th class="text-right">Last seen</th>
                 <th class="text-right">Last version change</th>
                 <th class="text-center">Version count</th>
                 <th class="text-center">Active</th>
@@ -23,9 +22,11 @@
                 <tr>
                     <td>${resource.name}</td>
                     <td class="text-center">${resource.checkInterval}</td>
-                    <td class="text-right"><vgt:TimeAgo since="${resource.lastCheckAt}"/></td>
-                    <td class="text-right <c:if test="${resource.lastCheckAt ne resource.lastSeenAt}">last-seen-warning</c:if>">
-                        <vgt:TimeAgo since="${resource.lastSeenAt}"/>
+                    <td class="text-right">
+                        <vgt:TimeAgo since="${resource.lastCheckAt}"/>
+                        <c:if test="${resource.lastCheckAt ne resource.lastSeenAt}">
+                            <div class="last-seen-warning">Last seen: <vgt:TimeAgo since="${resource.lastSeenAt}"/></div>
+                        </c:if>
                     </td>
                     <td class="text-right"><vgt:TimeAgo since="${resource.lastVersionChange}"/></td>
                     <td class="text-center">${resource.distinctSnapshotsCount}</td>
