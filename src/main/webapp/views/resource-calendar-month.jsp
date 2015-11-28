@@ -22,7 +22,9 @@
         <div class="col-lg-3 col-md-12">
             <h2>Log</h2>
 
-            <t:scanHistory scans="${model.scanLog}"/>
+            <div class="container-scrollable">
+                <t:scanHistory scans="${model.scanLog}"/>
+            </div>
         </div>
     </div>
 

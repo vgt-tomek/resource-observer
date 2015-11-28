@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <script src="${pageContext.request.contextPath}/jquery/1.9.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/container-scrollable.js"></script>
     <title>${title}</title>
 </head>
 <body>

@@ -20,24 +20,26 @@
         </div>
         <div class="col-lg-4 col-md-8">
             <h2>Versions</h2>
-            <table class="table table-striped">
-                <tr>
-                    <th class="text-center">Version</th>
-                    <th class="text-center">First occurrence</th>
-                    <th class="text-center">Last occurrence</th>
-                    <th class="text-center">Total</th>
-                </tr>
-                <c:forEach items="${model.versions}" var="version">
+            <div class="container-scrollable">
+                <table class="table table-striped">
                     <tr>
-                        <td>
-                            <vgt:VersionLink version="${version}"/>
-                        </td>
-                        <td class="text-center"><vgt:SimpleDatetime date="${version.firstOccurrence}"/></td>
-                        <td class="text-center"><vgt:SimpleDatetime date="${version.lastOccurrence}"/></td>
-                        <td class="text-right">${version.count}</td>
+                        <th class="text-center">Version</th>
+                        <th class="text-center">First occurrence</th>
+                        <th class="text-center">Last occurrence</th>
+                        <th class="text-center">Total</th>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach items="${model.versions}" var="version">
+                        <tr>
+                            <td>
+                                <vgt:VersionLink version="${version}"/>
+                            </td>
+                            <td class="text-center"><vgt:SimpleDatetime date="${version.firstOccurrence}"/></td>
+                            <td class="text-center"><vgt:SimpleDatetime date="${version.lastOccurrence}"/></td>
+                            <td class="text-right">${version.count}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
             <c:if test="${empty model.versions}">
                 <div class="alert alert-info">
                     No versions available.
@@ -53,7 +55,9 @@
                     </a>
                 </c:if>
             </h2>
-            <t:scanHistory scans="${model.newestScans}"/>
+            <div class="container-scrollable">
+                <t:scanHistory scans="${model.newestScans}"/>
+            </div>
         </div>
     </div>
 
