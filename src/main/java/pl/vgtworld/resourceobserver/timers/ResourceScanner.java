@@ -2,6 +2,7 @@ package pl.vgtworld.resourceobserver.timers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.vgtworld.resourceobserver.services.NotificationService;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.ScanService;
 import pl.vgtworld.resourceobserver.services.SnapshotService;
@@ -31,6 +32,9 @@ public class ResourceScanner {
 	@EJB
 	private SnapshotService snapshotService;
 
+	@EJB
+	private NotificationService notificationService;
+
 	@Schedule(second = "0", minute = "*", hour = "*", persistent = false)
 	public void scanResources() {
 		LOGGER.debug("Scan resources event triggered");
@@ -44,6 +48,7 @@ public class ResourceScanner {
 			}
 
 			Scan lastScan = scanService.findLastScanForResource(resource.getId());
+			Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
 			LOGGER.debug("Last scan for resource: {}", lastScan);
 			if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
 				LOGGER.debug("Last scan not old enough. Skipping");
@@ -61,7 +66,19 @@ public class ResourceScanner {
 
 			int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
 			scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
-			//TODO Save e-mail action if necessary.
+
+			if (lastSuccessfulScan != null && snapshotId != lastSuccessfulScan.getSnapshotId()) {
+				LOGGER.info(
+					  "Version change detected. Create notification with version change {} => {}",
+					  lastSuccessfulScan.getSnapshotId(),
+					  snapshotId
+				);
+				notificationService.createNewNotificationForResourceChange(
+					  resource.getId(),
+					  lastSuccessfulScan.getSnapshotId(),
+					  snapshotId
+				);
+			}
 		}
 
 	}
