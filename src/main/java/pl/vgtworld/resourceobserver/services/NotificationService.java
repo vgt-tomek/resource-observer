@@ -6,6 +6,7 @@ import pl.vgtworld.resourceobserver.storage.notification.resourcechange.Notifica
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 public class NotificationService {
@@ -20,6 +21,10 @@ public class NotificationService {
 		entity.setSnapshotNewId(snapshotNewId);
 		entity.setCreatedAt(new Date());
 		notificationResourceChangeDao.createNotification(entity);
+	}
+
+	public List<NotificationResourceChange> findNotSentNotificationsForResourceChange() {
+		return notificationResourceChangeDao.findNotSent();
 	}
 
 }

@@ -5,12 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
 @Table(name = "notifications_resource_change")
+@NamedQueries({
+	  @NamedQuery(
+			name = NotificationResourceChange.QUERY_FIND_NOT_SENT,
+			query = "SELECT n FROM NotificationResourceChange n WHERE n.sentAt IS NULL ORDER BY n.id ASC"
+	  )
+})
 public class NotificationResourceChange {
+
+	static final String QUERY_FIND_NOT_SENT = "NotificationResourceChange.findNotSent";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
