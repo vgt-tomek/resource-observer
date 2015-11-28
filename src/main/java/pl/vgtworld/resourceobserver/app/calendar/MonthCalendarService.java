@@ -29,7 +29,7 @@ public class MonthCalendarService {
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		calendar.set(Calendar.YEAR, year);
 		calendar.set(Calendar.MONTH, month - 1);
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
 		model.setPageHeadTitle(resource.getName() + " - " + sdf.format(calendar.getTime()));
 		calendar.add(Calendar.MONTH, -1);
 		model.setPreviousMonthLinkSuffix(getUrlSuffix(resource.getId(), calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1));
