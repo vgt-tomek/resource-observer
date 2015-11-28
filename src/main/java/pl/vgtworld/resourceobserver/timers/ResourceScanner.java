@@ -41,46 +41,58 @@ public class ResourceScanner {
 
 		List<Resource> resources = resourceService.findAll();
 		for (Resource resource : resources) {
-			LOGGER.debug("Checking resource for scanning: {}", resource.getName());
-			if (!resource.getActive()) {
-				LOGGER.debug("Resource inactive. Skipping");
-				continue;
-			}
-
-			Scan lastScan = scanService.findLastScanForResource(resource.getId());
-			Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
-			LOGGER.debug("Last scan for resource: {}", lastScan);
-			if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
-				LOGGER.debug("Last scan not old enough. Skipping");
-				continue;
-			}
-			LOGGER.info("Executing new scan for resource: {}.", resource.getName());
-			byte[] resourceContext = downloadResource(resource);
-			if (resourceContext == null) {
-				LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
-				scanService.saveScanFailureForResource(resource.getId());
-				continue;
-			}
-			String resourceHash = HashUtil.generateHash(resourceContext);
-			LOGGER.info("Resource downloaded and marked with hash: {}", resourceHash);
-
-			int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
-			scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
-
-			if (lastSuccessfulScan != null && snapshotId != lastSuccessfulScan.getSnapshotId()) {
-				LOGGER.info(
-					  "Version change detected. Create notification with version change {} => {}",
-					  lastSuccessfulScan.getSnapshotId(),
-					  snapshotId
-				);
-				notificationService.createNewNotificationForResourceChange(
-					  resource.getId(),
-					  lastSuccessfulScan.getSnapshotId(),
-					  snapshotId
-				);
-			}
+			processResource(resource);
 		}
 
+	}
+
+	private void processResource(Resource resource) {
+		LOGGER.debug("Checking resource for scanning: {}", resource.getName());
+		if (!resource.getActive()) {
+			LOGGER.debug("Resource inactive. Skipping");
+			return;
+		}
+
+		Scan lastScan = scanService.findLastScanForResource(resource.getId());
+		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
+		LOGGER.debug("Last scan for resource: {}", lastScan);
+		if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
+			LOGGER.debug("Last scan not old enough. Skipping");
+			return;
+		}
+		LOGGER.info("Executing new scan for resource: {}.", resource.getName());
+		byte[] resourceContext = downloadResource(resource);
+		if (resourceContext == null) {
+			LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
+			scanService.saveScanFailureForResource(resource.getId());
+			return;
+		}
+		String resourceHash = HashUtil.generateHash(resourceContext);
+		LOGGER.info("Resource downloaded and marked with hash: {}", resourceHash);
+
+		int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
+		scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
+
+		if (isResourceChanged(lastSuccessfulScan, snapshotId)) {
+			createNotification(resource, lastSuccessfulScan.getSnapshotId(), snapshotId);
+		}
+	}
+
+	private void createNotification(Resource resource, int snapshotOldId, int snapshotNewId) {
+		LOGGER.info(
+			  "Version change detected. Create notification with version change {} => {}",
+			  snapshotOldId,
+			  snapshotNewId
+		);
+		notificationService.createNewNotificationForResourceChange(
+			  resource.getId(),
+			  snapshotOldId,
+			  snapshotNewId
+		);
+	}
+
+	private boolean isResourceChanged(Scan lastSuccessfulScan, int snapshotId) {
+		return lastSuccessfulScan != null && snapshotId != lastSuccessfulScan.getSnapshotId();
 	}
 
 	private boolean isOlderThan(Scan scan, int checkInterval, int secondsTolerance) {
