@@ -1,0 +1,3 @@
+Content change detected for resource: {resource-name}
+
+Change detected at: {change-timestamp}

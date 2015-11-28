@@ -27,4 +27,8 @@ public class NotificationService {
 		return notificationResourceChangeDao.findNotSent();
 	}
 
+	public void markNotificationAsSent(int notificationId) {
+		notificationResourceChangeDao.updateSentAt(notificationId, new Date());
+	}
+
 }

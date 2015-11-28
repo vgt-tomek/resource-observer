@@ -16,11 +16,17 @@ import java.util.Date;
 	  @NamedQuery(
 			name = NotificationResourceChange.QUERY_FIND_NOT_SENT,
 			query = "SELECT n FROM NotificationResourceChange n WHERE n.sentAt IS NULL ORDER BY n.id ASC"
+	  ),
+	  @NamedQuery(
+			name = NotificationResourceChange.QUERY_UPDATE_SENT_AT,
+			query = "UPDATE NotificationResourceChange n SET n.sentAt = :SENT_AT WHERE n.id = :ID"
 	  )
 })
 public class NotificationResourceChange {
 
 	static final String QUERY_FIND_NOT_SENT = "NotificationResourceChange.findNotSent";
+
+	static final String QUERY_UPDATE_SENT_AT = "NotificationResourceChange.markAsSent";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
