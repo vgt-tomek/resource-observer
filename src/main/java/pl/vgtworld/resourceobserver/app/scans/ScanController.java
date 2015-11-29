@@ -2,7 +2,7 @@ package pl.vgtworld.resourceobserver.app.scans;
 
 import com.googlecode.htmleasy.View;
 import pl.vgtworld.resourceobserver.app.scans.models.resourcehistory.ResourceHistoryModel;
-import pl.vgtworld.resourceobserver.services.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.StatsService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 

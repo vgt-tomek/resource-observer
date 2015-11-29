@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.services;
+package pl.vgtworld.resourceobserver.services.storage;
 
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;

@@ -4,6 +4,7 @@ import pl.vgtworld.resourceobserver.core.DateRangeUtil;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.core.colortool.ColorGenerator;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
+import pl.vgtworld.resourceobserver.services.storage.ScanService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

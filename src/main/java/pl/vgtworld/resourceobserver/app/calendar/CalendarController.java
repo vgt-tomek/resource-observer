@@ -2,7 +2,7 @@ package pl.vgtworld.resourceobserver.app.calendar;
 
 import com.googlecode.htmleasy.View;
 import pl.vgtworld.resourceobserver.app.calendar.models.month.MonthModel;
-import pl.vgtworld.resourceobserver.services.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import javax.ejb.EJB;

@@ -1,8 +1,8 @@
 package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.list.ResourceModel;
-import pl.vgtworld.resourceobserver.services.ResourceService;
-import pl.vgtworld.resourceobserver.services.ScanService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ScanService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 

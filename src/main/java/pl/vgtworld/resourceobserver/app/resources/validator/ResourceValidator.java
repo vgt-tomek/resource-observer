@@ -3,7 +3,7 @@ package pl.vgtworld.resourceobserver.app.resources.validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
-import pl.vgtworld.resourceobserver.services.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
 import javax.mail.internet.AddressException;

@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.vgtworld.resourceobserver.app.resources.ResourceBuilder;
 import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
-import pl.vgtworld.resourceobserver.services.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyInt;

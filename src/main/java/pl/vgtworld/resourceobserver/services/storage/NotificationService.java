@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.services;
+package pl.vgtworld.resourceobserver.services.storage;
 
 import pl.vgtworld.resourceobserver.storage.notification.resourcechange.NotificationResourceChange;
 import pl.vgtworld.resourceobserver.storage.notification.resourcechange.NotificationResourceChangeDao;

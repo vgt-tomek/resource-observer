@@ -2,10 +2,10 @@ package pl.vgtworld.resourceobserver.timers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.vgtworld.resourceobserver.services.NotificationService;
-import pl.vgtworld.resourceobserver.services.ResourceService;
-import pl.vgtworld.resourceobserver.services.ScanService;
-import pl.vgtworld.resourceobserver.services.SnapshotService;
+import pl.vgtworld.resourceobserver.services.storage.NotificationService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceService;
+import pl.vgtworld.resourceobserver.services.storage.ScanService;
+import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 

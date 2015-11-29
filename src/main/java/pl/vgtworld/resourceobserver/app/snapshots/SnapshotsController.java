@@ -2,7 +2,7 @@ package pl.vgtworld.resourceobserver.app.snapshots;
 
 import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
 import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
-import pl.vgtworld.resourceobserver.services.SnapshotService;
+import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 
 import javax.ejb.EJB;

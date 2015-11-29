@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.services;
+package pl.vgtworld.resourceobserver.services.storage;
 
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 import pl.vgtworld.resourceobserver.storage.snapshot.SnapshotDao;

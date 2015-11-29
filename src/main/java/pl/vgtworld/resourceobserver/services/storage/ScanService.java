@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.services;
+package pl.vgtworld.resourceobserver.services.storage;
 
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 import pl.vgtworld.resourceobserver.storage.scan.ScanDao;
