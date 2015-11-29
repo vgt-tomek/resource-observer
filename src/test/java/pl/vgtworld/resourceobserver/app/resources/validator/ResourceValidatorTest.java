@@ -209,6 +209,21 @@ public class ResourceValidatorTest {
 	}
 
 	@Test
+	public void shouldNotAcceptMalformedUrl() {
+		ResourceValidator validator = new ResourceValidator(resourceService);
+		ResourceFormDto resource = new ResourceBuilder()
+			  .createValidResource()
+			  .withUrl("Lorem ipsum")
+			  .build();
+
+		ValidationResult result = validator.validateNew(resource);
+
+		assertThat(result).isNotNull();
+		assertThat(result.getErrors()).hasSize(1);
+		assertThat(result.getErrors()).contains(ResourceValidator.Errors.URL_MALFORMED);
+	}
+
+	@Test
 	public void shouldAcceptMissingActiveAsFalse() {
 		ResourceValidator validator = new ResourceValidator(resourceService);
 		ResourceFormDto resource = new ResourceBuilder()

@@ -4,6 +4,8 @@ import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class ResourceValidator {
 		static final String URL_REQUIRED = "Url is required.";
 		static final String URL_TOO_LONG = "Url maximum length is " + URL_MAX_LENGTH + " characters.";
 		static final String URL_NOT_AVAILABLE = "Url already exist.";
+		static final String URL_MALFORMED = "Url invalid format used.";
 		static final String CHECK_INTERVAL_REQUIRED = "Check interval is required.";
 		static final String CHECK_INTERVAL_NAN = "Check interval must be an integer.";
 		static final String CHECK_INTERVAL_GT_ZERO = "Check interval must be greater than zero.";
@@ -83,6 +86,12 @@ public class ResourceValidator {
 		}
 		if (resourceService.isUrlAlreadyTaken(url, resourceId)) {
 			errors.add(Errors.URL_NOT_AVAILABLE);
+			return null;
+		}
+		try {
+			new URL(url);
+		} catch (MalformedURLException e) {
+			errors.add(Errors.URL_MALFORMED);
 			return null;
 		}
 		return url;
