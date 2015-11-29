@@ -3,6 +3,8 @@ package pl.vgtworld.resourceobserver.timers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.core.PropertyNames;
+import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
+import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.services.MailService;
 import pl.vgtworld.resourceobserver.services.NotificationService;
 import pl.vgtworld.resourceobserver.services.ResourceService;
@@ -84,17 +86,20 @@ public class NotificationSender {
 		}
 		Snapshot oldSnapshot = snapshotService.findById(notification.getSnapshotOldId());
 		Snapshot newSnapshot = snapshotService.findById(notification.getSnapshotNewId());
+		ContentTypeMapper contentTypeMapper = new ContentTypeMapper();
+		ResourceContentType oldSnapshotContentType = contentTypeMapper.findContentTypeForResource(oldSnapshot.getResource());
+		ResourceContentType newSnapshotContentType = contentTypeMapper.findContentTypeForResource(newSnapshot.getResource());
 		String body = createEmailBody(notification, resource);
 		List<String> recipients = resourceObservers.stream().map(ResourceObserver::getEmail).collect(Collectors.toList());
 		List<Attachment> attachments = new ArrayList<>();
 		attachments.add(new Attachment(
-			  "resource-old",
-			  "application/octet-stream",
+			  oldSnapshotContentType.createFilename("old-snapshot"),
+			  oldSnapshotContentType.getName(),
 			  oldSnapshot.getResource()
 		));
 		attachments.add(new Attachment(
-			  "resource-new",
-			  "application/octet-stream",
+			  newSnapshotContentType.createFilename("new-snapshot"),
+			  newSnapshotContentType.getName(),
 			  newSnapshot.getResource()
 		));
 		return new Mail(
