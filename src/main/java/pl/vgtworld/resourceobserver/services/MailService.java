@@ -53,7 +53,11 @@ public class MailService {
 		for (Attachment attachment : attachments) {
 			BodyPart attachmentBodyPart = new MimeBodyPart();
 			attachmentBodyPart.setFileName(attachment.getFilename());
-			attachmentBodyPart.setContent(attachment.getAttachment(), attachment.getMediaType());
+			if (attachment.getMediaType().equals("text/plain")) {
+				attachmentBodyPart.setContent(new String(attachment.getAttachment()), attachment.getMediaType());
+			} else {
+				attachmentBodyPart.setContent(attachment.getAttachment(), attachment.getMediaType());
+			}
 			multipart.addBodyPart(attachmentBodyPart);
 		}
 		return multipart;
