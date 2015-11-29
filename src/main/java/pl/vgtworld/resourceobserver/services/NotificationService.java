@@ -2,6 +2,7 @@ package pl.vgtworld.resourceobserver.services;
 
 import pl.vgtworld.resourceobserver.storage.notification.resourcechange.NotificationResourceChange;
 import pl.vgtworld.resourceobserver.storage.notification.resourcechange.NotificationResourceChangeDao;
+import pl.vgtworld.resourceobserver.storage.notification.resourcechange.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,6 +20,7 @@ public class NotificationService {
 		entity.setResourceId(resourceId);
 		entity.setSnapshotOldId(snapshotOldId);
 		entity.setSnapshotNewId(snapshotNewId);
+		entity.setStatus(Status.NEW);
 		entity.setCreatedAt(new Date());
 		notificationResourceChangeDao.createNotification(entity);
 	}
@@ -28,7 +30,11 @@ public class NotificationService {
 	}
 
 	public void markNotificationAsSent(int notificationId) {
-		notificationResourceChangeDao.updateSentAt(notificationId, new Date());
+		notificationResourceChangeDao.updateStatus(notificationId, Status.SENT);
+	}
+
+	public void markNotificationAsNoRecipients(int notificationId) {
+		notificationResourceChangeDao.updateStatus(notificationId, Status.NO_RECIPIENTS);
 	}
 
 }

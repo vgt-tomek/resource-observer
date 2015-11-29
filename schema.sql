@@ -45,10 +45,12 @@ CREATE TABLE notifications_resource_change (
   resource_id INT UNSIGNED NOT NULL,
   snapshot_old_id INT UNSIGNED NOT NULL,
   snapshot_new_id INT UNSIGNED NOT NULL,
+  status ENUM('NEW', 'NO_RECIPIENTS', 'SENT') NOT NULL DEFAULT 'NEW',
   created_at DATETIME NOT NULL,
-  sent_at DATETIME,
+  processed_at DATETIME,
+  INDEX(status),
   INDEX(created_at),
-  INDEX(sent_at),
+  INDEX(processed_at),
   CONSTRAINT FOREIGN KEY notifications_resource_changed_resource_id_fkey (resource_id) REFERENCES resources(id)
     ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY notifications_resource_changed_snapshot_old_id_fkey (snapshot_old_id) REFERENCES snapshots(id)

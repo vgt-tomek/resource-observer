@@ -2,6 +2,8 @@ package pl.vgtworld.resourceobserver.storage.notification.resourcechange;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,18 +17,12 @@ import java.util.Date;
 @NamedQueries({
 	  @NamedQuery(
 			name = NotificationResourceChange.QUERY_FIND_NOT_SENT,
-			query = "SELECT n FROM NotificationResourceChange n WHERE n.sentAt IS NULL ORDER BY n.id ASC"
-	  ),
-	  @NamedQuery(
-			name = NotificationResourceChange.QUERY_UPDATE_SENT_AT,
-			query = "UPDATE NotificationResourceChange n SET n.sentAt = :SENT_AT WHERE n.id = :ID"
+			query = "SELECT n FROM NotificationResourceChange n WHERE n.status = 'NEW' ORDER BY n.id ASC"
 	  )
 })
 public class NotificationResourceChange {
 
 	static final String QUERY_FIND_NOT_SENT = "NotificationResourceChange.findNotSent";
-
-	static final String QUERY_UPDATE_SENT_AT = "NotificationResourceChange.markAsSent";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +37,15 @@ public class NotificationResourceChange {
 	@Column(name = "snapshot_new_id", nullable = false)
 	private Integer snapshotNewId;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private Status status;
+
 	@Column(name = "created_at", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "sent_at", nullable = true)
-	private Date sentAt;
+	@Column(name = "processed_at", nullable = true)
+	private Date processedAt;
 
 	public Integer getId() {
 		return id;
@@ -79,6 +79,14 @@ public class NotificationResourceChange {
 		this.snapshotNewId = snapshotNewId;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -87,12 +95,12 @@ public class NotificationResourceChange {
 		this.createdAt = createdAt;
 	}
 
-	public Date getSentAt() {
-		return sentAt;
+	public Date getProcessedAt() {
+		return processedAt;
 	}
 
-	public void setSentAt(Date sentAt) {
-		this.sentAt = sentAt;
+	public void setProcessedAt(Date processedAt) {
+		this.processedAt = processedAt;
 	}
 
 }

@@ -79,7 +79,7 @@ public class NotificationSender {
 		List<ResourceObserver> resourceObservers = resourceService.findAllObserversForResource(notification.getResourceId());
 		if (resourceObservers.isEmpty()) {
 			LOGGER.debug("No observers found for resource.");
-			notificationService.markNotificationAsSent(notification.getId());
+			notificationService.markNotificationAsNoRecipients(notification.getId());
 			return null;
 		}
 		Snapshot oldSnapshot = snapshotService.findById(notification.getSnapshotOldId());
