@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.app.resources;
+package pl.vgtworld.resourceobserver.app.resources.dto;
 
 import javax.ws.rs.FormParam;
 

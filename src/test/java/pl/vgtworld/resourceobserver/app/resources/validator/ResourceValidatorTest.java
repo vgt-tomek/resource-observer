@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.vgtworld.resourceobserver.app.resources.ResourceBuilder;
-import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
+import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 
 import static org.assertj.core.api.Assertions.assertThat;

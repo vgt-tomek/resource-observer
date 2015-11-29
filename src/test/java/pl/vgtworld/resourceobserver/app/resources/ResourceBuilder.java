@@ -1,5 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources;
 
+import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
+
 public class ResourceBuilder {
 
 	private String name;

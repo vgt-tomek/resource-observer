@@ -1,6 +1,6 @@
 package pl.vgtworld.resourceobserver.app.resources.models.form;
 
-import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
+import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
 
 import java.util.List;
 

@@ -4,6 +4,7 @@ import com.googlecode.htmleasy.View;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
 import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
 import pl.vgtworld.resourceobserver.app.resources.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
