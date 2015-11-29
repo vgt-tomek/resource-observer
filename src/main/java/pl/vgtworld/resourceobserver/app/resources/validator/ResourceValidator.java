@@ -4,6 +4,8 @@ import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class ResourceValidator {
 		static final String CHECK_INTERVAL_NAN = "Check interval must be an integer.";
 		static final String CHECK_INTERVAL_GT_ZERO = "Check interval must be greater than zero.";
 		static final String OBSERVER_DUPLICATE = "At least one e-mail address is duplicated.";
+		static final String OBSERVER_INVALID_ADDRESS = "%s is not valid address.";
 	}
 
 	private static final int NAME_MAX_LENGTH = 100;
@@ -131,6 +134,12 @@ public class ResourceValidator {
 			}
 			if (result.contains(observer)) {
 				errors.add(Errors.OBSERVER_DUPLICATE);
+				return new ArrayList<>();
+			}
+			try {
+				new InternetAddress(observer);
+			} catch (AddressException e) {
+				errors.add(String.format(Errors.OBSERVER_INVALID_ADDRESS, observer));
 				return new ArrayList<>();
 			}
 			result.add(observer);

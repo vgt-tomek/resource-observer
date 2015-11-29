@@ -488,4 +488,20 @@ public class ResourceValidatorTest {
 		assertThat(result.getErrors()).contains(ResourceValidator.Errors.OBSERVER_DUPLICATE);
 	}
 
+	@Test
+	public void shouldValidateFormatOfObserverAddress() {
+		ResourceValidator validator = new ResourceValidator(resourceService);
+		String invalidObserver = "Lorem ipsum";
+		ResourceFormDto resource = new ResourceBuilder()
+			  .createValidResource()
+			  .withObservers(invalidObserver)
+			  .build();
+
+		ValidationResult result = validator.validateNew(resource);
+
+		assertThat(result).isNotNull();
+		assertThat(result.getErrors()).hasSize(1);
+		assertThat(result.getErrors()).contains(String.format(ResourceValidator.Errors.OBSERVER_INVALID_ADDRESS, invalidObserver));
+	}
+
 }
