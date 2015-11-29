@@ -1,5 +1,7 @@
 package pl.vgtworld.resourceobserver.app.snapshots;
 
+import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
+import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.services.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 
@@ -28,7 +30,14 @@ public class SnapshotsController {
 			return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
 		}
 
-		return Response.ok(snapshot.getResource()).build();
+		ContentTypeMapper contentTypeMapper = new ContentTypeMapper();
+		ResourceContentType contentType = contentTypeMapper.findContentTypeForResource(snapshot.getResource());
+
+		return Response
+			  .ok(snapshot.getResource())
+			  .header("Content-Type", contentType.getName())
+			  .header("Content-disposition", "filename=\"" + contentType.createFilename("snapshot-" + snapshot.getId()) + "\"")
+			  .build();
 	}
 
 }

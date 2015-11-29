@@ -26,4 +26,8 @@ public class ResourceContentType {
 		return extension;
 	}
 
+	public String createFilename(String baseName) {
+		return baseName + (extension != null ? "." + extension : "");
+	}
+
 }
