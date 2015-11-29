@@ -5,8 +5,8 @@ Summary
 ---
 JEE web application for monitoring resource changes
 
-<img src="http://vgtworld.pl/img_www/github/resource-observer/resource-observer-1.png" />
-<img src="http://vgtworld.pl/img_www/github/resource-observer/resource-observer-2.png" />
+<img src="http://vgtworld.pl/img_www/github/resource-observer/screenshot-1.png" />
+<img src="http://vgtworld.pl/img_www/github/resource-observer/screenshot-2.png" />
 
 Installation
 ---
