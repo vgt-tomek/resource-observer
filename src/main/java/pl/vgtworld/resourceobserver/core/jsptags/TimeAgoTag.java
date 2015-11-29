@@ -57,11 +57,7 @@ public class TimeAgoTag extends SimpleTagSupport {
 	}
 
 	private String calculateDifference(Date startDate, long difference, long step, String stepName) {
-		int count = 0;
-		while (difference > step) {
-			difference -= step;
-			++count;
-		}
+		long count = difference / step;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return buildHtml("" + count + " " + stepName + (count > 1 ? "s" : ""), sdf.format(startDate));
 	}

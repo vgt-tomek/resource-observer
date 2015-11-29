@@ -25,6 +25,9 @@ public class DateRangeUtil {
 		}
 	}
 
+	private DateRangeUtil() {
+	}
+
 	public static DateRange createRangeForMonth(int year, int month) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(Calendar.YEAR, year);

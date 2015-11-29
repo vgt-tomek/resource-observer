@@ -8,7 +8,7 @@ final class HashUtil {
 	private HashUtil() {
 	}
 
-	static String generateHash(byte[] input) throws HashException {
+	static String generateHash(byte[] input) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.reset();

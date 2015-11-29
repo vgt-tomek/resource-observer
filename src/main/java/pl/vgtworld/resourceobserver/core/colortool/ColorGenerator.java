@@ -6,8 +6,6 @@ import java.util.List;
 
 public class ColorGenerator {
 
-	private static final double HUE_RANGE = 360.0;
-
 	public List<Color> generateColors(int count) {
 		List<Color> colors = new ArrayList<>();
 

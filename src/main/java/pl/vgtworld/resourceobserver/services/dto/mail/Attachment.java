@@ -1,19 +1,17 @@
 package pl.vgtworld.resourceobserver.services.dto.mail;
 
-import java.util.Arrays;
-
 public class Attachment {
 
 	private String filename;
 
 	private String mediaType;
 
-	private byte[] attachment;
+	private byte[] attachmentBody;
 
-	public Attachment(String filename, String mediaType, byte[] attachment) {
+	public Attachment(String filename, String mediaType, byte[] attachmentBody) {
 		this.filename = filename;
 		this.mediaType = mediaType;
-		this.attachment = attachment;
+		this.attachmentBody = attachmentBody;
 	}
 
 	public String getFilename() {
@@ -24,8 +22,8 @@ public class Attachment {
 		return mediaType;
 	}
 
-	public byte[] getAttachment() {
-		return attachment;
+	public byte[] getAttachmentBody() {
+		return attachmentBody;
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class Attachment {
 		return "Attachment{" +
 			  "filename='" + filename + '\'' +
 			  ", mediaType='" + mediaType + '\'' +
-			  ", size=" + attachment.length +
+			  ", size=" + attachmentBody.length +
 			  '}';
 	}
 }

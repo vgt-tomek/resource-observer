@@ -1,5 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.resources.ResourceFormDto;
 import pl.vgtworld.resourceobserver.services.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceValidator {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceValidator.class);
 
 	static class Errors {
 		static final String NAME_REQUIRED = "Name is required.";
@@ -26,6 +30,9 @@ public class ResourceValidator {
 		static final String CHECK_INTERVAL_GT_ZERO = "Check interval must be greater than zero.";
 		static final String OBSERVER_DUPLICATE = "At least one e-mail address is duplicated.";
 		static final String OBSERVER_INVALID_ADDRESS = "%s is not valid address.";
+
+		private Errors() {
+		}
 	}
 
 	private static final int NAME_MAX_LENGTH = 100;
@@ -139,6 +146,7 @@ public class ResourceValidator {
 			try {
 				new InternetAddress(observer);
 			} catch (AddressException e) {
+				LOGGER.trace(e.getMessage(), e);
 				errors.add(String.format(Errors.OBSERVER_INVALID_ADDRESS, observer));
 				return new ArrayList<>();
 			}
