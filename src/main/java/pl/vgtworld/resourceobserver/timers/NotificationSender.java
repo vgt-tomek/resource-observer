@@ -80,7 +80,7 @@ public class NotificationSender {
 		Resource resource = resourceService.findById(notification.getResourceId());
 		List<ResourceObserver> resourceObservers = resourceService.findAllObserversForResource(notification.getResourceId());
 		if (resourceObservers.isEmpty()) {
-			LOGGER.debug("No observers found for resource.");
+			LOGGER.info("No observers found for resource.");
 			notificationService.markNotificationAsNoRecipients(notification.getId());
 			return null;
 		}
