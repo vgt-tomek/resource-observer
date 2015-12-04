@@ -114,7 +114,10 @@ public class NotificationSender {
 	private String createEmailBody(NotificationResourceChange notification, Resource resource) {
 		String bodyTemplate = loadEmailBodyTemplate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		return bodyTemplate.replace("{resource-name}", resource.getName()).replace("{change-timestamp}", sdf.format(notification.getCreatedAt()));
+		return bodyTemplate
+			  .replace("{resource-name}", resource.getName())
+			  .replace("{change-timestamp}", sdf.format(notification.getCreatedAt()))
+			  .replace("{resource-details-url}", createResourceDetailsUrl(resource));
 	}
 
 	private String loadEmailBodyTemplate() {
@@ -127,4 +130,15 @@ public class NotificationSender {
 		scanner.close();
 		return template.toString();
 	}
+
+	private String createResourceDetailsUrl(Resource resource) {
+		String baseUrl = System.getProperty(PropertyNames.BASE_URL, null);
+		if (baseUrl == null) {
+			LOGGER.warn("Base url not found. Unable to add link to resource details.");
+			LOGGER.debug("Property {} is missing.", PropertyNames.BASE_URL);
+			return "";
+		}
+		return baseUrl + "/app/resource-details/" + resource.getId();
+	}
+
 }
