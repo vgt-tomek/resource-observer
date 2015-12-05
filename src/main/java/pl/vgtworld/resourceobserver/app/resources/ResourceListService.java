@@ -1,6 +1,7 @@
 package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.list.ResourceModel;
+import pl.vgtworld.resourceobserver.core.CalendarUtil;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.ScanService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class ResourceListService {
+
+	private static final int DEFAULT_NEW_FLAG_HOUR_THRESHOLD = 24;
 
 	@EJB
 	private ResourceService resourceService;
@@ -36,7 +39,9 @@ public class ResourceListService {
 		dto.setLastCheckAt(getLastCheckForResource(entity.getId()));
 		dto.setLastSeenAt(getLastSeenForResource(entity.getId()));
 		dto.setDistinctSnapshotsCount(scanService.getUniqueSnapshotsCountForResource(entity.getId()));
-		dto.setLastVersionChange(scanService.getLastVersionChange(entity.getId()));
+		Date lastVersionChange = scanService.getLastVersionChange(entity.getId());
+		dto.setLastVersionChange(lastVersionChange);
+		dto.setNewFlag(calculateIsNewFlagForResource(lastVersionChange));
 		return dto;
 	}
 
@@ -56,4 +61,7 @@ public class ResourceListService {
 		return lastScan.getCreatedAt();
 	}
 
+	private boolean calculateIsNewFlagForResource(Date lastVersionChange) {
+		return lastVersionChange != null && CalendarUtil.isDateRangeWithinHourThreshold(lastVersionChange, new Date(), DEFAULT_NEW_FLAG_HOUR_THRESHOLD);
+	}
 }

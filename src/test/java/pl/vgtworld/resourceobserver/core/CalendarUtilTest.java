@@ -2,6 +2,8 @@ package pl.vgtworld.resourceobserver.core;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -104,6 +106,45 @@ public class CalendarUtilTest {
 		int days = CalendarUtil.getNumberOfDaysInMonth(2031, 12);
 
 		assertThat(days).isEqualTo(31);
+	}
+
+	@Test
+	public void shouldMarkCloseDatesWithin24HourThreshold() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 5, 10, 0);
+		Date firstDate = cal.getTime();
+		cal.set(2015, Calendar.DECEMBER, 5, 12, 0);
+		Date secondDate = cal.getTime();
+
+		boolean result = CalendarUtil.isDateRangeWithinHourThreshold(firstDate, secondDate, 24);
+
+		assertThat(result).isTrue();
+	}
+
+	@Test
+	public void shouldMarkTwoDatesWithin24HourThreshold() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 4, 12, 0);
+		Date firstDate = cal.getTime();
+		cal.set(2015, Calendar.DECEMBER, 5, 12, 0);
+		Date secondDate = cal.getTime();
+
+		boolean result = CalendarUtil.isDateRangeWithinHourThreshold(firstDate, secondDate, 24);
+
+		assertThat(result).isTrue();
+	}
+
+	@Test
+	public void shouldNotMarkTwo25HourApartDatesWithin24HourThreshold() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 4, 11, 0);
+		Date firstDate = cal.getTime();
+		cal.set(2015, Calendar.DECEMBER, 5, 12, 0);
+		Date secondDate = cal.getTime();
+
+		boolean result = CalendarUtil.isDateRangeWithinHourThreshold(firstDate, secondDate, 24);
+
+		assertThat(result).isFalse();
 	}
 
 }

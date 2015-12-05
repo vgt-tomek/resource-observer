@@ -28,7 +28,12 @@
                             <div class="last-seen-warning">Last seen: <vgt:TimeAgo since="${resource.lastSeenAt}"/></div>
                         </c:if>
                     </td>
-                    <td class="text-right"><vgt:TimeAgo since="${resource.lastVersionChange}"/></td>
+                    <td class="text-right">
+                        <c:if test="${resource.newFlag eq true}">
+                            <span class="badge">NEW</span>
+                        </c:if>
+                        <vgt:TimeAgo since="${resource.lastVersionChange}"/>
+                    </td>
                     <td class="text-center">${resource.distinctSnapshotsCount}</td>
                     <td class="text-center">
                         <c:choose>

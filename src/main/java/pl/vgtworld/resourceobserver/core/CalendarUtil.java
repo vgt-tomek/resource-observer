@@ -3,6 +3,7 @@ package pl.vgtworld.resourceobserver.core;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +12,8 @@ public final class CalendarUtil {
 	private static final int DAYS_IN_WEEK = 7;
 
 	private static final String SHORT_WEEK_NAME_PATTERN = "EEE";
+
+	private static final int MILLISECONDS_IN_HOUR = 1000 * 60 * 60;
 
 	private CalendarUtil() {
 	}
@@ -51,4 +54,9 @@ public final class CalendarUtil {
 		return instance.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
+	public static boolean isDateRangeWithinHourThreshold(Date firstDate, Date secondDate, int hourThreshold) {
+		long firstTimestamp = firstDate.getTime();
+		long secondTimestamp = secondDate.getTime();
+		return (firstTimestamp + hourThreshold * MILLISECONDS_IN_HOUR >= secondTimestamp);
+	}
 }

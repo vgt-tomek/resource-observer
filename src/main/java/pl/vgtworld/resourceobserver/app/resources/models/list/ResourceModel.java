@@ -22,6 +22,8 @@ public class ResourceModel {
 
 	private Date lastVersionChange;
 
+	private boolean newFlag;
+
 	public int getId() {
 		return id;
 	}
@@ -92,6 +94,14 @@ public class ResourceModel {
 
 	public void setLastVersionChange(Date lastVersionChange) {
 		this.lastVersionChange = lastVersionChange;
+	}
+
+	public boolean isNewFlag() {
+		return newFlag;
+	}
+
+	public void setNewFlag(boolean newFlag) {
+		this.newFlag = newFlag;
 	}
 
 }
