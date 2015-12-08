@@ -40,11 +40,12 @@ public class ManualScanTriggerController {
 
 		if (validationResult.isValid()) {
 			LOGGER.debug("Validation successful. Creating new trigger.");
-			//TODO Save trigger in database.
+			triggerService.createNewScanTrigger(validationResult.getResourceId());
 			return Response.seeOther(new URI("/")).build();
 		} else {
 			LOGGER.debug("Validation failed. Errors: {}", validationResult.getErrors());
 			return Response.ok(new View("/views/scan-trigger-error.jsp")).build();
 		}
 	}
+
 }
