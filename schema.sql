@@ -58,3 +58,16 @@ CREATE TABLE notifications_resource_change (
   CONSTRAINT FOREIGN KEY notifications_resource_changed_snapshot_new_id_fkey (snapshot_new_id) REFERENCES snapshots(id)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE resource_scan_triggers (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  resource_id INT UNSIGNED NOT NULL,
+  status ENUM('NEW', 'PROCESSED') NOT NULL DEFAULT 'NEW',
+  created_at DATETIME NOT NULL,
+  processed_at DATETIME,
+  INDEX(status),
+  INDEX(created_at),
+  INDEX(processed_at),
+  CONSTRAINT FOREIGN KEY resource_manual_scans_resource_id_fkey (resource_id) REFERENCES resources(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
