@@ -28,7 +28,7 @@ public class ResourceScanTrigger {
 	@Column(name = "created_at", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "procesed_at", nullable = true)
+	@Column(name = "processed_at", nullable = true)
 	private Date processedAt;
 
 	public Integer getId() {
