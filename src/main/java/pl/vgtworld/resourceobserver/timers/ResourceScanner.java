@@ -57,6 +57,7 @@ public class ResourceScanner {
 		if (!shouldScanResource(resource)) {
 			return;
 		}
+		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
 		LOGGER.info("Executing new scan for resource: {}.", resource.getName());
 		byte[] resourceContext = downloadResource(resource);
 		if (resourceContext == null) {
@@ -70,7 +71,6 @@ public class ResourceScanner {
 		int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
 		scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
 
-		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
 		if (isResourceChanged(lastSuccessfulScan, snapshotId)) {
 			createNotification(resource, lastSuccessfulScan.getSnapshotId(), snapshotId);
 		}
