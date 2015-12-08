@@ -57,6 +57,6 @@ public final class CalendarUtil {
 	public static boolean isDateRangeWithinHourThreshold(Date firstDate, Date secondDate, int hourThreshold) {
 		long firstTimestamp = firstDate.getTime();
 		long secondTimestamp = secondDate.getTime();
-		return (firstTimestamp + hourThreshold * MILLISECONDS_IN_HOUR >= secondTimestamp);
+		return firstTimestamp + hourThreshold * MILLISECONDS_IN_HOUR >= secondTimestamp;
 	}
 }

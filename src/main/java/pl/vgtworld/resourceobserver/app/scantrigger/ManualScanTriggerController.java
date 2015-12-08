@@ -32,7 +32,7 @@ public class ManualScanTriggerController {
 
 	@POST
 	@Produces(MediaType.TEXT_HTML)
-	public Response AddManualScanTriggerForResource(@Form ScanTriggerFormDto form) throws URISyntaxException {
+	public Response addManualScanTriggerForResource(@Form ScanTriggerFormDto form) throws URISyntaxException {
 		LOGGER.debug("Create manual scan trigger executed: {}", form);
 
 		ScanTriggerValidator validator = new ScanTriggerValidator(resourceService);
