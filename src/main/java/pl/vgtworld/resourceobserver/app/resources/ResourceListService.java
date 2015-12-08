@@ -2,6 +2,7 @@ package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.list.ResourceModel;
 import pl.vgtworld.resourceobserver.core.CalendarUtil;
+import pl.vgtworld.resourceobserver.services.storage.ResourceScanTriggerService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.ScanService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
@@ -24,6 +25,9 @@ public class ResourceListService {
 	@EJB
 	private ScanService scanService;
 
+	@EJB
+	private ResourceScanTriggerService triggerService;
+
 	public List<ResourceModel> getResourceList() {
 		List<Resource> entities = resourceService.findAll();
 		return entities.stream().map(this::asResourceModel).collect(Collectors.toList());
@@ -42,6 +46,7 @@ public class ResourceListService {
 		Date lastVersionChange = scanService.getLastVersionChange(entity.getId());
 		dto.setLastVersionChange(lastVersionChange);
 		dto.setNewFlag(calculateIsNewFlagForResource(lastVersionChange));
+		dto.setScanTriggerPending(triggerService.findActiveScanTriggerForResource(entity.getId()) != null);
 		return dto;
 	}
 

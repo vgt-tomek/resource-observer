@@ -27,4 +27,14 @@ public final class PersistenceUtil {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <E> E getFirstResult(Query query) {
+		query.setMaxResults(1);
+		List<E> results = query.getResultList();
+		if (results.isEmpty()) {
+			return null;
+		}
+		return results.get(0);
+	}
+
 }

@@ -1,8 +1,11 @@
 package pl.vgtworld.resourceobserver.storage.resourcescantrigger;
 
+import pl.vgtworld.resourceobserver.core.PersistenceUtil;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Stateless
 public class ResourceScanTriggerDao {
@@ -12,6 +15,12 @@ public class ResourceScanTriggerDao {
 
 	public void create(ResourceScanTrigger scanTrigger) {
 		em.persist(scanTrigger);
+	}
+
+	public ResourceScanTrigger findActiveScanTriggerForResource(int resourceId) {
+		Query query = em.createNamedQuery(ResourceScanTrigger.QUERY_FIND_ACTIVE_FOR_RESOURCE);
+		query.setParameter("RESOURCE_ID", resourceId);
+		return PersistenceUtil.getFirstResult(query);
 	}
 
 }

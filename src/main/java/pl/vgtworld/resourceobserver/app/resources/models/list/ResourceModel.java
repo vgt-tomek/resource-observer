@@ -24,6 +24,8 @@ public class ResourceModel {
 
 	private boolean newFlag;
 
+	private Boolean scanTriggerPending;
+
 	public int getId() {
 		return id;
 	}
@@ -102,6 +104,14 @@ public class ResourceModel {
 
 	public void setNewFlag(boolean newFlag) {
 		this.newFlag = newFlag;
+	}
+
+	public Boolean getScanTriggerPending() {
+		return scanTriggerPending;
+	}
+
+	public void setScanTriggerPending(Boolean scanTriggerPending) {
+		this.scanTriggerPending = scanTriggerPending;
 	}
 
 }

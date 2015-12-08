@@ -22,4 +22,8 @@ public class ResourceScanTriggerService {
 		triggerDao.create(entity);
 	}
 
+	public ResourceScanTrigger findActiveScanTriggerForResource(int resourceId) {
+		return triggerDao.findActiveScanTriggerForResource(resourceId);
+	}
+
 }

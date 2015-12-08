@@ -7,12 +7,22 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
 @Table(name = "resource_scan_triggers")
+@NamedQueries({
+	  @NamedQuery(
+			name = ResourceScanTrigger.QUERY_FIND_ACTIVE_FOR_RESOURCE,
+			query = "SELECT rst FROM ResourceScanTrigger rst WHERE rst.resourceId = :RESOURCE_ID AND rst.status = 'NEW' ORDER BY rst.id ASC"
+	  )
+})
 public class ResourceScanTrigger {
+
+	static final String QUERY_FIND_ACTIVE_FOR_RESOURCE = "ResourceScanTrigger.findActiveForResource";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

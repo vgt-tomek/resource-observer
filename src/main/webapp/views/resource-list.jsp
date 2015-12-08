@@ -29,14 +29,21 @@
                         </c:if>
                     </td>
                     <td>
-                        <form method="POST" action="${pageContext.request.contextPath}/app/manual-scan-trigger">
-                            <div>
-                                <input type="hidden" name="resourceId" value="${resource.id}"/>
-                                <button type="submit" name="manualScanTriggerSubmit" value="submit" class="btn btn-default btn-xs btn-nav">
-                                    <span class="glyphicon glyphicon-refresh"></span>
-                                </button>
-                            </div>
-                        </form>
+                        <c:choose>
+                            <c:when test="${resource.scanTriggerPending}">
+                                <span>queued</span>
+                            </c:when>
+                            <c:otherwise>
+                                <form method="POST" action="${pageContext.request.contextPath}/app/manual-scan-trigger">
+                                    <div>
+                                        <input type="hidden" name="resourceId" value="${resource.id}"/>
+                                        <button type="submit" name="manualScanTriggerSubmit" value="submit" class="btn btn-default btn-xs btn-nav">
+                                            <span class="glyphicon glyphicon-refresh"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                     <td class="text-right">
                         <c:if test="${resource.newFlag eq true}">
