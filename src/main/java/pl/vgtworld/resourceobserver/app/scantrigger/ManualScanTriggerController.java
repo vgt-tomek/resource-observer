@@ -1,9 +1,12 @@
 package pl.vgtworld.resourceobserver.app.scantrigger;
 
+import com.googlecode.htmleasy.View;
 import org.jboss.resteasy.annotations.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.scantrigger.dto.ScanTriggerFormDto;
+import pl.vgtworld.resourceobserver.app.scantrigger.validator.ScanTriggerValidator;
+import pl.vgtworld.resourceobserver.app.scantrigger.validator.ValidationResult;
 import pl.vgtworld.resourceobserver.services.storage.ResourceScanTriggerService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 
@@ -31,7 +34,17 @@ public class ManualScanTriggerController {
 	@Produces(MediaType.TEXT_HTML)
 	public Response AddManualScanTriggerForResource(@Form ScanTriggerFormDto form) throws URISyntaxException {
 		LOGGER.debug("Create manual scan trigger executed: {}", form);
-		//TODO Validate form and save trigger in database.
-		return Response.seeOther(new URI("/")).build();
+
+		ScanTriggerValidator validator = new ScanTriggerValidator(resourceService);
+		ValidationResult validationResult = validator.validate(form);
+
+		if (validationResult.isValid()) {
+			LOGGER.debug("Validation successful. Creating new trigger.");
+			//TODO Save trigger in database.
+			return Response.seeOther(new URI("/")).build();
+		} else {
+			LOGGER.debug("Validation failed. Errors: {}", validationResult.getErrors());
+			return Response.ok(new View("/views/scan-trigger-error.jsp")).build();
+		}
 	}
 }
