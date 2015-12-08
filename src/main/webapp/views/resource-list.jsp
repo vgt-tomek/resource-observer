@@ -11,7 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th class="text-center">Check interval</th>
-                <th class="text-right">Last check</th>
+                <th class="text-center" colspan="2">Last check</th>
                 <th class="text-right">Last version change</th>
                 <th class="text-center">Version count</th>
                 <th class="text-center">Active</th>
@@ -27,6 +27,16 @@
                         <c:if test="${resource.lastCheckAt ne resource.lastSeenAt}">
                             <div class="last-seen-warning">Last seen: <vgt:TimeAgo since="${resource.lastSeenAt}"/></div>
                         </c:if>
+                    </td>
+                    <td>
+                        <form method="POST" action="${pageContext.request.contextPath}/app/manual-scan-trigger">
+                            <div>
+                                <input type="hidden" name="resourceId" value="${resource.id}"/>
+                                <button type="submit" name="manualScanTriggerSubmit" value="submit" class="btn btn-default btn-xs btn-nav">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </button>
+                            </div>
+                        </form>
                     </td>
                     <td class="text-right">
                         <c:if test="${resource.newFlag eq true}">
