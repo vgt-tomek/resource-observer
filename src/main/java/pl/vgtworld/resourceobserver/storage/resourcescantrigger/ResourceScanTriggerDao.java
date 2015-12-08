@@ -17,6 +17,10 @@ public class ResourceScanTriggerDao {
 		em.persist(scanTrigger);
 	}
 
+	public ResourceScanTrigger findById(int id) {
+		return em.find(ResourceScanTrigger.class, id);
+	}
+
 	public ResourceScanTrigger findActiveScanTriggerForResource(int resourceId) {
 		Query query = em.createNamedQuery(ResourceScanTrigger.QUERY_FIND_ACTIVE_FOR_RESOURCE);
 		query.setParameter("RESOURCE_ID", resourceId);

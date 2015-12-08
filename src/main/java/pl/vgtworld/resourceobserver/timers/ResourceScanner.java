@@ -3,10 +3,12 @@ package pl.vgtworld.resourceobserver.timers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.services.storage.NotificationService;
+import pl.vgtworld.resourceobserver.services.storage.ResourceScanTriggerService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.ScanService;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
+import pl.vgtworld.resourceobserver.storage.resourcescantrigger.ResourceScanTrigger;
 import pl.vgtworld.resourceobserver.storage.scan.Scan;
 
 import javax.ejb.EJB;
@@ -35,6 +37,9 @@ public class ResourceScanner {
 	@EJB
 	private NotificationService notificationService;
 
+	@EJB
+	private ResourceScanTriggerService scanTriggerService;
+
 	@Schedule(second = "0", minute = "*", hour = "*", persistent = false)
 	public void scanResources() {
 		LOGGER.debug("Scan resources event triggered");
@@ -48,16 +53,8 @@ public class ResourceScanner {
 
 	private void processResource(Resource resource) {
 		LOGGER.debug("Checking resource for scanning: {}", resource.getName());
-		if (!resource.getActive()) {
-			LOGGER.debug("Resource inactive. Skipping");
-			return;
-		}
 
-		Scan lastScan = scanService.findLastScanForResource(resource.getId());
-		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
-		LOGGER.debug("Last scan for resource: {}", lastScan);
-		if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
-			LOGGER.debug("Last scan not old enough. Skipping");
+		if (!shouldScanResource(resource)) {
 			return;
 		}
 		LOGGER.info("Executing new scan for resource: {}.", resource.getName());
@@ -73,9 +70,30 @@ public class ResourceScanner {
 		int snapshotId = snapshotService.findIdForSnapshot(resourceHash, resourceContext);
 		scanService.saveScanSuccessForResource(resource.getId(), snapshotId);
 
+		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
 		if (isResourceChanged(lastSuccessfulScan, snapshotId)) {
 			createNotification(resource, lastSuccessfulScan.getSnapshotId(), snapshotId);
 		}
+	}
+
+	private boolean shouldScanResource(Resource resource) {
+		ResourceScanTrigger scanTrigger = scanTriggerService.findActiveScanTriggerForResource(resource.getId());
+		if (scanTrigger != null) {
+			LOGGER.debug("Manual scan override.");
+			scanTriggerService.markTriggerAsProcessed(scanTrigger.getId());
+			return true;
+		}
+		if (!resource.getActive()) {
+			LOGGER.debug("Resource inactive. Skipping");
+			return false;
+		}
+		Scan lastScan = scanService.findLastScanForResource(resource.getId());
+		LOGGER.debug("Last scan for resource: {}", lastScan);
+		if (lastScan != null && !isOlderThan(lastScan, resource.getCheckInterval(), SCAN_INTERVAL_TOLERANCE)) {
+			LOGGER.debug("Last scan not old enough. Skipping");
+			return false;
+		}
+		return true;
 	}
 
 	private void createNotification(Resource resource, int snapshotOldId, int snapshotNewId) {
