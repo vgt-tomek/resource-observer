@@ -7,9 +7,19 @@ import java.util.List;
 
 public class FormModel {
 
+	private List<String> errors;
+
 	private Resource resource;
 
 	private List<ResourceVersion> versions;
+
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
 
 	public Resource getResource() {
 		return resource;

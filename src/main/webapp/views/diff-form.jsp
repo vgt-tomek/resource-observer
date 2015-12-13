@@ -8,6 +8,9 @@
     <h1>diff view - ${model.resource.name}</h1>
 
     <div class="text-center">
+        <c:forEach items="${model.errors}" var="error">
+            <div class="alert alert-danger">${error}</div>
+        </c:forEach>
         <form class="form-inline" method="post" action="${pageContext.request.contextPath}/app/diff/${model.resource.id}">
             <div class="form-group">
                 <label for="compare-first">Compare</label>
