@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
 import pl.vgtworld.resourceobserver.app.diff.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.diff.validator.DiffValidator;
+import pl.vgtworld.resourceobserver.core.diffutil.DiffUtil;
 import pl.vgtworld.resourceobserver.services.StatsService;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
@@ -19,7 +20,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -75,12 +75,16 @@ public class DiffController {
 		DiffValidator.Result validationResult = validator.validate(form);
 
 		if (validationResult.isValid()) {
-			//TODO Display diff page.
-			return Response.seeOther(new URI("/")).build();
+			model.setDiffLines(DiffUtil.createColorCodedUnifiedDiff(
+				  validationResult.getFirstSnapshot().getResource(),
+				  validationResult.getSecondSnapshot().getResource(),
+				  "Version #" + form.getFirst(),
+				  "Version #" + form.getSecond()
+			));
 		} else {
 			model.setErrors(validationResult.getErrors());
-			return Response.ok(new View("/views/diff-form.jsp", model)).build();
 		}
+		return Response.ok(new View("/views/diff-form.jsp", model)).build();
 	}
 
 	private Resource findResource() {

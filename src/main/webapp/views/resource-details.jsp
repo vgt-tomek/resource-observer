@@ -20,6 +20,11 @@
         </div>
         <div class="col-lg-4 col-md-8">
             <h2>Versions</h2>
+
+            <div class="text-center versions-navigation">
+                <a class="btn btn-default btn-nav" href="${pageContext.request.contextPath}/app/diff/${model.resource.id}">Compare</a>
+            </div>
+
             <div class="container-scrollable">
                 <table class="table table-striped">
                     <tr>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--@elvariable id="model" type="pl.vgtworld.resourceobserver.app.diff.models.form.FormModel"--%>
 
 <t:basic title="Resource diff">
@@ -33,5 +34,13 @@
             </div>
         </form>
     </div>
+
+    <c:if test="${not empty model.diffLines}">
+        <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 diff-colored">
+            <c:forEach items="${model.diffLines}" var="line">
+                <div class="diff-${fn:toLowerCase(line.type)}">${line.line}</div>
+            </c:forEach>
+        </div>
+    </c:if>
 
 </t:basic>

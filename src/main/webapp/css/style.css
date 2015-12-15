@@ -36,11 +36,28 @@ div.form-submit-buttons {
     padding:0;
 }
 
-.calendar-navigation {
+.calendar-navigation,
+.versions-navigation{
     padding-bottom:5px;
 }
 
 .last-seen-warning {
     color:red;
     font-weight:bold;
+}
+
+.diff-colored {
+    background-color:#eeeeee;
+    font-family:monospace;
+    font-weight:bold;
+    margin-top:20px;
+}
+.diff-colored .diff-meta {
+    color:blue;
+}
+.diff-colored .diff-removal {
+    color:red;
+}
+.diff-colored .diff-addition {
+    color:green;
 }
