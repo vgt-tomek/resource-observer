@@ -3,6 +3,7 @@ package pl.vgtworld.resourceobserver.app.diff.validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
+import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 
@@ -59,8 +60,11 @@ public class DiffValidator {
 
 	private SnapshotService snapshotService;
 
-	public DiffValidator(SnapshotService snapshotService) {
+	private List<ResourceVersion> resourceVersions;
+
+	public DiffValidator(SnapshotService snapshotService, List<ResourceVersion> resourceVersions) {
 		this.snapshotService = snapshotService;
+		this.resourceVersions = resourceVersions;
 	}
 
 	public Result validate(DiffFormDto form) {
@@ -77,37 +81,40 @@ public class DiffValidator {
 		return new Result(errors, firstSnapshot, secondSnapshot);
 	}
 
-	private Snapshot validateFirstSnapshot(String id) {
-		if (id == null) {
+	private Snapshot validateFirstSnapshot(String versionNumber) {
+		if (versionNumber == null) {
 			errors.add(Errors.FIRST_REQUIRED);
 			return null;
 		}
-		Snapshot firstSnapshot = findSnapshot(id);
+		Snapshot firstSnapshot = findSnapshot(versionNumber);
 		if (firstSnapshot == null) {
 			errors.add(Errors.FIRST_UNKNOWN);
 		}
 		return firstSnapshot;
 	}
 
-	private Snapshot validateSecondSnapshot(String id) {
-		if (id == null) {
+	private Snapshot validateSecondSnapshot(String versionNumber) {
+		if (versionNumber == null) {
 			errors.add(Errors.SECOND_REQUIRED);
 			return null;
 		}
-		Snapshot firstSnapshot = findSnapshot(id);
+		Snapshot firstSnapshot = findSnapshot(versionNumber);
 		if (firstSnapshot == null) {
 			errors.add(Errors.SECOND_UNKNOWN);
 		}
 		return firstSnapshot;
 	}
 
-	private Snapshot findSnapshot(String snapshotId) {
-		if (snapshotId == null) {
+	private Snapshot findSnapshot(String versionNumber) {
+		if (versionNumber == null) {
 			return null;
 		}
 		try {
-			int convertedId = Integer.parseInt(snapshotId);
-			return snapshotService.findById(convertedId);
+			int convertedId = Integer.parseInt(versionNumber);
+			if (convertedId < 0 || convertedId > resourceVersions.size()) {
+				return null;
+			}
+			return snapshotService.findById(resourceVersions.get(convertedId - 1).getSnapshotId());
 		} catch (NumberFormatException e) {
 			LOGGER.trace("Snapshot id is not a number.", e);
 			return null;

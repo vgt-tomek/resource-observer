@@ -71,7 +71,7 @@ public class DiffController {
 		model.setResource(resource);
 		model.setVersions(versions);
 
-		DiffValidator validator = new DiffValidator(snapshotService);
+		DiffValidator validator = new DiffValidator(snapshotService, versions);
 		DiffValidator.Result validationResult = validator.validate(form);
 
 		if (validationResult.isValid()) {

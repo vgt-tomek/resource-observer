@@ -6,8 +6,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
+import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;
@@ -16,23 +20,31 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DiffValidatorTest {
 
-	private static final int FIRST_SNAPSHOT_ID = 8;
+	private static final int FIRST_VERSION_NUMBER = 1;
 
-	private static final int SECOND_SNAPSHOT_ID = 21;
+	private static final int SECOND_VERSION_NUMBER = 3;
+
+	private static final int FIRST_VERSION_SNAPSHOT_ID = 4;
+
+	private static final int SECOND_VERSION_SNAPSHOT_ID = 8;
+
+	private static final int NOT_EXISTING_VERSION_NUMBER = 255;
 
 	@Mock
 	private SnapshotService snapshotService;
 
+	private DiffValidator validator;
+
 	@Before
 	public void setUp() {
-		when(snapshotService.findById(eq(FIRST_SNAPSHOT_ID))).thenReturn(createSnapshot(FIRST_SNAPSHOT_ID));
-		when(snapshotService.findById(eq(SECOND_SNAPSHOT_ID))).thenReturn(createSnapshot(SECOND_SNAPSHOT_ID));
+		validator = new DiffValidator(snapshotService, createResourceVersions());
+		when(snapshotService.findById(eq(FIRST_VERSION_SNAPSHOT_ID))).thenReturn(createSnapshot(FIRST_VERSION_SNAPSHOT_ID));
+		when(snapshotService.findById(eq(SECOND_VERSION_SNAPSHOT_ID))).thenReturn(createSnapshot(SECOND_VERSION_SNAPSHOT_ID));
 	}
 
 	@Test
 	public void shouldAcceptValidForm() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm(String.valueOf(FIRST_SNAPSHOT_ID), String.valueOf(SECOND_SNAPSHOT_ID));
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), String.valueOf(SECOND_VERSION_NUMBER));
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -40,15 +52,13 @@ public class DiffValidatorTest {
 		assertThat(result.isValid()).isTrue();
 		assertThat(result.getErrors()).isEmpty();
 		assertThat(result.getFirstSnapshot()).isNotNull();
-		assertThat(result.getFirstSnapshot().getId()).isEqualTo(FIRST_SNAPSHOT_ID);
+		assertThat(result.getFirstSnapshot().getId()).isEqualTo(FIRST_VERSION_SNAPSHOT_ID);
 		assertThat(result.getSecondSnapshot()).isNotNull();
-		assertThat(result.getSecondSnapshot().getId()).isEqualTo(SECOND_SNAPSHOT_ID);
+		assertThat(result.getSecondSnapshot().getId()).isEqualTo(SECOND_VERSION_SNAPSHOT_ID);
 	}
 
 	@Test
 	public void shouldNotAcceptMissingFormData() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-
 		DiffValidator.Result result = validator.validate(null);
 
 		assertThat(result).isNotNull();
@@ -58,9 +68,8 @@ public class DiffValidatorTest {
 	}
 
 	@Test
-	public void shouldNotAcceptMissingFirstSnapshotId() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm(null, String.valueOf(SECOND_SNAPSHOT_ID));
+	public void shouldNotAcceptMissingFirstVersionNumber() {
+		DiffFormDto form = createForm(null, String.valueOf(SECOND_VERSION_NUMBER));
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -71,9 +80,8 @@ public class DiffValidatorTest {
 	}
 
 	@Test
-	public void shouldNotAcceptNotExistingFirstSnapshotId() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm("1", String.valueOf(SECOND_SNAPSHOT_ID));
+	public void shouldNotAcceptNotExistingFirstVersionNumber() {
+		DiffFormDto form = createForm(String.valueOf(NOT_EXISTING_VERSION_NUMBER), String.valueOf(SECOND_VERSION_NUMBER));
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -84,9 +92,8 @@ public class DiffValidatorTest {
 	}
 
 	@Test
-	public void shouldNotAcceptMissingSecondSnapshotId() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm(String.valueOf(FIRST_SNAPSHOT_ID), null);
+	public void shouldNotAcceptMissingSecondVersionNumber() {
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), null);
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -97,9 +104,8 @@ public class DiffValidatorTest {
 	}
 
 	@Test
-	public void shouldNotAcceptNotExistingSecondSnapshotId() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm(String.valueOf(FIRST_SNAPSHOT_ID), "1");
+	public void shouldNotAcceptNotExistingSecondVersionNumber() {
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), String.valueOf(NOT_EXISTING_VERSION_NUMBER));
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -110,9 +116,8 @@ public class DiffValidatorTest {
 	}
 
 	@Test
-	public void shouldNotAcceptSameIdForBothSnapshots() {
-		DiffValidator validator = new DiffValidator(snapshotService);
-		DiffFormDto form = createForm(String.valueOf(FIRST_SNAPSHOT_ID), String.valueOf(FIRST_SNAPSHOT_ID));
+	public void shouldNotAcceptSameIdForBothVersions() {
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), String.valueOf(FIRST_VERSION_NUMBER));
 
 		DiffValidator.Result result = validator.validate(form);
 
@@ -133,6 +138,21 @@ public class DiffValidatorTest {
 		form.setFirst(firstId);
 		form.setSecond(secondId);
 		return form;
+	}
+
+	private List<ResourceVersion> createResourceVersions() {
+		List<ResourceVersion> versions = new ArrayList<>();
+		versions.add(createResourceVersion(FIRST_VERSION_NUMBER, FIRST_VERSION_SNAPSHOT_ID));
+		versions.add(createResourceVersion(2, 128));
+		versions.add(createResourceVersion(SECOND_VERSION_NUMBER, SECOND_VERSION_SNAPSHOT_ID));
+		return versions;
+	}
+
+	private ResourceVersion createResourceVersion(int versionId, int snapshotId) {
+		ResourceVersion version = new ResourceVersion();
+		version.setVersionId(versionId);
+		version.setSnapshotId(snapshotId);
+		return version;
 	}
 
 }
