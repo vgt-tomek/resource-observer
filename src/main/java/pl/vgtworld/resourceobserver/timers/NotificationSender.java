@@ -6,6 +6,8 @@ import pl.vgtworld.resourceobserver.core.PropertyNames;
 import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
 import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.services.MailService;
+import pl.vgtworld.resourceobserver.services.StatsService;
+import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.NotificationService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
@@ -43,6 +45,9 @@ public class NotificationSender {
 
 	@EJB
 	private MailService mailService;
+
+	@EJB
+	private StatsService statsService;
 
 	@Schedule(second = "30", minute = "*", hour = "*", persistent = false)
 	public void sendNotifications() {
@@ -86,10 +91,13 @@ public class NotificationSender {
 		}
 		Snapshot oldSnapshot = snapshotService.findById(notification.getSnapshotOldId());
 		Snapshot newSnapshot = snapshotService.findById(notification.getSnapshotNewId());
+		List<ResourceVersion> versions = statsService.findResourceVersions(resource.getId());
+		Integer oldVersionNumber = findVersionNumberForSnapshot(oldSnapshot.getId(), versions);
+		Integer newVersionNumber = findVersionNumberForSnapshot(newSnapshot.getId(), versions);
 		ContentTypeMapper contentTypeMapper = new ContentTypeMapper();
 		ResourceContentType oldSnapshotContentType = contentTypeMapper.findContentTypeForResource(oldSnapshot.getResource());
 		ResourceContentType newSnapshotContentType = contentTypeMapper.findContentTypeForResource(newSnapshot.getResource());
-		String body = createEmailBody(notification, resource);
+		String body = createEmailBody(notification, resource, oldVersionNumber, newVersionNumber);
 		List<String> recipients = resourceObservers.stream().map(ResourceObserver::getEmail).collect(Collectors.toList());
 		List<Attachment> attachments = new ArrayList<>();
 		attachments.add(new Attachment(
@@ -111,13 +119,19 @@ public class NotificationSender {
 		);
 	}
 
-	private String createEmailBody(NotificationResourceChange notification, Resource resource) {
+	private String createEmailBody(NotificationResourceChange notification, Resource resource, Integer oldVersionNumber, Integer newVersionNumber) {
 		String bodyTemplate = loadEmailBodyTemplate();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String baseUrl = System.getProperty(PropertyNames.BASE_URL, null);
+		if (baseUrl == null) {
+			LOGGER.warn("Base url not found. Unable to add links to resource details.");
+			LOGGER.debug("Property {} is missing.", PropertyNames.BASE_URL);
+		}
 		return bodyTemplate
 			  .replace("{resource-name}", resource.getName())
 			  .replace("{change-timestamp}", sdf.format(notification.getCreatedAt()))
-			  .replace("{resource-details-url}", createResourceDetailsUrl(resource));
+			  .replace("{resource-details-url}", baseUrl != null ? createResourceDetailsUrl(baseUrl, resource) : "")
+			  .replace("{resource-diff-url}", baseUrl != null ? createVersionsDiffUrl(baseUrl, resource, oldVersionNumber, newVersionNumber) : "");
 	}
 
 	private String loadEmailBodyTemplate() {
@@ -131,14 +145,24 @@ public class NotificationSender {
 		return template.toString();
 	}
 
-	private String createResourceDetailsUrl(Resource resource) {
-		String baseUrl = System.getProperty(PropertyNames.BASE_URL, null);
-		if (baseUrl == null) {
-			LOGGER.warn("Base url not found. Unable to add link to resource details.");
-			LOGGER.debug("Property {} is missing.", PropertyNames.BASE_URL);
+	private String createResourceDetailsUrl(String baseUrl, Resource resource) {
+		return baseUrl + "/app/resource-details/" + resource.getId();
+	}
+
+	private String createVersionsDiffUrl(String baseUrl, Resource resource, Integer oldVersionNumber, Integer newVersionNumber) {
+		if (oldVersionNumber == null || newVersionNumber == null) {
 			return "";
 		}
-		return baseUrl + "/app/resource-details/" + resource.getId();
+		return baseUrl + "/app/diff/" + resource.getId() + "/" + oldVersionNumber + "/" + newVersionNumber;
+	}
+
+	private Integer findVersionNumberForSnapshot(Integer snapshotId, List<ResourceVersion> resourceVersions) {
+		for (ResourceVersion version : resourceVersions) {
+			if (version.getSnapshotId() != null && version.getSnapshotId().equals(snapshotId)) {
+				return version.getVersionId();
+			}
+		}
+		return null;
 	}
 
 }

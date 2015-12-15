@@ -1,4 +1,5 @@
 Content change detected for resource: {resource-name}
 URL: {resource-details-url}
+DIFF: {resource-diff-url}
 
 Change detected at: {change-timestamp}
