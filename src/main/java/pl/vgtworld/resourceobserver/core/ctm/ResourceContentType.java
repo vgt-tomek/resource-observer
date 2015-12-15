@@ -8,10 +8,13 @@ public class ResourceContentType {
 
 	private String extension;
 
-	public ResourceContentType(byte[] fingerprint, String name, String extension) {
+	private boolean binary;
+
+	public ResourceContentType(byte[] fingerprint, String name, String extension, boolean binary) {
 		this.fingerprint = fingerprint;
 		this.name = name;
 		this.extension = extension;
+		this.binary = binary;
 	}
 
 	public byte[] getFingerprint() {
@@ -24,6 +27,10 @@ public class ResourceContentType {
 
 	public String getExtension() {
 		return extension;
+	}
+
+	public boolean isBinary() {
+		return binary;
 	}
 
 	public String createFilename(String baseName) {

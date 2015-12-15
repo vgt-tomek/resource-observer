@@ -3,6 +3,8 @@ package pl.vgtworld.resourceobserver.app.diff.validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
+import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
+import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
@@ -50,8 +52,10 @@ public class DiffValidator {
 		static final String SAME_SNAPSHOT = "Left and right side has the same snapshot selected.";
 		static final String FIRST_REQUIRED = "Left side version is required.";
 		static final String FIRST_UNKNOWN = "Left side version is unknown.";
+		static final String FIRST_BINARY = "Left side version is binary file.";
 		static final String SECOND_REQUIRED = "Right side version is required.";
 		static final String SECOND_UNKNOWN = "Right side version is unknown.";
+		static final String SECOND_BINARY = "Right side version is binary file.";
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DiffValidator.class);
@@ -61,6 +65,8 @@ public class DiffValidator {
 	private SnapshotService snapshotService;
 
 	private List<ResourceVersion> resourceVersions;
+
+	private ContentTypeMapper contentTypeMapper = new ContentTypeMapper();
 
 	public DiffValidator(SnapshotService snapshotService, List<ResourceVersion> resourceVersions) {
 		this.snapshotService = snapshotService;
@@ -86,11 +92,17 @@ public class DiffValidator {
 			errors.add(Errors.FIRST_REQUIRED);
 			return null;
 		}
-		Snapshot firstSnapshot = findSnapshot(versionNumber);
-		if (firstSnapshot == null) {
+		Snapshot snapshot = findSnapshot(versionNumber);
+		if (snapshot == null) {
 			errors.add(Errors.FIRST_UNKNOWN);
+			return null;
 		}
-		return firstSnapshot;
+		ResourceContentType contentType = contentTypeMapper.findContentTypeForResource(snapshot.getResource());
+		if (contentType.isBinary()) {
+			errors.add(Errors.FIRST_BINARY);
+			return null;
+		}
+		return snapshot;
 	}
 
 	private Snapshot validateSecondSnapshot(String versionNumber) {
@@ -98,11 +110,17 @@ public class DiffValidator {
 			errors.add(Errors.SECOND_REQUIRED);
 			return null;
 		}
-		Snapshot firstSnapshot = findSnapshot(versionNumber);
-		if (firstSnapshot == null) {
+		Snapshot snapshot = findSnapshot(versionNumber);
+		if (snapshot == null) {
 			errors.add(Errors.SECOND_UNKNOWN);
+			return null;
 		}
-		return firstSnapshot;
+		ResourceContentType contentType = contentTypeMapper.findContentTypeForResource(snapshot.getResource());
+		if (contentType.isBinary()) {
+			errors.add(Errors.SECOND_BINARY);
+			return null;
+		}
+		return snapshot;
 	}
 
 	private Snapshot findSnapshot(String versionNumber) {

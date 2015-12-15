@@ -127,9 +127,44 @@ public class DiffValidatorTest {
 		assertThat(result.getErrors()).contains(DiffValidator.Errors.SAME_SNAPSHOT);
 	}
 
+	@Test
+	public void shouldNotAcceptBinaryFileAsFirstVersion() {
+		when(snapshotService.findById(eq(FIRST_VERSION_SNAPSHOT_ID))).thenReturn(createSnapshot(
+			  FIRST_VERSION_SNAPSHOT_ID, new byte[]{0, 0, 0}
+		));
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), String.valueOf(SECOND_VERSION_NUMBER));
+
+		DiffValidator.Result result = validator.validate(form);
+
+		assertThat(result).isNotNull();
+		assertThat(result.isValid()).isFalse();
+		assertThat(result.getErrors()).hasSize(1);
+		assertThat(result.getErrors()).contains(DiffValidator.Errors.FIRST_BINARY);
+	}
+
+	@Test
+	public void shouldNotAcceptBinaryFileAsSecondVersion() {
+		when(snapshotService.findById(eq(SECOND_VERSION_SNAPSHOT_ID))).thenReturn(createSnapshot(
+			  FIRST_VERSION_SNAPSHOT_ID, new byte[]{0, 0, 0}
+		));
+		DiffFormDto form = createForm(String.valueOf(FIRST_VERSION_NUMBER), String.valueOf(SECOND_VERSION_NUMBER));
+
+		DiffValidator.Result result = validator.validate(form);
+
+		assertThat(result).isNotNull();
+		assertThat(result.isValid()).isFalse();
+		assertThat(result.getErrors()).hasSize(1);
+		assertThat(result.getErrors()).contains(DiffValidator.Errors.SECOND_BINARY);
+	}
+
 	private Snapshot createSnapshot(int id) {
+		return createSnapshot(id, new byte[0]);
+	}
+
+	private Snapshot createSnapshot(int id, byte[] resource) {
 		Snapshot snapshot = new Snapshot();
 		snapshot.setId(id);
+		snapshot.setResource(resource);
 		return snapshot;
 	}
 

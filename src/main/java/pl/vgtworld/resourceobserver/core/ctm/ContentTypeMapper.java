@@ -26,11 +26,11 @@ public class ContentTypeMapper {
 	}
 
 	private ResourceContentType getTextFileContentType() {
-		return new ResourceContentType(null, "text/plain", "txt");
+		return new ResourceContentType(null, "text/plain", "txt", false);
 	}
 
 	private ResourceContentType getDefaultContentType() {
-		return new ResourceContentType(null, "application/octet-stream", null);
+		return new ResourceContentType(null, "application/octet-stream", null, true);
 	}
 
 }
