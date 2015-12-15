@@ -70,6 +70,8 @@ public class DiffController {
 		FormModel model = new FormModel();
 		model.setResource(resource);
 		model.setVersions(versions);
+		model.setLeftVersionSelected(form.getFirst());
+		model.setRightVersionSelected(form.getSecond());
 
 		DiffValidator validator = new DiffValidator(snapshotService, versions);
 		DiffValidator.Result validationResult = validator.validate(form);

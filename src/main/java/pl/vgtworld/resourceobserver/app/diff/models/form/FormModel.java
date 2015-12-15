@@ -16,6 +16,10 @@ public class FormModel {
 
 	private List<DiffLine> diffLines;
 
+	private String leftVersionSelected;
+
+	private String rightVersionSelected;
+
 	public List<String> getErrors() {
 		return errors;
 	}
@@ -46,6 +50,22 @@ public class FormModel {
 
 	public void setDiffLines(List<DiffLine> diffLines) {
 		this.diffLines = diffLines;
+	}
+
+	public String getLeftVersionSelected() {
+		return leftVersionSelected;
+	}
+
+	public void setLeftVersionSelected(String leftVersionSelected) {
+		this.leftVersionSelected = leftVersionSelected;
+	}
+
+	public String getRightVersionSelected() {
+		return rightVersionSelected;
+	}
+
+	public void setRightVersionSelected(String rightVersionSelected) {
+		this.rightVersionSelected = rightVersionSelected;
 	}
 
 }

@@ -18,7 +18,7 @@
 
                 <select class="form-control" id="compare-first" name="first">
                     <c:forEach items="${model.versions}" var="version">
-                        <option value="${version.versionId}">Version #${version.versionId}</option>
+                        <option ${version.versionId eq model.leftVersionSelected ? 'selected="selected"':''} value="${version.versionId}">Version #${version.versionId}</option>
                     </c:forEach>
                 </select>
 
@@ -26,7 +26,7 @@
 
                 <select class="form-control" id="compare-second" name="second">
                     <c:forEach items="${model.versions}" var="version">
-                        <option value="${version.versionId}">Version #${version.versionId}</option>
+                        <option ${version.versionId eq model.rightVersionSelected ? 'selected="selected"':''} value="${version.versionId}">Version #${version.versionId}</option>
                     </c:forEach>
                 </select>
 
