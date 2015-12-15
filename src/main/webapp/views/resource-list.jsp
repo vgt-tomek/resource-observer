@@ -37,7 +37,7 @@
                                 <form method="POST" action="${pageContext.request.contextPath}/app/manual-scan-trigger">
                                     <div>
                                         <input type="hidden" name="resourceId" value="${resource.id}"/>
-                                        <button type="submit" name="manualScanTriggerSubmit" value="submit" class="btn btn-default btn-xs btn-nav">
+                                        <button type="submit" name="manualScanTriggerSubmit" value="submit" class="btn btn-default btn-xs btn-nav" title="Refresh">
                                             <span class="glyphicon glyphicon-refresh"></span>
                                         </button>
                                     </div>
@@ -63,8 +63,8 @@
                         </c:choose>
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/edit-resource/${resource.id}">Edit</a>
-                        <a class="btn btn-default btn-xs btn-nav" href="${pageContext.request.contextPath}/app/resource-details/${resource.id}">Details</a>
+                        <a class="btn btn-default btn-xs btn-nav glyphicon glyphicon-edit" href="${pageContext.request.contextPath}/app/edit-resource/${resource.id}" title="Edit"></a>
+                        <a class="btn btn-default btn-xs btn-nav glyphicon glyphicon-stats" href="${pageContext.request.contextPath}/app/resource-details/${resource.id}" title="Details"></a>
                     </td>
                 </tr>
             </c:forEach>
