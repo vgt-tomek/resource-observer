@@ -87,6 +87,15 @@ public class DiffController {
 		return Response.ok(new View("/views/diff-form.jsp", model)).build();
 	}
 
+	@GET
+	@Path("/{leftVersion}/{rightVersion}")
+	public Response displayDiff(@PathParam("leftVersion") String leftVersion, @PathParam("rightVersion") String rightVersion) throws URISyntaxException {
+		DiffFormDto form = new DiffFormDto();
+		form.setFirst(leftVersion);
+		form.setSecond(rightVersion);
+		return submitDiffForm(form);
+	}
+
 	private Resource findResource() {
 		try {
 			int convertedResourceId = Integer.parseInt(resourceId);
