@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class DiffUtil {
 
-	private static final int DEFAULT_CONTEXT_SIZE = 1;
+	private static final int DEFAULT_CONTEXT_SIZE = 3;
 
 	public static List<String> createUnifiedDiff(byte[] leftFile, byte[] rightFile, String leftName, String rightName) {
 		return createUnifiedDiff(convertToLinesCollection(leftFile), convertToLinesCollection(rightFile), leftName, rightName);
