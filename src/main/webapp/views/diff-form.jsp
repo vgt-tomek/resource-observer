@@ -38,7 +38,7 @@
     <c:if test="${not empty model.diffLines}">
         <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 diff-colored">
             <c:forEach items="${model.diffLines}" var="line">
-                <div class="diff-${fn:toLowerCase(line.type)}">${line.line}</div>
+                <div class="diff-${fn:toLowerCase(line.type)}"><c:out value="${line.line}"/></div>
             </c:forEach>
         </div>
     </c:if>
