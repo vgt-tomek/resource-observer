@@ -1,20 +1,16 @@
 package pl.vgtworld.resourceobserver.app.scantrigger.validator;
 
+import pl.vgtworld.resourceobserver.core.validation.AbstractResult;
+
 import java.util.List;
 
-public class ValidationResult {
-
-	private List<String> errors;
+public class ValidationResult extends AbstractResult {
 
 	private Integer resourceId;
 
 	public ValidationResult(List<String> errors, Integer resourceId) {
-		this.errors = errors;
+		super(errors);
 		this.resourceId = resourceId;
-	}
-
-	public List<String> getErrors() {
-		return errors;
 	}
 
 	public Integer getResourceId() {
@@ -22,7 +18,7 @@ public class ValidationResult {
 	}
 
 	public boolean isValid() {
-		return errors != null && errors.isEmpty() && resourceId != null;
+		return super.isValid() && resourceId != null;
 	}
 
 }

@@ -1,22 +1,17 @@
 package pl.vgtworld.resourceobserver.app.resources.validator;
 
+import pl.vgtworld.resourceobserver.core.validation.AbstractResult;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
 import java.util.List;
 
-public class ValidationResult {
-
-	private List<String> errors;
+public class ValidationResult extends AbstractResult {
 
 	private NewResourceDto createdResource;
 
 	public ValidationResult(List<String> errors, NewResourceDto createdResource) {
-		this.errors = errors;
+		super(errors);
 		this.createdResource = createdResource;
-	}
-
-	public List<String> getErrors() {
-		return errors;
 	}
 
 	public NewResourceDto getCreatedResource() {
@@ -24,7 +19,7 @@ public class ValidationResult {
 	}
 
 	public boolean isValid() {
-		return errors.isEmpty() && createdResource != null;
+		return super.isValid() && createdResource != null;
 	}
 
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
 import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
 import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
+import pl.vgtworld.resourceobserver.core.validation.AbstractResult;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
@@ -14,23 +15,16 @@ import java.util.List;
 
 public class DiffValidator {
 
-	//TODO create abstract class for validation result common code.
-	public static class Result {
-
-		private List<String> errors;
+	public static class Result extends AbstractResult {
 
 		private Snapshot firstSnapshot;
 
 		private Snapshot secondSnapshot;
 
 		public Result(List<String> errors, Snapshot firstSnapshot, Snapshot secondSnapshot) {
-			this.errors = errors;
+			super(errors);
 			this.firstSnapshot = firstSnapshot;
 			this.secondSnapshot = secondSnapshot;
-		}
-
-		public List<String> getErrors() {
-			return errors;
 		}
 
 		public Snapshot getFirstSnapshot() {
@@ -42,7 +36,7 @@ public class DiffValidator {
 		}
 
 		public boolean isValid() {
-			return errors.isEmpty() && firstSnapshot != null && secondSnapshot != null;
+			return super.isValid() && firstSnapshot != null && secondSnapshot != null;
 		}
 
 	}
