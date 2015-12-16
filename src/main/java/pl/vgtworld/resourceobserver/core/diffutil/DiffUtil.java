@@ -13,6 +13,9 @@ public class DiffUtil {
 
 	private static final int DEFAULT_CONTEXT_SIZE = 3;
 
+	private DiffUtil() {
+	}
+
 	public static List<String> createUnifiedDiff(byte[] leftFile, byte[] rightFile, String leftName, String rightName) {
 		return createUnifiedDiff(convertToLinesCollection(leftFile), convertToLinesCollection(rightFile), leftName, rightName);
 	}
@@ -43,7 +46,7 @@ public class DiffUtil {
 	}
 
 	public static List<DiffLine> createColorCodedUnifiedDiff(List<String> leftFile, List<String> rightFile, String leftName, String rightName, int contextSize) {
-		return ColorDiffConverter.coorizeUnifiedDiff(createUnifiedDiff(leftFile, rightFile, leftName, rightName, contextSize));
+		return ColorDiffConverter.colorizeUnifiedDiff(createUnifiedDiff(leftFile, rightFile, leftName, rightName, contextSize));
 	}
 
 	private static List<String> convertToLinesCollection(byte[] input) {

@@ -33,6 +33,10 @@ public class ResourceListService {
 		return entities.stream().map(this::asResourceModel).collect(Collectors.toList());
 	}
 
+	private static boolean calculateIsNewFlagForResource(Date lastVersionChange) {
+		return lastVersionChange != null && CalendarUtil.isDateRangeWithinHourThreshold(lastVersionChange, new Date(), DEFAULT_NEW_FLAG_HOUR_THRESHOLD);
+	}
+
 	private ResourceModel asResourceModel(Resource entity) {
 		ResourceModel dto = new ResourceModel();
 		dto.setId(entity.getId());
@@ -66,7 +70,4 @@ public class ResourceListService {
 		return lastScan.getCreatedAt();
 	}
 
-	private boolean calculateIsNewFlagForResource(Date lastVersionChange) {
-		return lastVersionChange != null && CalendarUtil.isDateRangeWithinHourThreshold(lastVersionChange, new Date(), DEFAULT_NEW_FLAG_HOUR_THRESHOLD);
-	}
 }

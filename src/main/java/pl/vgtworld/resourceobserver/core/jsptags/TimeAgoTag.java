@@ -33,7 +33,7 @@ public class TimeAgoTag extends SimpleTagSupport {
 		out.print(calculateDifference(since, new Date()));
 	}
 
-	String calculateDifference(Date start, Date end) {
+	private static String calculateDifference(Date start, Date end) {
 		long difference = end.getTime() - start.getTime();
 		if (difference > YEAR) {
 			return calculateDifference(start, difference, YEAR, "year");
@@ -44,6 +44,10 @@ public class TimeAgoTag extends SimpleTagSupport {
 		if (difference > WEEK) {
 			return calculateDifference(start, difference, WEEK, "week");
 		}
+		return calculateDifferenceAsDayOrSmaller(start, difference);
+	}
+
+	private static String calculateDifferenceAsDayOrSmaller(Date start, long difference) {
 		if (difference > DAY) {
 			return calculateDifference(start, difference, DAY, "day");
 		}
@@ -56,13 +60,13 @@ public class TimeAgoTag extends SimpleTagSupport {
 		return calculateDifference(start, difference, SECOND, "second");
 	}
 
-	private String calculateDifference(Date startDate, long difference, long step, String stepName) {
+	private static String calculateDifference(Date startDate, long difference, long step, String stepName) {
 		long count = difference / step;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return buildHtml("" + count + " " + stepName + (count > 1 ? "s" : ""), sdf.format(startDate));
+		return buildHtml(Long.toString(count) + " " + stepName + (count > 1 ? "s" : ""), sdf.format(startDate));
 	}
 
-	private String buildHtml(String timeAgoFormat, String datetimeFormat) {
+	private static String buildHtml(String timeAgoFormat, String datetimeFormat) {
 		return "<span title=\"" + datetimeFormat + "\">" + timeAgoFormat + " ago</span>";
 	}
 

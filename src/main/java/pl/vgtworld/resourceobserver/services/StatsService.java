@@ -33,7 +33,7 @@ public class StatsService {
 		return asScansDto(scanService.findSnapshotsFromTimeFrameForResource(resourceId, range.getStartDate(), range.getEndDate()), findResourceVersions(resourceId));
 	}
 
-	private List<Scan> asScansDto(List<pl.vgtworld.resourceobserver.storage.scan.Scan> scans, List<ResourceVersion> versions) {
+	private static List<Scan> asScansDto(List<pl.vgtworld.resourceobserver.storage.scan.Scan> scans, List<ResourceVersion> versions) {
 		Map<Integer, ResourceVersion> versionsBySnapshotId = new HashMap<>();
 		for (ResourceVersion version : versions) {
 			versionsBySnapshotId.put(version.getSnapshotId(), version);
@@ -49,7 +49,7 @@ public class StatsService {
 		return output;
 	}
 
-	private List<ResourceVersion> asModelVersions(List<pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion> versions) {
+	private static List<ResourceVersion> asModelVersions(List<pl.vgtworld.resourceobserver.storage.scan.dto.ResourceVersion> versions) {
 		List<ResourceVersion> output = new ArrayList<>();
 		ColorGenerator colorGenerator = new ColorGenerator();
 		List<Color> colors = colorGenerator.generateColors(versions.size());

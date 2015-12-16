@@ -21,15 +21,15 @@ public class ContentTypeMapper {
 		return getDefaultContentType();
 	}
 
-	private boolean isTextFile(byte[] resource) {
+	private static boolean isTextFile(byte[] resource) {
 		return Arrays.binarySearch(resource, (byte) 0x00) == -1;
 	}
 
-	private ResourceContentType getTextFileContentType() {
+	private static ResourceContentType getTextFileContentType() {
 		return new ResourceContentType(null, "text/plain", "txt", false);
 	}
 
-	private ResourceContentType getDefaultContentType() {
+	private static ResourceContentType getDefaultContentType() {
 		return new ResourceContentType(null, "application/octet-stream", null, true);
 	}
 

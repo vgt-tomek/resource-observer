@@ -54,6 +54,10 @@ public class ResourceValidator {
 		return validate(resource, resourceId);
 	}
 
+	private static boolean validateActive(String active) {
+		return !(active == null || active.isEmpty());
+	}
+
 	private ValidationResult validate(ResourceFormDto resource, Integer resourceId) {
 		errors = new ArrayList<>();
 		NewResourceDto createdResource = new NewResourceDto();
@@ -105,10 +109,6 @@ public class ResourceValidator {
 			return null;
 		}
 		return url;
-	}
-
-	private boolean validateActive(String active) {
-		return !(active == null || active.isEmpty());
 	}
 
 	private Integer validateCheckInterval(String checkInterval) {

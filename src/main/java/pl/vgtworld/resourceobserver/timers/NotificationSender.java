@@ -62,6 +62,26 @@ public class NotificationSender {
 		notifications.forEach(this::sentEmailForNotification);
 	}
 
+	private static String createResourceDetailsUrl(String baseUrl, Resource resource) {
+		return baseUrl + "/app/resource-details/" + resource.getId();
+	}
+
+	private static String createVersionsDiffUrl(String baseUrl, Resource resource, Integer oldVersionNumber, Integer newVersionNumber) {
+		if (oldVersionNumber == null || newVersionNumber == null) {
+			return "";
+		}
+		return baseUrl + "/app/diff/" + resource.getId() + "/" + oldVersionNumber + "/" + newVersionNumber;
+	}
+
+	private static Integer findVersionNumberForSnapshot(Integer snapshotId, List<ResourceVersion> resourceVersions) {
+		for (ResourceVersion version : resourceVersions) {
+			if (version.getSnapshotId() != null && version.getSnapshotId().equals(snapshotId)) {
+				return version.getVersionId();
+			}
+		}
+		return null;
+	}
+
 	private void sentEmailForNotification(NotificationResourceChange notification) {
 		Mail mail = createMailDtoForNotification(notification);
 		if (mail != null) {
@@ -143,26 +163,6 @@ public class NotificationSender {
 		}
 		scanner.close();
 		return template.toString();
-	}
-
-	private String createResourceDetailsUrl(String baseUrl, Resource resource) {
-		return baseUrl + "/app/resource-details/" + resource.getId();
-	}
-
-	private String createVersionsDiffUrl(String baseUrl, Resource resource, Integer oldVersionNumber, Integer newVersionNumber) {
-		if (oldVersionNumber == null || newVersionNumber == null) {
-			return "";
-		}
-		return baseUrl + "/app/diff/" + resource.getId() + "/" + oldVersionNumber + "/" + newVersionNumber;
-	}
-
-	private Integer findVersionNumberForSnapshot(Integer snapshotId, List<ResourceVersion> resourceVersions) {
-		for (ResourceVersion version : resourceVersions) {
-			if (version.getSnapshotId() != null && version.getSnapshotId().equals(snapshotId)) {
-				return version.getVersionId();
-			}
-		}
-		return null;
 	}
 
 }

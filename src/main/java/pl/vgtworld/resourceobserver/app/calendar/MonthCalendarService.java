@@ -14,6 +14,8 @@ import java.util.GregorianCalendar;
 @Stateless
 public class MonthCalendarService {
 
+	private static final String URL_SEPARATOR = "/";
+
 	@EJB
 	private CalendarService calendarService;
 
@@ -38,8 +40,8 @@ public class MonthCalendarService {
 		return model;
 	}
 
-	private String getUrlSuffix(int resourceId, int year, int month) {
-		return "/" + resourceId + "/" + year + "/" + month;
+	private static String getUrlSuffix(int resourceId, int year, int month) {
+		return URL_SEPARATOR + resourceId + URL_SEPARATOR + year + URL_SEPARATOR + month;
 	}
 
 }

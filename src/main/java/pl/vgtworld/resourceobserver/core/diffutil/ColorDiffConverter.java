@@ -9,7 +9,10 @@ import java.util.stream.Collectors;
 
 class ColorDiffConverter {
 
-	static List<DiffLine> coorizeUnifiedDiff(List<String> unifiedDiff) {
+	private ColorDiffConverter() {
+	}
+
+	static List<DiffLine> colorizeUnifiedDiff(List<String> unifiedDiff) {
 		List<DiffLine> result = new ArrayList<>(unifiedDiff.size());
 		result.addAll(unifiedDiff.stream().map(ColorDiffConverter::colorizeDiffLine).collect(Collectors.toList()));
 		return result;

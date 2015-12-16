@@ -18,6 +18,8 @@ import java.util.List;
 @Stateless
 public class ResourceDetailsService {
 
+	private static final String URL_SEPARATOR = "/";
+
 	@EJB
 	private ResourceService resourceService;
 
@@ -47,18 +49,18 @@ public class ResourceDetailsService {
 		return model;
 	}
 
-	private MonthVersionsTable getVersionsForCurrentMonth(int resourceId) {
-		Calendar calendar = new GregorianCalendar();
-		return calendarService.findResourceVersionsInMonth(resourceId, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
-	}
-
-	private int getNewestScanCountRoundedUp(List<ResourceVersion> versions) {
+	private static int getNewestScanCountRoundedUp(List<ResourceVersion> versions) {
 		return (versions.size() + 10) / 10 * 10;
 	}
 
-	private String createLinkForCurrentMonth() {
+	private static String createLinkForCurrentMonth() {
 		Calendar calendar = new GregorianCalendar();
-		return "/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1);
+		return URL_SEPARATOR + calendar.get(Calendar.YEAR) + URL_SEPARATOR + (calendar.get(Calendar.MONTH) + 1);
+	}
+
+	private MonthVersionsTable getVersionsForCurrentMonth(int resourceId) {
+		Calendar calendar = new GregorianCalendar();
+		return calendarService.findResourceVersionsInMonth(resourceId, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
 	}
 
 }

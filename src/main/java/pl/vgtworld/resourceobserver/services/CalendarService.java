@@ -31,7 +31,7 @@ public class CalendarService {
 		return monthContainer;
 	}
 
-	private List<WeekVersionsRow> createWeeks(Map<Integer, List<Scan>> versionsByDay, int year, int month, int days) {
+	private static List<WeekVersionsRow> createWeeks(Map<Integer, List<Scan>> versionsByDay, int year, int month, int days) {
 		List<WeekVersionsRow> weeks = new ArrayList<>();
 		WeekVersionsRow weekContainer = new WeekVersionsRow();
 		weekContainer.setDays(new ArrayList<>());
@@ -58,7 +58,7 @@ public class CalendarService {
 		return weeks;
 	}
 
-	private void addEmptyDaysToWeek(WeekVersionsRow week, int count) {
+	private static void addEmptyDaysToWeek(WeekVersionsRow week, int count) {
 		for (int i = 0; i < count; ++i) {
 			week.getDays().add(new DayVersionsCell());
 		}

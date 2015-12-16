@@ -47,11 +47,11 @@ public class VersionLinkTag extends SimpleTagSupport {
 		LOGGER.warn("Version not provided. Unable to create output.");
 	}
 
-	private String colorToHex(Color color) {
+	private static String colorToHex(Color color) {
 		return nbrToHex(color.getRed()) + nbrToHex(color.getGreen()) + nbrToHex(color.getBlue());
 	}
 
-	private Color createFontColorForBackground(Color background) {
+	private static Color createFontColorForBackground(Color background) {
 		double redLuminance = PERCEPTIVE_LUMINANCE_RED_RATIO * background.getRed();
 		double greenLuminance = PERCEPTIVE_LUMINANCE_GREEN_RATIO * background.getGreen();
 		double blueLuminance = PERCEPTIVE_LUMINANCE_BLUE_RATIO * background.getBlue();
@@ -62,7 +62,7 @@ public class VersionLinkTag extends SimpleTagSupport {
 		return Color.WHITE;
 	}
 
-	private String nbrToHex(int number) {
+	private static String nbrToHex(int number) {
 		String result = Integer.toHexString(number);
 		if (result.length() == 1) {
 			return "0" + result;

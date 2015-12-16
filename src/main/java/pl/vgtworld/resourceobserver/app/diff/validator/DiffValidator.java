@@ -47,7 +47,7 @@ public class DiffValidator {
 
 	}
 
-	static abstract class Errors {
+	abstract static class Errors {
 		static final String FORM_DATA_MISSING = "Form data is required.";
 		static final String SAME_SNAPSHOT = "Left and right side has the same snapshot selected.";
 		static final String FIRST_REQUIRED = "Left side version is required.";
@@ -56,6 +56,9 @@ public class DiffValidator {
 		static final String SECOND_REQUIRED = "Right side version is required.";
 		static final String SECOND_UNKNOWN = "Right side version is unknown.";
 		static final String SECOND_BINARY = "Right side version is binary file.";
+
+		private Errors() {
+		}
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DiffValidator.class);

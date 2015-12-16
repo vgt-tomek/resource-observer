@@ -51,6 +51,25 @@ public class ResourceScanner {
 
 	}
 
+	private static boolean isResourceChanged(Scan lastSuccessfulScan, int snapshotId) {
+		return lastSuccessfulScan != null && snapshotId != lastSuccessfulScan.getSnapshotId();
+	}
+
+	private static boolean isOlderThan(Scan scan, int checkInterval, int secondsTolerance) {
+		long currentTime = new Date().getTime();
+		long scanTime = scan.getCreatedAt().getTime();
+		return scanTime + checkInterval * 60 * 1000 <= currentTime + secondsTolerance * 1000;
+	}
+
+	private static byte[] downloadResource(Resource resource) {
+		try {
+			return DownloadUtil.downloadResource(resource.getUrl());
+		} catch (IOException e) {
+			LOGGER.debug("Downloading resource failed.", e);
+			return new byte[0];
+		}
+	}
+
 	private void processResource(Resource resource) {
 		LOGGER.debug("Checking resource for scanning: {}", resource.getName());
 
@@ -60,7 +79,7 @@ public class ResourceScanner {
 		Scan lastSuccessfulScan = scanService.findLastSuccessfulScanForResource(resource.getId());
 		LOGGER.info("Executing new scan for resource: {}.", resource.getName());
 		byte[] resourceContext = downloadResource(resource);
-		if (resourceContext == null) {
+		if (resourceContext == null || resourceContext.length == 0) {
 			LOGGER.info("Unable to download resource. Saving unsuccessful scan.");
 			scanService.saveScanFailureForResource(resource.getId());
 			return;
@@ -107,25 +126,6 @@ public class ResourceScanner {
 			  snapshotOldId,
 			  snapshotNewId
 		);
-	}
-
-	private boolean isResourceChanged(Scan lastSuccessfulScan, int snapshotId) {
-		return lastSuccessfulScan != null && snapshotId != lastSuccessfulScan.getSnapshotId();
-	}
-
-	private boolean isOlderThan(Scan scan, int checkInterval, int secondsTolerance) {
-		long currentTime = new Date().getTime();
-		long scanTime = scan.getCreatedAt().getTime();
-		return scanTime + checkInterval * 60 * 1000 <= currentTime + secondsTolerance * 1000;
-	}
-
-	private byte[] downloadResource(Resource resource) {
-		try {
-			return DownloadUtil.downloadResource(resource.getUrl());
-		} catch (IOException e) {
-			LOGGER.debug("Downloading resource failed.", e);
-			return null;
-		}
 	}
 
 }

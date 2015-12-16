@@ -44,7 +44,7 @@ public class MailService {
 		Transport.send(message);
 	}
 
-	private MimeMultipart createMultipartMessageBody(String body, List<Attachment> attachments) throws MessagingException {
+	private static MimeMultipart createMultipartMessageBody(String body, List<Attachment> attachments) throws MessagingException {
 		MimeMultipart multipart = new MimeMultipart();
 
 		BodyPart content = new MimeBodyPart();

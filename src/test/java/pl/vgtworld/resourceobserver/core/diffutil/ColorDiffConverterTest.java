@@ -15,7 +15,7 @@ public class ColorDiffConverterTest {
 	public void shouldCreateColorCodedUnifiedDiff() {
 		List<String> unifiedDiff = createUnifiedDiff();
 
-		List<DiffLine> result = ColorDiffConverter.coorizeUnifiedDiff(unifiedDiff);
+		List<DiffLine> result = ColorDiffConverter.colorizeUnifiedDiff(unifiedDiff);
 
 		assertThat(result).isNotNull();
 		assertThat(result).hasSize(6);
