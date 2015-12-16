@@ -16,7 +16,6 @@ Requirements:
 - MySQL
 - java mysql connector
 
-
 1. Add mysql connector to Wildfy modules
 2. create database "resource_observer"
 3. Use schema.sql file to create tables.
@@ -27,10 +26,13 @@ Requirements:
 Standalone.xml changes:
 ---
 
-**System property for "FROM" address in e-mail notifications.**
+**System properties:**
+- "FROM" address in e-mail notifications.
+- Base url for links in e-mail notifications.
 ```
 <system-properties>
    <property name="pl.vgtworld.resourceobserver.mail.from" value="from@example.com"/>
+   <property name="pl.vgtworld.resourceobserver.baseurl" value="http://localhost:8080/resource-observer"/>
 </system-properties>
 ```
 
