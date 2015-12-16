@@ -35,6 +35,7 @@ public class DiffValidator {
 			return secondSnapshot;
 		}
 
+		@Override
 		public boolean isValid() {
 			return super.isValid() && firstSnapshot != null && secondSnapshot != null;
 		}

@@ -23,6 +23,7 @@ public class ScanTriggerValidator {
 			return resourceId;
 		}
 
+		@Override
 		public boolean isValid() {
 			return super.isValid() && resourceId != null;
 		}

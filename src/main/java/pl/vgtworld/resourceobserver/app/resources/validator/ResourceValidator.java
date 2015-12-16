@@ -29,6 +29,7 @@ public class ResourceValidator {
 			return createdResource;
 		}
 
+		@Override
 		public boolean isValid() {
 			return super.isValid() && createdResource != null;
 		}
