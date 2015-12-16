@@ -35,7 +35,7 @@ public class ResourceValidatorTest {
 			  .createValidResource()
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -50,7 +50,7 @@ public class ResourceValidatorTest {
 			  .withName(null)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -65,7 +65,7 @@ public class ResourceValidatorTest {
 			  .withName("")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -80,7 +80,7 @@ public class ResourceValidatorTest {
 			  .withName("	 	")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -100,7 +100,7 @@ public class ResourceValidatorTest {
 			  )
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -115,7 +115,7 @@ public class ResourceValidatorTest {
 			  .build();
 		when(resourceService.isNameAlreadyTaken(resource.getName(), null)).thenReturn(true);
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -130,7 +130,7 @@ public class ResourceValidatorTest {
 			  .withUrl(null)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -145,7 +145,7 @@ public class ResourceValidatorTest {
 			  .withUrl("")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -160,7 +160,7 @@ public class ResourceValidatorTest {
 			  .withUrl("	 	")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -186,7 +186,7 @@ public class ResourceValidatorTest {
 			  )
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -201,7 +201,7 @@ public class ResourceValidatorTest {
 			  .build();
 		when(resourceService.isUrlAlreadyTaken(resource.getUrl(), null)).thenReturn(true);
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -216,7 +216,7 @@ public class ResourceValidatorTest {
 			  .withUrl("Lorem ipsum")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -231,7 +231,7 @@ public class ResourceValidatorTest {
 			  .withActive(null)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -247,7 +247,7 @@ public class ResourceValidatorTest {
 			  .withActive("")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -263,7 +263,7 @@ public class ResourceValidatorTest {
 			  .withActive("on")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -279,7 +279,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval(null)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -294,7 +294,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval("")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -309,7 +309,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval("	 	")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -324,7 +324,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval("abc")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -339,7 +339,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval("0")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -354,7 +354,7 @@ public class ResourceValidatorTest {
 			  .withCheckInterval("-1")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -369,7 +369,7 @@ public class ResourceValidatorTest {
 			  .withRawObservers(null)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -385,7 +385,7 @@ public class ResourceValidatorTest {
 			  .withRawObservers("")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -401,7 +401,7 @@ public class ResourceValidatorTest {
 			  .withObservers("first", "", "second")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -417,7 +417,7 @@ public class ResourceValidatorTest {
 			  .withObservers("first", "	 	", "second")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -433,7 +433,7 @@ public class ResourceValidatorTest {
 			  .withRawObservers("first\rsecond")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -449,7 +449,7 @@ public class ResourceValidatorTest {
 			  .withRawObservers("first\nsecond")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -465,7 +465,7 @@ public class ResourceValidatorTest {
 			  .withRawObservers("first\r\nsecond")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).isEmpty();
@@ -481,7 +481,7 @@ public class ResourceValidatorTest {
 			  .withObservers("first", "second", "first")
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);
@@ -497,7 +497,7 @@ public class ResourceValidatorTest {
 			  .withObservers(invalidObserver)
 			  .build();
 
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 
 		assertThat(result).isNotNull();
 		assertThat(result.getErrors()).hasSize(1);

@@ -35,7 +35,7 @@ public class ScanTriggerValidatorTest {
 			  .withResourceId("" + EXAMPLE_RESOURCE_ID)
 			  .build();
 
-		ValidationResult result = validator.validate(formDto);
+		ScanTriggerValidator.Result result = validator.validate(formDto);
 
 		assertThat(result).isNotNull();
 		assertThat(result.isValid()).isTrue();
@@ -47,12 +47,12 @@ public class ScanTriggerValidatorTest {
 	public void shouldNotAcceptMissingForm() {
 		ScanTriggerValidator validator = new ScanTriggerValidator(resourceService);
 
-		ValidationResult result = validator.validate(null);
+		ScanTriggerValidator.Result result = validator.validate(null);
 
 		assertThat(result).isNotNull();
 		assertThat(result.isValid()).isFalse();
 		assertThat(result.getErrors()).hasSize(1);
-		assertThat(result.getErrors()).contains(ScanTriggerValidator.ERROR_FORM_MISSING);
+		assertThat(result.getErrors()).contains(ScanTriggerValidator.Errors.FORM_MISSING);
 		assertThat(result.getResourceId()).isNull();
 	}
 
@@ -64,12 +64,12 @@ public class ScanTriggerValidatorTest {
 			  .withResourceId(null)
 			  .build();
 
-		ValidationResult result = validator.validate(formDto);
+		ScanTriggerValidator.Result result = validator.validate(formDto);
 
 		assertThat(result).isNotNull();
 		assertThat(result.isValid()).isFalse();
 		assertThat(result.getErrors()).hasSize(1);
-		assertThat(result.getErrors()).contains(ScanTriggerValidator.ERROR_RESOURCE_ID_REQUIRED);
+		assertThat(result.getErrors()).contains(ScanTriggerValidator.Errors.RESOURCE_ID_REQUIRED);
 		assertThat(result.getResourceId()).isNull();
 	}
 
@@ -81,12 +81,12 @@ public class ScanTriggerValidatorTest {
 			  .withResourceId("notanumber")
 			  .build();
 
-		ValidationResult result = validator.validate(formDto);
+		ScanTriggerValidator.Result result = validator.validate(formDto);
 
 		assertThat(result).isNotNull();
 		assertThat(result.isValid()).isFalse();
 		assertThat(result.getErrors()).hasSize(1);
-		assertThat(result.getErrors()).contains(ScanTriggerValidator.ERROR_RESOURCE_ID_NAN);
+		assertThat(result.getErrors()).contains(ScanTriggerValidator.Errors.RESOURCE_ID_NAN);
 		assertThat(result.getResourceId()).isNull();
 	}
 
@@ -99,12 +99,12 @@ public class ScanTriggerValidatorTest {
 			  .build();
 		when(resourceService.findById(eq(EXAMPLE_RESOURCE_ID))).thenReturn(null);
 
-		ValidationResult result = validator.validate(formDto);
+		ScanTriggerValidator.Result result = validator.validate(formDto);
 
 		assertThat(result).isNotNull();
 		assertThat(result.isValid()).isFalse();
 		assertThat(result.getErrors()).hasSize(1);
-		assertThat(result.getErrors()).contains(ScanTriggerValidator.ERROR_RESOURCE_NOT_EXIST);
+		assertThat(result.getErrors()).contains(ScanTriggerValidator.Errors.RESOURCE_NOT_EXIST);
 		assertThat(result.getResourceId()).isNull();
 	}
 

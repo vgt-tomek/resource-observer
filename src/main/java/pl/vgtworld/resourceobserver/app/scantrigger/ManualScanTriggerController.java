@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.scantrigger.dto.ScanTriggerFormDto;
 import pl.vgtworld.resourceobserver.app.scantrigger.validator.ScanTriggerValidator;
-import pl.vgtworld.resourceobserver.app.scantrigger.validator.ValidationResult;
 import pl.vgtworld.resourceobserver.services.storage.ResourceScanTriggerService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 
@@ -36,7 +35,7 @@ public class ManualScanTriggerController {
 		LOGGER.debug("Create manual scan trigger executed: {}", form);
 
 		ScanTriggerValidator validator = new ScanTriggerValidator(resourceService);
-		ValidationResult validationResult = validator.validate(form);
+		ScanTriggerValidator.Result validationResult = validator.validate(form);
 
 		if (validationResult.isValid()) {
 			LOGGER.debug("Validation successful. Creating new trigger.");

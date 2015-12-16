@@ -3,6 +3,7 @@ package pl.vgtworld.resourceobserver.app.resources.validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.vgtworld.resourceobserver.app.resources.dto.ResourceFormDto;
+import pl.vgtworld.resourceobserver.core.validation.AbstractResult;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.dto.NewResourceDto;
 
@@ -15,7 +16,24 @@ import java.util.List;
 
 public class ResourceValidator {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceValidator.class);
+	public static class Result extends AbstractResult {
+
+		private NewResourceDto createdResource;
+
+		public Result(List<String> errors, NewResourceDto createdResource) {
+			super(errors);
+			this.createdResource = createdResource;
+		}
+
+		public NewResourceDto getCreatedResource() {
+			return createdResource;
+		}
+
+		public boolean isValid() {
+			return super.isValid() && createdResource != null;
+		}
+
+	}
 
 	static class Errors {
 		static final String NAME_REQUIRED = "Name is required.";
@@ -35,6 +53,8 @@ public class ResourceValidator {
 		}
 	}
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceValidator.class);
+
 	private static final int NAME_MAX_LENGTH = 100;
 	private static final int URL_MAX_LENGTH = 250;
 
@@ -46,11 +66,11 @@ public class ResourceValidator {
 		this.resourceService = resourceService;
 	}
 
-	public ValidationResult validateNew(ResourceFormDto resource) {
+	public Result validateNew(ResourceFormDto resource) {
 		return validate(resource, null);
 	}
 
-	public ValidationResult validateEdit(ResourceFormDto resource, int resourceId) {
+	public Result validateEdit(ResourceFormDto resource, int resourceId) {
 		return validate(resource, resourceId);
 	}
 
@@ -58,7 +78,7 @@ public class ResourceValidator {
 		return !(active == null || active.isEmpty());
 	}
 
-	private ValidationResult validate(ResourceFormDto resource, Integer resourceId) {
+	private Result validate(ResourceFormDto resource, Integer resourceId) {
 		errors = new ArrayList<>();
 		NewResourceDto createdResource = new NewResourceDto();
 		createdResource.setName(validateName(resource.getName(), resourceId));
@@ -67,9 +87,9 @@ public class ResourceValidator {
 		createdResource.setCheckInterval(validateCheckInterval(resource.getCheckInterval()));
 		createdResource.setObservers(validateObservers(resource.getObservers()));
 		if (errors.isEmpty()) {
-			return new ValidationResult(errors, createdResource);
+			return new Result(errors, createdResource);
 		} else {
-			return new ValidationResult(errors, null);
+			return new Result(errors, null);
 		}
 	}
 

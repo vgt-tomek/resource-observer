@@ -9,7 +9,6 @@ import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
 import pl.vgtworld.resourceobserver.app.resources.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.resources.models.list.ListModel;
 import pl.vgtworld.resourceobserver.app.resources.validator.ResourceValidator;
-import pl.vgtworld.resourceobserver.app.resources.validator.ValidationResult;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 import pl.vgtworld.resourceobserver.storage.resourceobserver.ResourceObserver;
@@ -68,7 +67,7 @@ public class ResourceController {
 
 		LOGGER.debug("Validating resource.");
 		ResourceValidator validator = new ResourceValidator(resourceService);
-		ValidationResult result = validator.validateNew(resource);
+		ResourceValidator.Result result = validator.validateNew(resource);
 		if (!result.isValid()) {
 			LOGGER.debug("Validation failed.");
 			FormModel model = new FormModel();
@@ -120,7 +119,7 @@ public class ResourceController {
 
 		LOGGER.debug("Validating resource.");
 		ResourceValidator validator = new ResourceValidator(resourceService);
-		ValidationResult result = validator.validateEdit(resource, id);
+		ResourceValidator.Result result = validator.validateEdit(resource, id);
 		if (!result.isValid()) {
 			LOGGER.debug("Validation failed.");
 			FormModel model = new FormModel();
