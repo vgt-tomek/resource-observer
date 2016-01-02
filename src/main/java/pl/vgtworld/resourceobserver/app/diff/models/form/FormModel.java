@@ -1,7 +1,7 @@
 package pl.vgtworld.resourceobserver.app.diff.models.form;
 
 import pl.vgtworld.resourceobserver.core.diffutil.dto.DiffLine;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;
 
 import java.util.List;

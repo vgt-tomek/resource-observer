@@ -1,8 +1,7 @@
-package pl.vgtworld.resourceobserver.core.jsptags;
+package pl.vgtworld.resourceobserver.core.jsptags.versionlink;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;

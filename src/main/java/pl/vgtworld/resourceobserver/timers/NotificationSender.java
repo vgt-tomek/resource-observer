@@ -7,7 +7,7 @@ import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
 import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.services.MailService;
 import pl.vgtworld.resourceobserver.services.StatsService;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.NotificationService;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;

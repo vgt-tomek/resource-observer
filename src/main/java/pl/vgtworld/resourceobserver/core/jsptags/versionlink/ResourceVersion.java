@@ -1,4 +1,4 @@
-package pl.vgtworld.resourceobserver.services.dto;
+package pl.vgtworld.resourceobserver.core.jsptags.versionlink;
 
 import java.awt.Color;
 import java.util.Date;

@@ -1,5 +1,7 @@
 package pl.vgtworld.resourceobserver.services.dto;
 
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
+
 import java.util.Date;
 
 public class Scan {

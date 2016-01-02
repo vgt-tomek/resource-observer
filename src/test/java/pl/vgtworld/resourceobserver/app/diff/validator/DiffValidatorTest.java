@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 

@@ -1,6 +1,6 @@
 package pl.vgtworld.resourceobserver.services.dto.calendars;
 
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 
 import java.util.List;
 

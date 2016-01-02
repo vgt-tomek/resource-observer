@@ -1,6 +1,6 @@
 package pl.vgtworld.resourceobserver.app.resources.models.details;
 
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
 import pl.vgtworld.resourceobserver.services.dto.calendars.MonthVersionsTable;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;

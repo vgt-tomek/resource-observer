@@ -6,7 +6,7 @@ import pl.vgtworld.resourceobserver.app.diff.dto.DiffFormDto;
 import pl.vgtworld.resourceobserver.core.ctm.ContentTypeMapper;
 import pl.vgtworld.resourceobserver.core.ctm.ResourceContentType;
 import pl.vgtworld.resourceobserver.core.validation.AbstractResult;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.snapshot.Snapshot;
 

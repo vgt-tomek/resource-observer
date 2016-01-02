@@ -15,12 +15,12 @@
 	</tag>
 	<tag>
 		<name>VersionLink</name>
-		<tag-class>pl.vgtworld.resourceobserver.core.jsptags.VersionLinkTag</tag-class>
+		<tag-class>pl.vgtworld.resourceobserver.core.jsptags.versionlink.VersionLinkTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>version</name>
 			<required>true</required>
-			<type>pl.vgtworld.resourceobserver.services.dto.ResourceVersion</type>
+			<type>pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion</type>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>

@@ -9,7 +9,7 @@ import pl.vgtworld.resourceobserver.app.diff.models.form.FormModel;
 import pl.vgtworld.resourceobserver.app.diff.validator.DiffValidator;
 import pl.vgtworld.resourceobserver.core.diffutil.DiffUtil;
 import pl.vgtworld.resourceobserver.services.StatsService;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.SnapshotService;
 import pl.vgtworld.resourceobserver.storage.resource.Resource;

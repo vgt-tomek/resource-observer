@@ -1,6 +1,6 @@
 package pl.vgtworld.resourceobserver.services;
 
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package pl.vgtworld.resourceobserver.app.resources;
 
 import pl.vgtworld.resourceobserver.app.resources.models.details.DetailsModel;
 import pl.vgtworld.resourceobserver.services.CalendarService;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.storage.ResourceService;
 import pl.vgtworld.resourceobserver.services.storage.ScanService;
 import pl.vgtworld.resourceobserver.services.StatsService;

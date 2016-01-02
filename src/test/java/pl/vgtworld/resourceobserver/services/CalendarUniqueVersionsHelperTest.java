@@ -1,7 +1,7 @@
 package pl.vgtworld.resourceobserver.services;
 
 import org.junit.Test;
-import pl.vgtworld.resourceobserver.services.dto.ResourceVersion;
+import pl.vgtworld.resourceobserver.core.jsptags.versionlink.ResourceVersion;
 import pl.vgtworld.resourceobserver.services.dto.ResourceVersionObjectBuilder;
 import pl.vgtworld.resourceobserver.services.dto.Scan;
 import pl.vgtworld.resourceobserver.services.dto.ScanObjectBuilder;
